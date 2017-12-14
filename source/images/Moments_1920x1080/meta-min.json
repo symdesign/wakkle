@@ -1,0 +1,50 @@
+{
+    "wakkl": {
+        "Count": 35,
+        "AngleOfView": "Unknown",
+        "Phi": "Unknown",
+        "Chi": "Unknown"
+    },
+    "XMP-dc": {
+        "Format": "image/tiff",
+        "Title": "Campus Dessau",
+        "Creator": "Mattress Factory",
+        "Rights": "\"© Friedrich Schultheiss.  Other rights may apply.  For copyright information, contact Friedrich Schultheiss.\"",
+        "Subject": ["Hochschule Anhalt", "Campus Dessau", "Bauhaus"],
+        "Description": ""
+    },
+    "XMP-exif": {
+        "DateTimeOriginal": "2005:05:21 21:21:53-04:00",
+        "ColorSpace": "sRGB",
+        "CompressedBitsPerPixel": 3,
+        "ExifImageWidth": 960,
+        "ExifImageHeight": 640,
+        "ExposureTime": "1/20",
+        "FNumber": 5.6,
+        "ShutterSpeedValue": "1/20",
+        "ApertureValue": 5.6,
+        "ExposureCompensation": 0,
+        "MaxApertureValue": 3.5,
+        "SubjectDistance": "4294967295 m",
+        "MeteringMode": "Average",
+        "FocalLength": "18.0 mm",
+        "FocalPlaneXResolution": 3443.94618834081,
+        "FocalPlaneYResolution": 3442.01680672269,
+        "FocalPlaneResolutionUnit": "inches",
+        "SensingMethod": "One-chip color area",
+        "CustomRendered": "Normal",
+        "ExposureMode": "Manual",
+        "WhiteBalance": "Auto",
+        "SceneCaptureType": "Standard",
+        "ExifVersion": "0221",
+        "FlashpixVersion": "0100",
+        "FileSource": "Digital Camera",
+        "ComponentsConfiguration": ["Y","Cb","Cr","-"],
+        "ISO": 1600,
+        "FlashFired": false,
+        "FlashReturn": "No return detection",
+        "FlashMode": "Unknown",
+        "FlashFunction": false,
+        "FlashRedEyeMode": false
+    }
+}

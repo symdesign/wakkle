@@ -1,0 +1,58 @@
+[class^="icon-"]:after,
+[class*=" icon-"]:after {
+  font-family: "Campus-Dessau-UI" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  font-size: 3.2rem;
+  text-decoration: none;
+  content: "";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+img {
+  width: 100%;
+  height: auto;
+  backface-visibility: visible; }
+
+.controls {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 99;
+  position: fixed;
+  font-size: 14px; }
+  .controls li {
+    float: left;
+    line-height: 2em; }
+
+.control-link {
+  margin: 4px;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 2px solid transparent; }
+  .control-link:hover {
+    background-color: #222; }
+  .control-link.active {
+    border-color: #fff; }
+
+.mousemove-icon:after {
+  content: ""; }
+
+.drag-icon:after {
+  content: ""; }
+
+.headtrack-icon:after {
+  content: ""; }
+
+#debugCanvas {
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 999; }

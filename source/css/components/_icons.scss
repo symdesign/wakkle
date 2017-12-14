@@ -1,0 +1,107 @@
+[class^="icon-"]:after,
+[class*=" icon-"]:after {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'Campus-Dessau-UI' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 3.2rem;
+    content: "";
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$icon-language: "\e900";
+$icon-heart: "\e901";
+$icon-control: "\e902";
+$icon-gear: "\e903";
+$icon-drag: "\e904";
+$icon-touch: "\e905";
+$icon-headtrackr: "\e906";
+$icon-deviceorientation: "\e907";
+$icon-fullscreen-enter: "\e908";
+$icon-fullscreen-exit: "\e909";
+$icon-volume-on: "\e90a";
+$icon-volume-off: "\e90b";
+$icon-arrow-right: "\e90c";
+$icon-arrow-left: "\e90d";
+$icon-info: "\e90e";
+$icon-close: "\e90f";
+$icon-google-plus: "\e911";
+$icon-twitter: "\e912";
+$icon-facebook: "\e913";
+$icon-overview: "\e914";
+.icon-share:after {
+    content: $icon-heart
+}
+
+.icon-facebook:after {
+    content: $icon-facebook
+}
+
+.icon-twitter:after {
+    content: $icon-twitter
+}
+
+.icon-google:after {
+    content: $icon-google-plus
+}
+
+.icon-language:after {
+    content: $icon-language
+}
+
+.icon-en:after {
+    font-family: $font-family-1 !important;
+    font-size: 1.3rem !important;
+    content: "EN"
+}
+
+.icon-de:after {
+    font-family: $font-family-1 !important;
+    font-size: 1.3rem !important;
+    content: "DE"
+}
+
+.icon-controls:after {
+    content: $icon-control
+}
+
+.icon-headtrackr:after {
+    content: $icon-headtrackr
+}
+
+.icon-mousedrag:after {
+    content: $icon-drag
+}
+
+.icon-touchdrag:after {
+    content: $icon-touch
+}
+
+.icon-deviceorientation:after {
+    content: $icon-deviceorientation
+}
+
+.icon-back:after {
+    content: $icon-arrow-left
+}
+
+.icon-forward:after {
+    content: $icon-arrow-right
+}
+
+.icon-info:after {
+    content: $icon-info
+}
+
+.icon-close:after {
+    content: $icon-close
+}
+
+.icon-overview:after {
+    content: $icon-overview
+}
