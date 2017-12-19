@@ -1,6 +1,6 @@
-// @codekit-prepend "../vendor/imagePreloader.js"
-// @codekit-prepend "../vendor/removeFromArray.js"
-// @codekit-prepend "../vendor/sortArrayMiddleToOut.js"
+require('../vendor/imagePreloader.js');
+require('../vendor/removeFromArray.js');
+require('../vendor/sortArrayMiddleToOut.js');
 
 var Wakkl = function(placeholder) {
 
