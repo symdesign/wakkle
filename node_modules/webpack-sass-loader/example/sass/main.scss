@@ -1,0 +1,30 @@
+@import "variables.scss";
+
+body, html {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: $font-color;
+  background: $body-color;
+
+  #content {
+    width: 1024px;
+    margin: auto;
+    background: $content-color;
+    padding: $padding;
+  }
+
+}
+
+@media screen and (max-width: 1024px) {
+  @import "small/max_1024";
+}

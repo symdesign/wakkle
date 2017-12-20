@@ -12,4 +12,4 @@ function generateUUID () { // Public Domain/MIT
     });
 }
 
-export function generateUUID ();
+//export function generateUUID ();

@@ -1,3 +1,6 @@
+const css = require('../css/style.scss');
+
+
 require('./vendor/polyfills.js');
 require('./vendor/generateUUID.js');
 
