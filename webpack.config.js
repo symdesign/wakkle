@@ -1,5 +1,8 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const path = require('path');
 
 module.exports = {
     entry: './source/js/index.js',
@@ -11,16 +14,39 @@ module.exports = {
     },
     module: {
         rules: [
-            {test: /\.scss/, use: ['style-loader','css-loader','sass-loader']}
+            {
+                test: /\.scss/, 
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader','sass-loader']
+                })
+            }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './source/index.ejs'
-        })
+        }),
+        new ExtractTextPlugin({
+            filename: 'css/app.css',
+            disable: true,
+            allChunks: true
+        }),
     ],
-    externals: {
-        // headtrackr
+    devServer: {
+        proxy: {
+            '/': {
+                target: {
+                    host: "localhost/wakkl.it/build/",
+                    protocol: "http:",
+                    port: 8888
+                },
+                open: false,
+                hot: true,
+                changeOrigin: true,
+                secure: false
+            }
+        }
     }
 }
