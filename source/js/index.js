@@ -16,7 +16,7 @@ function getPlaceholders() {
     var elements = document.getElementsByTagName('img');
     var placeholders = [],
         src,
-        id;
+        id; 
 
     for (var i = 0; i < elements.length; i++) {
 

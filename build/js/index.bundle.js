@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -9,6 +10,9 @@
 		root["wakkl"] = factory();
 })(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
+=======
+/******/ (function(modules) { // webpackBootstrap
+>>>>>>> master
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -80,6 +84,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \****************************/
 /*! dynamic exports provided */
 /*! all exports used */
+<<<<<<< HEAD
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("const css = __webpack_require__(/*! ../css/style.scss */ 1);\n\n\n__webpack_require__(/*! ./vendor/polyfills.js */ 6);\n__webpack_require__(/*! ./vendor/generateUUID.js */ 7);\n\n__webpack_require__(/*! ./components/Controller.js */ 8);\n__webpack_require__(/*! ./components/Wakkl.js */ 9);\n__webpack_require__(/*! ./components/Sound.js */ 13);\n__webpack_require__(/*! ./components/Text.js */ 14); \n__webpack_require__(/*! ./components/Graphic.js */ 15);\n__webpack_require__(/*! ./components/Mask.js */ 16);\n\nfunction getPlaceholders() {\n    var regexp = new RegExp('.*?\\.wakkl.jpg$', 'i');\n    var elements = document.getElementsByTagName('img');\n    var placeholders = [],\n        src,\n        id;\n\n    for (var i = 0; i < elements.length; i++) {\n\n        element = elements[i];\n\n        if (element.hasAttribute('src')) {\n\n            src = element.getAttribute('src');\n\n            if (regexp.test(src)) {\n                element.id = element.id || generateUUID(); // making sure the element has an ID\n                placeholders.push(element);\n            }\n        }\n    }\n    return placeholders;\n}\n\nvar placeholders = getPlaceholders(),\n    wakkl = [];\n\nfor (var i = 0; i < placeholders.length; i++) {\n    var placeholder = placeholders[i];\n    wakkl[i] = new Wakkl(placeholder);\n    wakkl[i].init();\n}\n\nvar controller = Controller.getInstance();\ncontroller.UI();\ncontroller.update(wakkl[0]); // TODO: update that wakkl which is currently in viewport\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3NvdXJjZS9qcy9pbmRleC5qcz82ZjMwIl0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGNzcyA9IHJlcXVpcmUoJy4uL2Nzcy9zdHlsZS5zY3NzJyk7XG5cblxucmVxdWlyZSgnLi92ZW5kb3IvcG9seWZpbGxzLmpzJyk7XG5yZXF1aXJlKCcuL3ZlbmRvci9nZW5lcmF0ZVVVSUQuanMnKTtcblxucmVxdWlyZSgnLi9jb21wb25lbnRzL0NvbnRyb2xsZXIuanMnKTtcbnJlcXVpcmUoJy4vY29tcG9uZW50cy9XYWtrbC5qcycpO1xucmVxdWlyZSgnLi9jb21wb25lbnRzL1NvdW5kLmpzJyk7XG5yZXF1aXJlKCcuL2NvbXBvbmVudHMvVGV4dC5qcycpOyBcbnJlcXVpcmUoJy4vY29tcG9uZW50cy9HcmFwaGljLmpzJyk7XG5yZXF1aXJlKCcuL2NvbXBvbmVudHMvTWFzay5qcycpO1xuXG5mdW5jdGlvbiBnZXRQbGFjZWhvbGRlcnMoKSB7XG4gICAgdmFyIHJlZ2V4cCA9IG5ldyBSZWdFeHAoJy4qP1xcLndha2tsLmpwZyQnLCAnaScpO1xuICAgIHZhciBlbGVtZW50cyA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCdpbWcnKTtcbiAgICB2YXIgcGxhY2Vob2xkZXJzID0gW10sXG4gICAgICAgIHNyYyxcbiAgICAgICAgaWQ7XG5cbiAgICBmb3IgKHZhciBpID0gMDsgaSA8IGVsZW1lbnRzLmxlbmd0aDsgaSsrKSB7XG5cbiAgICAgICAgZWxlbWVudCA9IGVsZW1lbnRzW2ldO1xuXG4gICAgICAgIGlmIChlbGVtZW50Lmhhc0F0dHJpYnV0ZSgnc3JjJykpIHtcblxuICAgICAgICAgICAgc3JjID0gZWxlbWVudC5nZXRBdHRyaWJ1dGUoJ3NyYycpO1xuXG4gICAgICAgICAgICBpZiAocmVnZXhwLnRlc3Qoc3JjKSkge1xuICAgICAgICAgICAgICAgIGVsZW1lbnQuaWQgPSBlbGVtZW50LmlkIHx8IGdlbmVyYXRlVVVJRCgpOyAvLyBtYWtpbmcgc3VyZSB0aGUgZWxlbWVudCBoYXMgYW4gSURcbiAgICAgICAgICAgICAgICBwbGFjZWhvbGRlcnMucHVzaChlbGVtZW50KTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gcGxhY2Vob2xkZXJzO1xufVxuXG52YXIgcGxhY2Vob2xkZXJzID0gZ2V0UGxhY2Vob2xkZXJzKCksXG4gICAgd2Fra2wgPSBbXTtcblxuZm9yICh2YXIgaSA9IDA7IGkgPCBwbGFjZWhvbGRlcnMubGVuZ3RoOyBpKyspIHtcbiAgICB2YXIgcGxhY2Vob2xkZXIgPSBwbGFjZWhvbGRlcnNbaV07XG4gICAgd2Fra2xbaV0gPSBuZXcgV2Fra2wocGxhY2Vob2xkZXIpO1xuICAgIHdha2tsW2ldLmluaXQoKTtcbn1cblxudmFyIGNvbnRyb2xsZXIgPSBDb250cm9sbGVyLmdldEluc3RhbmNlKCk7XG5jb250cm9sbGVyLlVJKCk7XG5jb250cm9sbGVyLnVwZGF0ZSh3YWtrbFswXSk7IC8vIFRPRE86IHVwZGF0ZSB0aGF0IHdha2tsIHdoaWNoIGlzIGN1cnJlbnRseSBpbiB2aWV3cG9ydFxuXG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3NvdXJjZS9qcy9pbmRleC5qc1xuLy8gbW9kdWxlIGlkID0gMFxuLy8gbW9kdWxlIGNodW5rcyA9IDAiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///0\n");
@@ -263,3 +268,11 @@ eval("//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset
 /***/ })
 /******/ ]);
 });
+=======
+/***/ (function(module, exports) {
+
+eval("throw new Error(\"Module build failed: Error: ENOENT: no such file or directory, open '/Users/Friedrich/Dropbox/Development/wakkl.it/source/js/index.js'\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///0\n");
+
+/***/ })
+/******/ ]);
+>>>>>>> master
