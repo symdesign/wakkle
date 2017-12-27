@@ -9,10 +9,17 @@
   "devDependencies": {
     "browser-sync": "^2.21.0",
     "browser-sync-webpack-plugin": "^1.2.0",
+    "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "html-webpack-harddisk-plugin": "^0.1.0",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
+    "purify-css": "^1.2.5",
+    "purifycss-webpack": "^0.7.0",
+    "reload-html-webpack-plugin": "^0.1.2",
+    "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
@@ -20,9 +27,10 @@
     "webpack-sass-loader": "^2.2.1"
   },
   "scripts": {
-    "dev": "webpack -d --watch",
-    "server": "webpack-dev-server",
-    "build": "webpack -p"
+    "dev": "npm run clean && webpack -d --watch",
+    "dev-server": "webpack-dev-server --open 'google chrome'",
+    "prod": "npm run clean && NODE_ENV=prod webpack -p",
+    "clean": "rimraf ./dist/*"
   },
   "repository": {
     "type": "git",
