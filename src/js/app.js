@@ -1,7 +1,5 @@
 
 import * as wakkl from './modules/wakkl';
-import {generateUUID} from './utils/generateUUID';
-
 
 // ToDo: Config that defines which functionalities / modules need to be required or excluded
 
@@ -17,5 +15,5 @@ for (var i = 0; i < placeholders.length; i++) {
 
 var controller = wakkl.controller.getInstance();
 
-controller.UI.init();
+controller.UI();
 controller.update(wakkl[0]); // TODO: update that wakkl which is currently in viewport

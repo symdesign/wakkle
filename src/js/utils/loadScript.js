@@ -13,6 +13,7 @@ export function loadScript(url, callback) {
     // Check if already embeded
     var scripts = document.getElementsByTagName('script');
     var exists = false;
+    var src;
     for (var i=0; i < scripts.length; i++) {
         src = scripts[i].getAttribute('src');
         if (src != null) {

@@ -288,7 +288,12 @@ export var controller = (function() {
         return {
 
             setActive: function(mode) {
-                set(mode)
+                set(mode);
+                var controlLinks = document.querySelectorAll('.control-link');
+                for (var i = 0; i < controlLinks.length; i++) {
+                    controlLinks[i].classList.remove('active');
+                }
+                document.getElementById(mode).classList.add('active');
             },
 
             getActive: function() {
@@ -313,57 +318,45 @@ export var controller = (function() {
                 currentSequence = object;
             },
 
+            UI: function(isVisible) {
 
-            UI: {
-                init: function(isVisible) {
+                var uiId = 'controls';
+                var uiClassName = 'controls';
 
-                    var uiId = 'controls';
-                    var uiClassName = 'controls';
-    
-                    // make sure UI does not already exist when we draw it
-                    var ui = document.getElementById( uiId );
-                    if (document.contains( ui )) { ui.remove() }
-    
-                    var isVisible = typeof(isVisible) == 'undefined' ? true : isVisible;
-                    if (!isVisible) { return } // don't draw UI when it is not visible
-    
-                    // draw or redraw UI
-                    var controls = this.listAvailable(),
-                    ul = document.createElement('ul');
-                    ul.className = uiClassName;
-                    ul.id = uiId;
-    
-                    for (var i = 0; i < controls.length; i++) {
-    
-                        if (controls.length < 2) break;
-    
-                        var li = document.createElement('li');
-                        var a = document.createElement('a');
-                        a.className = 'control-link icon-' + controls[i];
-                        a.id = controls[i];
-                        a.href = 'javascript: controller.UI.set(\'' + controls[i] + '\')';
-    
-                        var text = document.createTextNode(controls[i])
-    
-                        a.appendChild(text);
-                        li.appendChild(a);
-                        ul.appendChild(li);
-                    }
-    
-                    document.body.appendChild(ul)
-                    if (controls.length > 1) setController(controls[0])
-                },
+                // make sure UI does not already exist when we draw it
+                var ui = document.getElementById( uiId );
+                if (document.contains( ui )) { ui.remove() }
 
-                set: function(controllerName) {
-                    var controlLinks = document.getElementsByClassName('control-link');
-                    for (var i = 0; i < controlLinks.length; i++) {
-                        controlLinks[i].classList.remove('active');
-                    }
-                    document.getElementById(controllerName).classList.add('active');
-                    controller.setActive(controllerName);
+                var isVisible = typeof(isVisible) == 'undefined' ? true : isVisible;
+                if (!isVisible) { return } // don't draw UI when it is not visible
+
+                // draw or redraw UI
+                var controls = this.listAvailable(),
+                ul = document.createElement('ul');
+                ul.className = uiClassName;
+                ul.id = uiId;
+
+                for (var i = 0; i < controls.length; i++) {
+
+                    if (controls.length < 2) break;
+
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.className = 'control-link icon-' + controls[i];
+                    a.id = controls[i];
+                    //a.href = 'javascript: setController(\'' + controls[i] + '\')';
+                    a.onclick = set(controls[i]);
+
+                    var text = document.createTextNode(controls[i])
+
+                    a.appendChild(text);
+                    li.appendChild(a);
+                    ul.appendChild(li);
                 }
-            } 
-            
+
+                document.body.appendChild(ul)
+                if (controls.length > 1) set(controls[0])
+            }
 
         };
 
@@ -382,6 +375,16 @@ export var controller = (function() {
 
 })();
 
+/*
+export function setController(controllerName) {
+    var controlLinks = document.getElementsByClassName('control-link');
+    for (var i = 0; i < controlLinks.length; i++) {
+        controlLinks[i].classList.remove('active');
+    }
+    document.getElementById(controllerName).classList.add('active');
+    controller.setActive(controllerName);
+}
+*/
 
 function windowWidth() {
     return "innerWidth" in window ? window.innerWidth : document.documentElement.offsetWidth;

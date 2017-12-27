@@ -1,7 +1,9 @@
+import {generateUUID} from './../utils/generateUUID';
 
 export function collect() {
     var regexp = new RegExp('.*?\.wakkl.jpg$', 'i');
-    var elements = document.getElementsByTagName('img');
+    var elements = document.getElementsByTagName('img'),
+        element;
     var placeholders = [],
         src,
         id; 
