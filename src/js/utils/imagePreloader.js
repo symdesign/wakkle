@@ -1,8 +1,8 @@
 // http://fragged.org/preloading-images-using-javascript-the-right-way-and-without-frameworks_744.html
-(function() {
+// (function() {
     'use strict';
 
-    var preLoader = function(images, options) {
+    export var preLoader = function(images, options) {
         this.options = {
             pipeline: false,
             auto: true,
@@ -123,4 +123,4 @@
     } else {
         this.preLoader = preLoader;
     }
-}).call(this);
+// }).call(this);

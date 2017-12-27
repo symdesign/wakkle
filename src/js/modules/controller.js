@@ -1,11 +1,12 @@
-// @codekit-prepend "../vendor/loadScript.js"
 
-var WIDTH = windowWidth(),
-    HEIGHT = windowHeight(),
-    getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+import {loadScript} from "./../utils/loadScript.js";
+
+const   WIDTH = windowWidth(),
+        HEIGHT = windowHeight(),
+        getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 
 // Singleton http://robdodson.me/javascript-design-patterns-singleton/
-var Controller = (function() {
+export var controller = (function() {
 
     var instance,
         htracker,
@@ -312,44 +313,57 @@ var Controller = (function() {
                 currentSequence = object;
             },
 
-            UI: function(isVisible) {
 
-                var uiId = 'controls';
-                var uiClassName = 'controls';
+            UI: {
+                init: function(isVisible) {
 
-                // make sure UI does not already exist when we draw it
-                var ui = document.getElementById( uiId );
-                if (document.contains( ui )) { ui.remove() }
+                    var uiId = 'controls';
+                    var uiClassName = 'controls';
+    
+                    // make sure UI does not already exist when we draw it
+                    var ui = document.getElementById( uiId );
+                    if (document.contains( ui )) { ui.remove() }
+    
+                    var isVisible = typeof(isVisible) == 'undefined' ? true : isVisible;
+                    if (!isVisible) { return } // don't draw UI when it is not visible
+    
+                    // draw or redraw UI
+                    var controls = this.listAvailable(),
+                    ul = document.createElement('ul');
+                    ul.className = uiClassName;
+                    ul.id = uiId;
+    
+                    for (var i = 0; i < controls.length; i++) {
+    
+                        if (controls.length < 2) break;
+    
+                        var li = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.className = 'control-link icon-' + controls[i];
+                        a.id = controls[i];
+                        a.href = 'javascript: controller.UI.set(\'' + controls[i] + '\')';
+    
+                        var text = document.createTextNode(controls[i])
+    
+                        a.appendChild(text);
+                        li.appendChild(a);
+                        ul.appendChild(li);
+                    }
+    
+                    document.body.appendChild(ul)
+                    if (controls.length > 1) setController(controls[0])
+                },
 
-                var isVisible = typeof(isVisible) == 'undefined' ? true : isVisible;
-                if (!isVisible) { return } // don't draw UI when it is not visible
-
-                // draw or redraw UI
-                var controls = this.listAvailable(),
-                ul = document.createElement('ul');
-                ul.className = uiClassName;
-                ul.id = uiId;
-
-                for (var i = 0; i < controls.length; i++) {
-
-                    if (controls.length < 2) break;
-
-                    var li = document.createElement('li');
-                    var a = document.createElement('a');
-                    a.className = 'control-link icon-' + controls[i];
-                    a.id = controls[i];
-                    a.href = 'javascript: setController(\'' + controls[i] + '\')';
-
-                    var text = document.createTextNode(controls[i])
-
-                    a.appendChild(text);
-                    li.appendChild(a);
-                    ul.appendChild(li);
+                set: function(controllerName) {
+                    var controlLinks = document.getElementsByClassName('control-link');
+                    for (var i = 0; i < controlLinks.length; i++) {
+                        controlLinks[i].classList.remove('active');
+                    }
+                    document.getElementById(controllerName).classList.add('active');
+                    controller.setActive(controllerName);
                 }
-
-                document.body.appendChild(ul)
-                if (controls.length > 1) setController(controls[0])
-            }
+            } 
+            
 
         };
 
@@ -367,15 +381,6 @@ var Controller = (function() {
     };
 
 })();
-
-function setController(controllerName) {
-    var controlLinks = document.getElementsByClassName('control-link');
-    for (var i = 0; i < controlLinks.length; i++) {
-        controlLinks[i].classList.remove('active');
-    }
-    document.getElementById(controllerName).classList.add('active');
-    controller.setActive(controllerName);
-}
 
 
 function windowWidth() {

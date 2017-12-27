@@ -1,4 +1,4 @@
-function removeFromArray(arr) {
+export function removeFromArray(arr) {
     var what, a = arguments, L = a.length, ax;
     while (L > 1 && arr.length) {
         what = a[--L];

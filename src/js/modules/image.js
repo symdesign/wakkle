@@ -1,8 +1,9 @@
-require('../vendor/imagePreloader.js');
-require('../vendor/removeFromArray.js');
-require('../vendor/sortArrayMiddleToOut.js');
 
-var Wakkl = function(placeholder) {
+import {preLoader} from './../utils/imagePreloader';
+import {removeFromArray} from './../utils/removeFromArray';
+import {sortArrayMiddleToOut} from './../utils/sortArrayMiddleToOut';
+
+export var image = function(placeholder) {
 
     var that = this,
 

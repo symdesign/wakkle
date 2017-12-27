@@ -1,4 +1,4 @@
-function sortArrayMiddleToOut(array) {
+export function sortArrayMiddleToOut(array) {
     var startIndex = Math.ceil(array.length / 2),
         newArray = [],
         i = startIndex,

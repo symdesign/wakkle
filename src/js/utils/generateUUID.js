@@ -1,6 +1,4 @@
-/* Used in: wakkl.js */
-
-function generateUUID () { // Public Domain/MIT
+export function generateUUID () { // Public Domain/MIT
     var d = new Date().getTime();
     if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
         d += performance.now(); //use high-precision timer if available
@@ -11,5 +9,3 @@ function generateUUID () { // Public Domain/MIT
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
 }
-
-//export function generateUUID ();

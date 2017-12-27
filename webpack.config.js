@@ -29,7 +29,7 @@ var cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
     entry: {
-        /*app: './src/js/app.js',*/
+        app: './src/js/app.js',
         index: './src/js/index.js',
         laden: './src/js/laden.js'
     },
@@ -75,7 +75,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './src/index.ejs',
-            chunks: ['index'],
+            chunks: ['index', 'app'],
             hash: true
         }),
         new HtmlWebpackPlugin({

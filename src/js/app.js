@@ -1,47 +1,21 @@
 
-require('./vendor/polyfills.js');
-require('./vendor/generateUUID.js');
+import * as wakkl from './modules/wakkl';
+import {generateUUID} from './utils/generateUUID';
 
-require('./components/Controller.js');
-require('./components/Wakkl.js');
-require('./components/Sound.js');
-require('./components/Text.js'); 
-require('./components/Graphic.js');
-require('./components/Mask.js');
 
-function getPlaceholders() {
-    var regexp = new RegExp('.*?\.wakkl.jpg$', 'i');
-    var elements = document.getElementsByTagName('img');
-    var placeholders = [],
-        src,
-        id; 
+// ToDo: Config that defines which functionalities / modules need to be required or excluded
 
-    for (var i = 0; i < elements.length; i++) {
 
-        element = elements[i];
-
-        if (element.hasAttribute('src')) {
-
-            src = element.getAttribute('src');
-
-            if (regexp.test(src)) {
-                element.id = element.id || generateUUID(); // making sure the element has an ID
-                placeholders.push(element);
-            }
-        }
-    }
-    return placeholders;
-}
-
-var placeholders = getPlaceholders(),
-    wakkl = [];
+var placeholders = wakkl.collect(),
+    wakklArray = [];
 
 for (var i = 0; i < placeholders.length; i++) {
     var placeholder = placeholders[i];
-    wakkl[i] = new Wakkl(placeholder);
-    wakkl[i].init();
+    wakklArray[i] = new wakkl.image(placeholder);
+    wakklArray[i].init();
 }
 
-var controller = Controller.getInstance();
-controller.UI();
+var controller = wakkl.controller.getInstance();
+
+controller.UI.init();
 controller.update(wakkl[0]); // TODO: update that wakkl which is currently in viewport
