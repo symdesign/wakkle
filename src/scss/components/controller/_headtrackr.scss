@@ -1,0 +1,26 @@
+
+.headtrack-icon:after {
+    content: $icon-headtrackr;
+}
+
+.dialog-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog {
+    background: white;
+    max-height: 80%;
+    max-width: 80%;
+    display: block;
+    border: 0;
+    overflow-x: scroll;
+}

@@ -10,6 +10,7 @@
     "browser-sync": "^2.21.0",
     "browser-sync-webpack-plugin": "^1.2.0",
     "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
@@ -29,7 +30,7 @@
   "scripts": {
     "dev": "npm run clean && webpack -d --watch",
     "dev-server": "webpack-dev-server --open 'google chrome'",
-    "prod": "npm run clean && NODE_ENV=prod webpack -p",
+    "prod": "npm run clean && NODE_ENV=prod webpack",
     "clean": "rimraf ./dist/*"
   },
   "repository": {

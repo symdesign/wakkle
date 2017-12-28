@@ -1,0 +1,39 @@
+
+// Controller
+$icon-controller: "\e902";
+
+//// Desktop
+$icon-mousemove: "";
+$icon-mousedrag: "\e904";
+$icon-headtrackr: "\e906";
+
+//// Mobile
+$icon-touchmove: "";
+$icon-touchdrag: "\e905";
+$icon-deviceorientation: "\e907";
+
+// Sound
+$icon-volume-on: "\e90a";
+$icon-volume-off: "\e90b";
+
+// UI
+$icon-arrow-right: "\e90c";
+$icon-arrow-left: "\e90d";
+$icon-info: "\e90e";
+$icon-language: "\e900";
+$icon-close: "\e90f";
+$icon-fullscreen-enter: "\e908";
+$icon-fullscreen-exit: "\e909";
+
+
+// Sharing
+$icon-google-plus: "\e911";
+$icon-twitter: "\e912";
+$icon-facebook: "\e913";
+$icon-overview: "\e914";
+$icon-heart: "\e901";
+
+// ToDo: Create function which generates
+// .icon-share:after {
+//     content: $icon-heart
+// }

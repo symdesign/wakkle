@@ -11,6 +11,9 @@ const HtmlWebpackReloadPlugin = require('reload-html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurifyCSSPlugin = require('purifycss-webpack');
 
+// Dynamic Assets Handling
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 // Configurations
 var cssDev = [
     'style-loader',
@@ -29,13 +32,11 @@ var cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
     entry: {
-        app: './src/js/app.js',
-        index: './src/js/index.js',
-        laden: './src/js/laden.js'
+        app: './src/js/app.js'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: './js/[name].bundle.js',
+        filename: './js/[name].js',
         library: 'wakkl',
         libraryTarget: 'umd'
     },
@@ -51,7 +52,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|jpg|gif|json|wakkl)$/,
                 use: 'file-loader?name=[name].[ext]&outputPath=images/'
             }
         ]
@@ -75,18 +76,24 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './src/index.ejs',
-            chunks: ['index', 'app'],
-            hash: true
-        }),
-        new HtmlWebpackPlugin({
-            title: 'Laden',
-            filename: './laden.html',
-            template: './src/laden.html',
-            chunks: ['laden'],
+            chunks: ['app'],
             hash: true
         }),
         new HtmlWebpackHarddiskPlugin(),
         new HtmlWebpackReloadPlugin(),
+
+        new CopyWebpackPlugin([
+            {
+                context: path.resolve(__dirname, './src/'),
+                from: 'images/*/*', 
+                to: path.resolve(__dirname, './dist/')
+            },
+            {
+                context: path.resolve(__dirname, './src/'),
+                from: 'js/utils/headtrackr.js', 
+                to: path.resolve(__dirname, './dist/js/')
+            }
+        ]),
 
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin()

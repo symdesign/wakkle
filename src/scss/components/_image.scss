@@ -1,0 +1,52 @@
+
+@import 'image/loading';
+
+
+img {
+  width: 100%;
+  height: auto;
+  backface-visibility: visible;
+}
+
+
+.controls {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 99;
+  position: fixed;
+  font-size: 14px;
+
+  li {
+    float: left;
+    line-height: 2em;
+  }
+}
+
+.control-link {
+  margin: 4px;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 2px solid transparent;
+
+  &:hover {
+    background-color: #222;
+  }
+
+  &.active {
+    border-color: #fff;
+  }
+}
+
+
+
+#debugCanvas {
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 999;
+}
