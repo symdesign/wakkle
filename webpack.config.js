@@ -90,7 +90,12 @@ module.exports = {
             },
             {
                 context: path.resolve(__dirname, './src/'),
-                from: 'js/utils/headtrackr.js', 
+                from: 'js/conditionals/headtrackr.js', 
+                to: path.resolve(__dirname, './dist/js/')
+            },
+            {
+                context: path.resolve(__dirname, './src/'),
+                from: 'js/conditionals/polyfills.js', 
                 to: path.resolve(__dirname, './dist/js/')
             }
         ]),

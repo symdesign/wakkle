@@ -1,20 +1,3 @@
-@charset "UTF-8";
-
-[class^="icon-"]:after,[class*=" icon-"]:after {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'Campus-Dessau-UI' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  font-size: 3.2rem;
-  content: "";
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
 /**
@@ -303,16 +286,25 @@ html [type="button"],[type="reset"],[type="submit"] {
   display: none;
 }
 
+html,body {
+  background: white;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
 [class^="icon-"]:after,[class*=" icon-"]:after {
-  font-family: "Campus-Dessau-UI" !important;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Campus-Dessau-UI' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   font-size: 3.2rem;
-  text-decoration: none;
   content: "";
+  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -321,12 +313,4 @@ img {
   width: 100%;
   height: auto;
   backface-visibility: visible;
-}
-
-html,body {
-  background: white;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
 }
