@@ -1,8 +1,8 @@
 // http://fragged.org/preloading-images-using-javascript-the-right-way-and-without-frameworks_744.html
-// (function() {
+//(function() {
     'use strict';
 
-    export var preLoader = function(images, options) {
+    export var imagePreload = function(images, options) {
         this.options = {
             pipeline: false,
             auto: true,
@@ -17,7 +17,7 @@
         this.queue.length && this.options.auto && this.processQueue();
     };
 
-    preLoader.prototype.setOptions = function(options) {
+    imagePreload.prototype.setOptions = function(options) {
         // shallow copy
         var o = this.options,
             key;
@@ -27,14 +27,14 @@
         return this;
     };
 
-    preLoader.prototype.addQueue = function(images) {
+    imagePreload.prototype.addQueue = function(images) {
         // stores a local array, dereferenced from original
         this.queue = images.slice();
 
         return this;
     };
 
-    preLoader.prototype.reset = function() {
+    imagePreload.prototype.reset = function() {
         // reset the arrays
         this.completed = [];
         this.errors = [];
@@ -42,7 +42,7 @@
         return this;
     };
 
-    preLoader.prototype.load = function(src, index) {
+    imagePreload.prototype.load = function(src, index) {
         var image = new Image(),
             self = this,
             o = this.options;
@@ -72,7 +72,7 @@
         return this;
     };
 
-    preLoader.prototype.loadNext = function(index) {
+    imagePreload.prototype.loadNext = function(index) {
         // when pipeline loading is enabled, calls next item
         index++;
         this.queue[index] && this.load(this.queue[index], index);
@@ -80,7 +80,7 @@
         return this;
     };
 
-    preLoader.prototype.processQueue = function() {
+    imagePreload.prototype.processQueue = function() {
         // runs through all queued items.
         var i = 0,
             queue = this.queue,
@@ -98,7 +98,7 @@
 
     function checkProgress(src, image) {
         // intermediate checker for queue remaining. not exported.
-        // called on preLoader instance as scope
+        // called on imagePreload instance as scope
         var args = [],
             o = this.options;
 
@@ -118,9 +118,9 @@
     if (typeof define === 'function' && define.amd) {
         // we have an AMD loader.
         define(function() {
-            return preLoader;
+            return imagePreload;
         });
     } else {
-        this.preLoader = preLoader;
+        this.imagePreload = imagePreload;
     }
-// }).call(this);
+//}).call(this);

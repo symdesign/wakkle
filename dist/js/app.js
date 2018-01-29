@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "10537bd5314932584d58"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7bd9b4055bf78a43c5c2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -754,64 +754,101 @@ module.exports = __webpack_amd_options__;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss__ = __webpack_require__("./src/scss/style.scss");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wakkl__ = __webpack_require__("./src/js/wakkl.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components__ = __webpack_require__("./src/js/components.js");
 
 
 
 
+// alternatively you export wakkl here and initialize it
+// in your DOM in the following way:
 
-// ToDo: Config that defines which functionalities / modules need to be required or excluded
-
-var placeholders = __WEBPACK_IMPORTED_MODULE_1__wakkl__["a" /* collect */](),
-    wakklArray = [];
-
-for (var i = 0; i < placeholders.length; i++) {
-    var placeholder = placeholders[i];
-
-    wakklArray[i] = new __WEBPACK_IMPORTED_MODULE_1__wakkl__["c" /* image */](placeholder);
-    wakklArray[i].init();
-}
-
-var controller = __WEBPACK_IMPORTED_MODULE_1__wakkl__["b" /* controller */].getInstance();
-
-controller.UI();
-controller.update(wakklArray[0]); // TODO: update that wakkl which is currently in viewport
+__WEBPACK_IMPORTED_MODULE_1__components__["a" /* init */]();
 
 /***/ }),
 
-/***/ "./src/js/components/collector.js":
+/***/ "./src/js/components.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = collect;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_generateUUID__ = __webpack_require__("./src/js/utils/generateUUID.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return init; });
+/* unused harmony export setControl */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_controller__ = __webpack_require__("./src/js/components/controller.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_image__ = __webpack_require__("./src/js/components/image.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_mask__ = __webpack_require__("./src/js/components/mask.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_sound__ = __webpack_require__("./src/js/components/sound.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_text__ = __webpack_require__("./src/js/components/text.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_vector__ = __webpack_require__("./src/js/components/vector.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_collect__ = __webpack_require__("./src/js/utils/collect.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_isElementVisible__ = __webpack_require__("./src/js/utils/isElementVisible.js");
 
 
-function collect() {
-    //var regexp = new RegExp('.*?\.wakkl.jpg$', 'i');
-    var regexp = new RegExp('.*?\.wakkl', 'i');
-    var elements = document.getElementsByTagName('img'),
-        element;
-    var placeholders = [],
-        src,
-        id;
+
+
+
+
+
+
+
+
+
+var init = function () {
+
+    var elements = Object(__WEBPACK_IMPORTED_MODULE_6__utils_collect__["a" /* collect */])(),
+        controller = [],
+        components = [],
+        image = [],
+        mask = [],
+        sound = [],
+        text = [],
+        vector = [];
 
     for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
 
-        element = elements[i];
+        if (Object(__WEBPACK_IMPORTED_MODULE_7__utils_isElementVisible__["a" /* isElementVisible */])(element)) {
 
-        if (element.hasAttribute('src')) {
+            components[i] = [];
 
-            src = element.getAttribute('src');
+            image[i] = new __WEBPACK_IMPORTED_MODULE_1__components_image__["a" /* Sequence */](element);
+            image[i].init();
+            components[i].push(image[i]);
 
-            if (regexp.test(src)) {
-                element.id = element.id || Object(__WEBPACK_IMPORTED_MODULE_0__utils_generateUUID__["a" /* generateUUID */])(); // making sure the element has an ID
-                placeholders.push(element);
+            if (element.mask) {
+                mask[i] = new __WEBPACK_IMPORTED_MODULE_2__components_mask__["a" /* Mask */](element);
+                mask[i].init();
+                components[i].push(mask[i]);
             }
+            if (element.sound) {
+                sound[i] = new __WEBPACK_IMPORTED_MODULE_3__components_sound__["a" /* Sound */](element);
+                !sound[i == 0 ? 0 : i - 1].initialized && sound[i].init();
+                components[i].push(sound[i]);
+            }
+            if (element.text) {
+                text[i] = new __WEBPACK_IMPORTED_MODULE_4__components_text__["a" /* Text */](element);
+                text[i].init();
+                components[i].push(text[i]);
+            }
+            if (element.vector) {
+                vector[i] = new __WEBPACK_IMPORTED_MODULE_5__components_vector__["a" /* Vector */](element);
+                vector[i].init();
+                components[i].push(vector[i]);
+            }
+
+            controller[i] = new __WEBPACK_IMPORTED_MODULE_0__components_controller__["a" /* Controller */](components[i]);
+
+            // TODO: implement global control switch + control switch UI
+            // TODO: watch() or listen() if element is in viewport
         }
     }
-    return placeholders;
+};
+
+function setControl(mode) {
+    for (var i = 0; i < controller.length; i++) {
+        controller[i].setActive(mode);
+    }
 }
+
+function userSettings() {}
 
 /***/ }),
 
@@ -819,8 +856,8 @@ function collect() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return controller; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_loadScript_js__ = __webpack_require__("./src/js/utils/loadScript.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Controller; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__controller_loadScript_js__ = __webpack_require__("./src/js/components/controller/loadScript.js");
 
 
 
@@ -831,380 +868,359 @@ var WIDTH = windowWidth(),
     getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 
 // Singleton http://robdodson.me/javascript-design-patterns-singleton/
-var controller = function () {
+var Controller = function (components) {
 
-    var instance, htracker, videoInput, canvasInput, debugCanvas;
+    var htracker, videoInput, canvasInput, debugCanvas;
 
-    function init() {
+    var active,
+        history,
+        mouseDownX,
+        mouseDownY,
+        mousedown,
+        mouseMoveX,
+        dX = 0,
+        q = 0.5;
 
-        var currentSequence,
-            activeEventListener,
-            q = 0.5,
-            _q = 0.5,
-            history,
-            mouseDownX,
-            mouseDownY,
-            mousedown,
-            mouseMoveX,
-            dX = 0;
+    isMobile() ? set('orientationdrag') : set('mousemove');
 
-        isMobile() ? set('orientationdrag') : set('mousemove');
+    function update(q) {
+        for (var i = 0; i < components.length; i++) {
+            var component = components[i];
+            component.q = q;
+        }
+    }
 
-        function update(q) {
-            currentSequence != undefined ? currentSequence.q = q : console.log('No object there to be updated.');
+    function mouseHandler(e) {
+        var mouseX = e.pageX;
+        q = mouseX / WIDTH;
+        update(q);
+    }
+
+    function dragStart(e) {
+        mousedown = 1;
+        mouseDownX = e.pageX || e.changedTouches[0].pageX;
+        mouseDownY = e.pageY || e.changedTouches[0].pageY;
+        document.body.style.cursor = 'grabbing';
+    }
+
+    function dragEnd(e) {
+        mousedown = 0;
+        mouseMoveX = 0;
+        document.body.style.cursor = 'grab';
+    }
+
+    function dragHandler(e) {
+
+        e.preventDefault();
+        if (!mousedown) return;
+
+        var pageX = e.pageX || e.changedTouches[0].pageX,
+            pageY = e.pageY || e.changedTouches[0].pageY;
+
+        var _dX = pageX - (mouseMoveX || mouseDownX);
+
+        mouseMoveX = pageX;
+        if (dX > 0 && _dX < 0 || dX < 0 && _dX > 0) {
+            mouseDownX = mouseMoveX;
         }
 
-        function mouseHandler(e) {
-            var mouseX = e.pageX;
-            q = mouseX / WIDTH;
-            update(q);
+        dX = _dX;
+        var dQ = dX / WIDTH;
+        dQ = -dQ;
+
+        _q = 1 - q;
+
+        _q = _q + dQ;
+        _q = _q > 1 ? 1 : _q;
+        _q = _q < 0 ? 0 : _q;
+        q = 1 - _q;
+
+        update(q);
+    }
+
+    function deviceOrientationHandler(e) {
+
+        if (mousedown) return;
+
+        var orientation, angle;
+
+        switch (window.orientation) {
+            case 0:
+            case 180:
+                orientation = "portrait";
+                break;
+
+            case 90:
+            case -90:
+                orientation = "landscape";
+                break;
         }
 
-        function dragStart(e) {
-            mousedown = 1;
-            mouseDownX = e.pageX || e.changedTouches[0].pageX;
-            mouseDownY = e.pageY || e.changedTouches[0].pageY;
-            document.body.style.cursor = 'grabbing';
+        angle = orientation == 'portrait' ? e.gamma : e.beta;
+        angle = angle > 45 ? 45 : angle;
+
+        q = (angle + 45) * (1 / 90);
+        q = q < 0 ? 0 : q;
+        q = q > 1 ? 1 : q;
+
+        update(q);
+    }
+
+    function headtrackringStatus(e) {
+        if (e.status == "found") {
+            console.log('found');
         }
+    }
 
-        function dragEnd(e) {
-            mousedown = 0;
-            mouseMoveX = 0;
-            document.body.style.cursor = 'grab';
+    function headtrackHandler(e) {
+        console.log('headtrack event');
+        camFov = Math.floor(htracker.getFOV()) / 2;
+        q = e.x / camFov + 0.5 - 1;
+        q = q * 0.1;
+        q = q >= 1 ? 1 : q;
+        q = q <= 0 ? 0 : q;
+        update(q);
+    }
+
+    function facetrackHandler(e) {
+        console.log('facetrack event');
+        camFov = Math.floor(htracker.getFOV()) / 2;
+        q = e.x / camFov + 0.5 - 1;
+        q = q * 0.1;
+        q = q >= 1 ? 1 : q;
+        q = q <= 0 ? 0 : q;
+        update(q);
+    }
+
+    function set(mode) {
+        unsetHeadtrackr();
+        unsetMousemove();
+        unsetMousedrag();
+        unsetTouchdrag();
+        unsetDeviceorientation();
+
+        active = mode;
+
+        switch (mode) {
+
+            case 'mousemove':
+                setMousemove();
+                break;
+
+            case 'mousedrag':
+                setMousedrag();
+                break;
+
+            case 'headtrack' || 'facetrack':
+                setHeadtrackr();
+                break;
+
+            case 'deviceorientation':
+                setDeviceorientation();
+                break;
+
+            case 'touchdrag':
+                setTouchdrag();
+                break;
+
+            case 'orientationdrag':
+                setOrientationDrag();
+                break;
         }
+    }
 
-        function dragHandler(e) {
+    function setMousemove() {
+        document.addEventListener('mousemove', mouseHandler, false);
+    }
 
-            e.preventDefault();
-            if (!mousedown) return;
+    function unsetMousemove() {
+        document.removeEventListener('mousemove', mouseHandler, false);
+    }
 
-            var pageX = e.pageX || e.changedTouches[0].pageX,
-                pageY = e.pageY || e.changedTouches[0].pageY;
+    function setDeviceorientation() {
+        window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+    }
 
-            var _dX = pageX - (mouseMoveX || mouseDownX);
+    function unsetDeviceorientation() {
+        window.removeEventListener('deviceorientation', deviceOrientationHandler, false);
+    }
 
-            mouseMoveX = pageX;
-            if (dX > 0 && _dX < 0 || dX < 0 && _dX > 0) {
-                mouseDownX = mouseMoveX;
-            }
+    function setMousedrag() {
+        document.body.style.cursor = 'grab';
+        document.addEventListener('mousedown', dragStart);
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('mousemove', dragHandler);
+    }
 
-            dX = _dX;
-            var dQ = dX / WIDTH;
-            dQ = -dQ;
+    function unsetMousedrag(status) {
+        document.body.style.cursor = 'initial';
+        document.removeEventListener('mousedown', dragStart);
+        document.removeEventListener('mouseup', dragEnd);
+        document.removeEventListener('mousemove', dragHandler);
+    }
 
-            _q = 1 - q;
+    function setTouchdrag() {
+        document.addEventListener('touchstart', dragStart);
+        document.addEventListener('touchmove', dragHandler);
+        document.addEventListener('touchend', dragEnd);
+    }
 
-            _q = _q + dQ;
-            _q = _q > 1 ? 1 : _q;
-            _q = _q < 0 ? 0 : _q;
-            q = 1 - _q;
+    function unsetTouchdrag() {
+        document.removeEventListener('touchstart', dragStart);
+        document.removeEventListener('touchend', dragEnd);
+        document.removeEventListener('touchmove', dragHandler);
+    }
 
-            update(q);
+    function setOrientationDrag() {
+        window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+        document.addEventListener('touchstart', dragStart);
+        document.addEventListener('touchmove', dragHandler);
+        document.addEventListener('touchend', dragEnd);
+    }
+
+    function unsetOrientationDrag() {
+        window.removeEventListener('deviceorientation', deviceOrientationHandler, false);
+        document.removeEventListener('touchstart', dragStart);
+        document.removeEventListener('touchend', dragEnd);
+        document.removeEventListener('touchmove', dragHandler);
+    }
+
+    if (getUserMedia) {
+        Object(__WEBPACK_IMPORTED_MODULE_0__controller_loadScript_js__["a" /* loadScript */])(pathToHeadtrackr, getHeadtrackr);
+    }
+
+    function getHeadtrackr() {
+
+        videoInput = document.createElement('video');
+        videoInput.id = 'inputVideo';
+        videoInput.autoplay = true;
+        videoInput.style.display = 'none';
+        document.body.appendChild(videoInput);
+
+        canvasInput = document.createElement('canvas');
+        canvasInput.id = 'inputCanvas';
+        canvasInput.style.visibility = 'hidden';
+        canvasInput.style.position = 'absolute';
+        document.body.appendChild(canvasInput);
+
+        debugCanvas = document.createElement('canvas');
+        debugCanvas.id = 'debugCanvas';
+        debugCanvas.width = 320;
+        debugCanvas.height = 240;
+        debugCanvas.style.position = 'absolute';
+        debugCanvas.style.top = '0';
+        debugCanvas.style.left = '0';
+        debugCanvas.style.zIndex = '9999';
+        debugCanvas.style.display = this.debug ? 'block' : 'none';
+        document.body.appendChild(debugCanvas);
+
+        htracker = new headtrackr.Tracker({
+            ui: true,
+            cameraOffset: 10,
+            debug: debugCanvas,
+            smoothing: false
+        });
+    }
+
+    function setHeadtrackr() {
+
+        if (!getUserMedia || !htracker) return;
+
+        htracker.init(videoInput, canvasInput);
+        htracker.start();
+
+        getUserMedia = getUserMedia.bind(navigator);
+        document.addEventListener('facetrackingEvent', facetrackHandler);
+        document.addEventListener('headtrackrrStatus', headtrackringStatus);
+    }
+
+    function unsetHeadtrackr() {
+        if (!getUserMedia || !htracker) return;
+
+        document.removeEventListener('facetrackingEvent', facetrackHandler);
+        htracker.stop();
+        htracker.stopStream();
+    }
+
+    function isMobile() {
+        var check = false;
+        (function (a) {
+            if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+        })(navigator.userAgent || navigator.vendor || window.opera);
+        return check;
+    }
+
+    this.setActive = function (mode) {
+        set(mode);
+        var controlLinks = document.querySelectorAll('.control-link');
+        for (var i = 0; i < controlLinks.length; i++) {
+            controlLinks[i].classList.remove('active');
         }
-
-        function deviceOrientationHandler(e) {
-
-            if (mousedown) return;
-
-            var orientation, angle;
-
-            switch (window.orientation) {
-                case 0:
-                case 180:
-                    orientation = "portrait";
-                    break;
-
-                case 90:
-                case -90:
-                    orientation = "landscape";
-                    break;
-            }
-
-            angle = orientation == 'portrait' ? e.gamma : e.beta;
-            angle = angle > 45 ? 45 : angle;
-
-            q = (angle + 45) * (1 / 90);
-            q = q < 0 ? 0 : q;
-            q = q > 1 ? 1 : q;
-
-            update(q);
-        }
-
-        function headtrackringStatus(e) {
-            if (e.status == "found") {
-                console.log('found');
-            }
-        }
-
-        function headtrackHandler(e) {
-            console.log('headtrack event');
-            camFov = Math.floor(htracker.getFOV()) / 2;
-            q = e.x / camFov + 0.5 - 1;
-            q = q * 0.1;
-            q = q >= 1 ? 1 : q;
-            q = q <= 0 ? 0 : q;
-            update(q);
-        }
-
-        function facetrackHandler(e) {
-            console.log('facetrack event');
-            camFov = Math.floor(htracker.getFOV()) / 2;
-            q = e.x / camFov + 0.5 - 1;
-            q = q * 0.1;
-            q = q >= 1 ? 1 : q;
-            q = q <= 0 ? 0 : q;
-            update(q);
-        }
-
-        function set(mode) {
-            unsetHeadtrackr();
-            unsetMousemove();
-            unsetMousedrag();
-            unsetTouchdrag();
-            unsetDeviceorientation();
-
-            activeEventListener = mode;
-
-            switch (mode) {
-
-                case 'mousemove':
-                    setMousemove();
-                    break;
-
-                case 'mousedrag':
-                    setMousedrag();
-                    break;
-
-                case 'headtrack' || 'facetrack':
-                    setHeadtrackr();
-                    break;
-
-                case 'deviceorientation':
-                    setDeviceorientation();
-                    break;
-
-                case 'touchdrag':
-                    setTouchdrag();
-                    break;
-
-                case 'orientationdrag':
-                    setOrientationDrag();
-                    break;
-            }
-        }
-
-        function setMousemove() {
-            document.addEventListener('mousemove', mouseHandler, false);
-        }
-
-        function unsetMousemove() {
-            document.removeEventListener('mousemove', mouseHandler, false);
-        }
-
-        function setDeviceorientation() {
-            window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-        }
-
-        function unsetDeviceorientation() {
-            window.removeEventListener('deviceorientation', deviceOrientationHandler, false);
-        }
-
-        function setMousedrag() {
-            document.body.style.cursor = 'grab';
-            document.addEventListener('mousedown', dragStart);
-            document.addEventListener('mouseup', dragEnd);
-            document.addEventListener('mousemove', dragHandler);
-        }
-
-        function unsetMousedrag(status) {
-            document.body.style.cursor = 'initial';
-            document.removeEventListener('mousedown', dragStart);
-            document.removeEventListener('mouseup', dragEnd);
-            document.removeEventListener('mousemove', dragHandler);
-        }
-
-        function setTouchdrag() {
-            document.addEventListener('touchstart', dragStart);
-            document.addEventListener('touchmove', dragHandler);
-            document.addEventListener('touchend', dragEnd);
-        }
-
-        function unsetTouchdrag() {
-            document.removeEventListener('touchstart', dragStart);
-            document.removeEventListener('touchend', dragEnd);
-            document.removeEventListener('touchmove', dragHandler);
-        }
-
-        function setOrientationDrag() {
-            window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-            document.addEventListener('touchstart', dragStart);
-            document.addEventListener('touchmove', dragHandler);
-            document.addEventListener('touchend', dragEnd);
-        }
-
-        function unsetOrientationDrag() {
-            window.removeEventListener('deviceorientation', deviceOrientationHandler, false);
-            document.removeEventListener('touchstart', dragStart);
-            document.removeEventListener('touchend', dragEnd);
-            document.removeEventListener('touchmove', dragHandler);
-        }
-
-        if (getUserMedia) {
-            Object(__WEBPACK_IMPORTED_MODULE_0__utils_loadScript_js__["a" /* loadScript */])(pathToHeadtrackr, getHeadtrackr);
-        }
-
-        function getHeadtrackr() {
-
-            videoInput = document.createElement('video');
-            videoInput.id = 'inputVideo';
-            videoInput.autoplay = true;
-            videoInput.style.display = 'none';
-            document.body.appendChild(videoInput);
-
-            canvasInput = document.createElement('canvas');
-            canvasInput.id = 'inputCanvas';
-            canvasInput.style.visibility = 'hidden';
-            canvasInput.style.position = 'absolute';
-            document.body.appendChild(canvasInput);
-
-            debugCanvas = document.createElement('canvas');
-            debugCanvas.id = 'debugCanvas';
-            debugCanvas.width = 320;
-            debugCanvas.height = 240;
-            debugCanvas.style.position = 'absolute';
-            debugCanvas.style.top = '0';
-            debugCanvas.style.left = '0';
-            debugCanvas.style.zIndex = '9999';
-            debugCanvas.style.display = this.debug ? 'block' : 'none';
-            document.body.appendChild(debugCanvas);
-
-            htracker = new headtrackr.Tracker({
-                ui: true,
-                cameraOffset: 10,
-                debug: debugCanvas,
-                smoothing: false
-            });
-        }
-
-        function setHeadtrackr() {
-
-            if (!getUserMedia || !htracker) return;
-
-            htracker.init(videoInput, canvasInput);
-            htracker.start();
-
-            getUserMedia = getUserMedia.bind(navigator);
-            document.addEventListener('facetrackingEvent', facetrackHandler);
-            document.addEventListener('headtrackrrStatus', headtrackringStatus);
-        }
-
-        function unsetHeadtrackr() {
-            if (!getUserMedia || !htracker) return;
-
-            document.removeEventListener('facetrackingEvent', facetrackHandler);
-            htracker.stop();
-            htracker.stopStream();
-        }
-
-        function isMobile() {
-            var check = false;
-            (function (a) {
-                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
-            })(navigator.userAgent || navigator.vendor || window.opera);
-            return check;
-        }
-
-        return {
-
-            setActive: function (mode) {
-                set(mode);
-                var controlLinks = document.querySelectorAll('.control-link');
-                for (var i = 0; i < controlLinks.length; i++) {
-                    controlLinks[i].classList.remove('active');
-                }
-                document.getElementById(mode).classList.add('active');
-            },
-
-            getActive: function () {
-                return activeEventListener;
-            },
-
-            listAvailable: function () {
-                var list = [];
-
-                if (!isMobile()) {
-                    list = ['mousemove', 'mousedrag'];
-                    if (getUserMedia) list.push('headtrack');
-                }
-                if (isMobile()) {
-                    list = ['orientationdrag'];
-                }
-
-                return list;
-            },
-
-            update: function (object) {
-                currentSequence = object;
-            },
-
-            UI: function (isVisible) {
-
-                var uiId = 'controls';
-                var uiClassName = 'controls';
-
-                // make sure UI does not already exist when we draw it
-                var ui = document.getElementById(uiId);
-                if (document.contains(ui)) {
-                    ui.remove();
-                }
-
-                var isVisible = typeof isVisible == 'undefined' ? true : isVisible;
-                if (!isVisible) {
-                    return;
-                } // don't draw UI when it is not visible
-
-                // draw or redraw UI
-                var controls = this.listAvailable(),
-                    ul = document.createElement('ul');
-                ul.className = uiClassName;
-                ul.id = uiId;
-
-                for (var i = 0; i < controls.length; i++) {
-
-                    if (controls.length < 2) break;
-
-                    var li = document.createElement('li');
-                    var a = document.createElement('a');
-                    a.className = 'control-link icon-' + controls[i];
-                    a.id = controls[i];
-                    //a.href = 'javascript: setController(\'' + controls[i] + '\')';
-                    a.onclick = set(controls[i]);
-
-                    var text = document.createTextNode(controls[i]);
-
-                    a.appendChild(text);
-                    li.appendChild(a);
-                    ul.appendChild(li);
-                }
-
-                document.body.appendChild(ul);
-                if (controls.length > 1) set(controls[0]);
-            }
-
-        };
+        document.getElementById(mode).classList.add('active');
     };
 
-    return {
-        getInstance: function () {
-
-            if (!instance) {
-                instance = init();
-            }
-
-            return instance;
-        }
+    this.getActive = function () {
+        return active;
     };
-}();
+
+    this.listAvailable = function () {
+        var list = [];
+
+        if (!isMobile()) {
+            list = ['mousemove', 'mousedrag'];
+            if (getUserMedia) list.push('headtrack');
+        }
+        if (isMobile()) {
+            list = ['orientationdrag'];
+        }
+
+        return list;
+    };
+
+    this.UI = function (isVisible) {
+
+        var uiId = 'controls';
+        var uiClassName = 'controls';
+
+        // make sure UI does not already exist when we draw it
+        var ui = document.getElementById(uiId);
+        if (document.contains(ui)) {
+            ui.remove();
+        }
+
+        var isVisible = typeof isVisible == 'undefined' ? true : isVisible;
+        if (!isVisible) {
+            return;
+        } // don't draw UI when it is not visible
+
+        // draw or redraw UI
+        var controls = this.listAvailable(),
+            ul = document.createElement('ul');
+        ul.className = uiClassName;
+        ul.id = uiId;
+
+        for (var i = 0; i < controls.length; i++) {
+
+            if (controls.length < 2) break;
+
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.className = 'control-link icon-' + controls[i];
+            a.id = controls[i];
+            //a.href = 'javascript: setController(\'' + controls[i] + '\')';
+            a.onclick = set(controls[i]);
+
+            var text = document.createTextNode(controls[i]);
+
+            a.appendChild(text);
+            li.appendChild(a);
+            ul.appendChild(li);
+        }
+
+        document.body.appendChild(ul);
+        if (controls.length > 1) set(controls[0]);
+    };
+};
 
 /*
 export function setController(controllerName) {
@@ -1231,20 +1247,60 @@ window.addEventListener("resize", onresize);
 
 /***/ }),
 
+/***/ "./src/js/components/controller/loadScript.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = loadScript;
+function loadScript(url, callback) {
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Check if already embeded
+    var scripts = document.getElementsByTagName('script');
+    var exists = false;
+    var src;
+    for (var i = 0; i < scripts.length; i++) {
+        src = scripts[i].getAttribute('src');
+        if (src != null) {
+            if (src.search(url) > -1) {
+                exists = true;
+            }
+        }
+    }
+    if (!exists) {
+        // Fire the loading
+        head.appendChild(script);
+    }
+}
+
+/***/ }),
+
 /***/ "./src/js/components/image.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return image; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_imagePreloader__ = __webpack_require__("./src/js/utils/imagePreloader.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_removeFromArray__ = __webpack_require__("./src/js/utils/removeFromArray.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_sortArrayMiddleToOut__ = __webpack_require__("./src/js/utils/sortArrayMiddleToOut.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sequence; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__image_removeFromArray__ = __webpack_require__("./src/js/components/image/removeFromArray.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image_sortArrayMiddleToOut__ = __webpack_require__("./src/js/components/image/sortArrayMiddleToOut.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_imagePreload__ = __webpack_require__("./src/js/components/image/imagePreload.js");
 
 
 
 
 
-var image = function (placeholder) {
+// import isMobile
+
+var Sequence = function (element) {
+    // object is named "Sequence" as "new Image()" call is protected
 
     var that = this,
         meta,
@@ -1262,36 +1318,16 @@ var image = function (placeholder) {
     this.q = q; // active image (relative number)
 
     this.init = function () {
-        var source = placeholder.currentSrc || placeholder.src,
+        var source = element.currentSrc || element.src,
             img = new Image();
         img.onload = function () {
             // TODO: test if onload gets fired again inside init-function when currentSrc changes
-            meta = getMeta(); // meta will be fetched again when currentSrc changes
+            meta = element.meta;
             sources = getSources();
             loadImages();
         };
         img.src = source;
     };
-
-    function getMeta() {
-        var path, meta;
-
-        path = placeholder.currentSrc || placeholder.src;
-        path = path.replace('.jpg', '');
-        path = path.replace('.wakkl', '');
-        path = path + '/';
-
-        loadJSON(path + 'meta.json', function (json) {
-            meta = {
-                "Path": path,
-                "Count": json.wakkl.Count,
-                "AngleOfView": json.wakkl.AngleOfView,
-                "Phi": json.wakkl.Phi,
-                "Chi": json.wakkl.Chi
-            };
-        });
-        return meta;
-    }
 
     function getSources() {
         var src,
@@ -1306,21 +1342,21 @@ var image = function (placeholder) {
     function loadImages() {
 
         var wrapper = document.createElement('figure'),
-            objectFit = window.getComputedStyle(placeholder, null).getPropertyValue('object-fit');
+            objectFit = window.getComputedStyle(element, null).getPropertyValue('object-fit');
 
-        if (placeholder.hasAttributes()) cloneAttributes(placeholder, wrapper);
+        if (element.hasAttributes()) cloneAttributes(element, wrapper);
         wrapper.removeAttribute('src');
         wrapper.removeAttribute('srcset');
 
-        if (window.getComputedStyle(placeholder, null).getPropertyValue('position') == 'static') wrapper.style = 'relative'; // so children can be positioned 'absolute'
+        if (window.getComputedStyle(element, null).getPropertyValue('position') == 'static') wrapper.style = 'relative'; // so children can be positioned 'absolute'
 
-        placeholder.style.position = 'absolute';
-        //placeholder.style.zIndex = -1;
-        placeholder.parentNode.insertBefore(wrapper, placeholder);
+        element.style.position = 'absolute';
+        //element.style.zIndex = -1;
+        element.parentNode.insertBefore(wrapper, element);
 
-        wrapper.appendChild(placeholder); // only move placeholder, keep it for detecting changes in currentSrc
+        wrapper.appendChild(element); // only move element, keep it for detecting changes in currentSrc
 
-        var imagesArray = Object(__WEBPACK_IMPORTED_MODULE_2__utils_sortArrayMiddleToOut__["a" /* sortArrayMiddleToOut */])(sources),
+        var imagesArray = Object(__WEBPACK_IMPORTED_MODULE_1__image_sortArrayMiddleToOut__["a" /* sortArrayMiddleToOut */])(sources),
             // in order to load progressively starting from the middle
         r = Math.ceil(sources.length / 2),
             l = r - 1,
@@ -1333,7 +1369,7 @@ var image = function (placeholder) {
         progress.setAttribute('value', 0);
         document.body.appendChild(progress);
 
-        new __WEBPACK_IMPORTED_MODULE_0__utils_imagePreloader__["a" /* preLoader */](imagesArray, {
+        new __WEBPACK_IMPORTED_MODULE_2__image_imagePreload__["a" /* imagePreload */](imagesArray, {
             onProgress: function (img, imageEl, index) {
                 var percent = Math.floor(100 / this.queue.length * this.completed.length);
                 progress.value = index;
@@ -1345,13 +1381,13 @@ var image = function (placeholder) {
                 for (var i = 0; i < queue.length; i++) {
                     // to keep the queue as short as possible
                     if (queue.indexOf(rSource) >= 0) {
-                        Object(__WEBPACK_IMPORTED_MODULE_1__utils_removeFromArray__["a" /* removeFromArray */])(queue, rSource);
+                        Object(__WEBPACK_IMPORTED_MODULE_0__image_removeFromArray__["a" /* removeFromArray */])(queue, rSource);
                         appendImage(rSource, wrapper);
                         r++;
                         rSource = meta.Path + pad(r, meta.Count.toString().length) + '.jpg';
                     }
                     if (queue.indexOf(lSource) >= 0) {
-                        Object(__WEBPACK_IMPORTED_MODULE_1__utils_removeFromArray__["a" /* removeFromArray */])(queue, lSource);
+                        Object(__WEBPACK_IMPORTED_MODULE_0__image_removeFromArray__["a" /* removeFromArray */])(queue, lSource);
                         prependImage(lSource, wrapper);
                         l--;
                         lSource = meta.Path + pad(l, meta.Count.toString().length) + '.jpg';
@@ -1365,7 +1401,7 @@ var image = function (placeholder) {
     }
 
     function createImage(source) {
-        var objectFit = window.getComputedStyle(placeholder, null).getPropertyValue('object-fit');
+        var objectFit = window.getComputedStyle(element, null).getPropertyValue('object-fit');
         var image = document.createElement('img');
         image.src = source;
         image.style.filter = "alpha(opacity = 0)"; // Internet Explorer
@@ -1373,15 +1409,15 @@ var image = function (placeholder) {
         image.style.position = 'absolute'; // stack images on z axis
         if (objectFit != 'fill' && objectFit != 'none') {
             image.style.objectFit = objectFit;
-            image.style.width = (placeholder.hasAttribute('width') ? placeholder.width : placeholder.style.width) || '100%';
-            image.style.height = (placeholder.hasAttribute('height') ? placeholder.height : placeholder.style.height) || 'auto';
+            image.style.width = (element.hasAttribute('width') ? element.width : element.style.width) || '100%';
+            image.style.height = (element.hasAttribute('height') ? element.height : element.style.height) || 'auto';
         }
         return image;
     }
 
     function appendImage(source, wrapper) {
         var image = createImage(source);
-        wrapper.appendChild(image); // TODO: insert before placeholder
+        wrapper.appendChild(image); // TODO: insert before element
         currentCount++;
     }
 
@@ -1403,7 +1439,7 @@ var image = function (placeholder) {
         currentQ += (that.q - currentQ) * delay;
         currentQ = round(currentQ, 4);
 
-        var img = document.getElementById(placeholder.id).childNodes,
+        var img = document.getElementById(element.id).childNodes,
             currentIndex = Math.round((currentCount - 1) * currentQ);
 
         img[previousIndex].style.filter = "alpha(opacity = 0)"; // Internet Explorer
@@ -1470,8 +1506,6 @@ var image = function (placeholder) {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    console.log(data);
-                    console.log(data.wakkl.Count);
                     if (callback) callback(data);
                 }
             }
@@ -1483,76 +1517,16 @@ var image = function (placeholder) {
 
 /***/ }),
 
-/***/ "./src/js/components/mask.js":
+/***/ "./src/js/components/image/imagePreload.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export mask */
-
-var mask = function () {};
-
-/***/ }),
-
-/***/ "./src/js/components/sound.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export sound */
-
-var sound = function () {};
-
-/***/ }),
-
-/***/ "./src/js/components/text.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export text */
-
-var text = function () {};
-
-/***/ }),
-
-/***/ "./src/js/components/vector.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export vector */
-
-var vector = function () {};
-
-/***/ }),
-
-/***/ "./src/js/utils/generateUUID.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = generateUUID;
-function generateUUID() {
-    // Public Domain/MIT
-    var d = new Date().getTime();
-    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
-        d += performance.now(); //use high-precision timer if available
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-    });
-}
-
-/***/ }),
-
-/***/ "./src/js/utils/imagePreloader.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return preLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return imagePreload; });
 // http://fragged.org/preloading-images-using-javascript-the-right-way-and-without-frameworks_744.html
-// (function() {
+//(function() {
 
 
-var preLoader = function (images, options) {
+var imagePreload = function (images, options) {
     this.options = {
         pipeline: false,
         auto: true,
@@ -1567,7 +1541,7 @@ var preLoader = function (images, options) {
     this.queue.length && this.options.auto && this.processQueue();
 };
 
-preLoader.prototype.setOptions = function (options) {
+imagePreload.prototype.setOptions = function (options) {
     // shallow copy
     var o = this.options,
         key;
@@ -1577,14 +1551,14 @@ preLoader.prototype.setOptions = function (options) {
     return this;
 };
 
-preLoader.prototype.addQueue = function (images) {
+imagePreload.prototype.addQueue = function (images) {
     // stores a local array, dereferenced from original
     this.queue = images.slice();
 
     return this;
 };
 
-preLoader.prototype.reset = function () {
+imagePreload.prototype.reset = function () {
     // reset the arrays
     this.completed = [];
     this.errors = [];
@@ -1592,7 +1566,7 @@ preLoader.prototype.reset = function () {
     return this;
 };
 
-preLoader.prototype.load = function (src, index) {
+imagePreload.prototype.load = function (src, index) {
     var image = new Image(),
         self = this,
         o = this.options;
@@ -1622,7 +1596,7 @@ preLoader.prototype.load = function (src, index) {
     return this;
 };
 
-preLoader.prototype.loadNext = function (index) {
+imagePreload.prototype.loadNext = function (index) {
     // when pipeline loading is enabled, calls next item
     index++;
     this.queue[index] && this.load(this.queue[index], index);
@@ -1630,7 +1604,7 @@ preLoader.prototype.loadNext = function (index) {
     return this;
 };
 
-preLoader.prototype.processQueue = function () {
+imagePreload.prototype.processQueue = function () {
     // runs through all queued items.
     var i = 0,
         queue = this.queue,
@@ -1646,7 +1620,7 @@ preLoader.prototype.processQueue = function () {
 
 function checkProgress(src, image) {
     // intermediate checker for queue remaining. not exported.
-    // called on preLoader instance as scope
+    // called on imagePreload instance as scope
     var args = [],
         o = this.options;
 
@@ -1665,53 +1639,16 @@ function checkProgress(src, image) {
 if (typeof define === 'function' && __webpack_require__("./node_modules/webpack/buildin/amd-options.js")) {
     // we have an AMD loader.
     define(function () {
-        return preLoader;
+        return imagePreload;
     });
 } else {
-    this.preLoader = preLoader;
+    this.imagePreload = imagePreload;
 }
-// }).call(this);
+//}).call(this);
 
 /***/ }),
 
-/***/ "./src/js/utils/loadScript.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = loadScript;
-function loadScript(url, callback) {
-    // Adding the script tag to the head as suggested before
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-
-    // Check if already embeded
-    var scripts = document.getElementsByTagName('script');
-    var exists = false;
-    var src;
-    for (var i = 0; i < scripts.length; i++) {
-        src = scripts[i].getAttribute('src');
-        if (src != null) {
-            if (src.search(url) > -1) {
-                exists = true;
-            }
-        }
-    }
-    if (!exists) {
-        // Fire the loading
-        head.appendChild(script);
-    }
-}
-
-/***/ }),
-
-/***/ "./src/js/utils/removeFromArray.js":
+/***/ "./src/js/components/image/removeFromArray.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1732,7 +1669,7 @@ function removeFromArray(arr) {
 
 /***/ }),
 
-/***/ "./src/js/utils/sortArrayMiddleToOut.js":
+/***/ "./src/js/components/image/sortArrayMiddleToOut.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1753,33 +1690,227 @@ function sortArrayMiddleToOut(array) {
 
 /***/ }),
 
-/***/ "./src/js/wakkl.js":
+/***/ "./src/js/components/mask.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_controller__ = __webpack_require__("./src/js/components/controller.js");
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__components_controller__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_collector__ = __webpack_require__("./src/js/components/collector.js");
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__components_collector__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_image__ = __webpack_require__("./src/js/components/image.js");
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__components_image__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_sound__ = __webpack_require__("./src/js/components/sound.js");
-/* unused harmony reexport sound */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_text__ = __webpack_require__("./src/js/components/text.js");
-/* unused harmony reexport text */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_vector__ = __webpack_require__("./src/js/components/vector.js");
-/* unused harmony reexport vector */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_mask__ = __webpack_require__("./src/js/components/mask.js");
-/* unused harmony reexport mask */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mask; });
+
+var Mask = function () {
+    this.init = function () {};
+};
+
+/***/ }),
+
+/***/ "./src/js/components/sound.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sound; });
+
+var Sound = function (element) {
+
+    var audio,
+        source,
+        level,
+        volume,
+        up,
+        down,
+        speed = 0.01;
+
+    this.initialized = false;
+    this.q = 0.5;
+
+    this.init = function () {
+
+        audio = new Audio(element.meta.Path + element.sound.File);
+        audio.autoplay = false;
+        audio.loop = true;
+        audio.volume = 1;
+        audio.controls = false;
+    };
+    this.play = function () {
+        play();
+    };
+    this.pause = function () {
+        pause();
+    };
+
+    function play() {
+        volume = 1;
+
+        audio.play();
+        level = audio.volume + speed >= volume ? volume : audio.volume + speed;
+        audio.volume = level;
+
+        if (audio.volume == volume) {
+            cancelAnimationFrame(up);
+            up = undefined;
+        } else {
+            if (down) cancelAnimationFrame(down);
+            up = requestAnimationFrame(play);
+        }
+    }
+
+    function pause() {
+        volume = 0;
+
+        audio.play();
+        level = audio.volume - speed <= volume ? volume : audio.volume - speed;
+        audio.volume = level;
+
+        if (audio.volume == volume) {
+            cancelAnimationFrame(down);
+            down = undefined;
+        } else {
+            if (up) cancelAnimationFrame(up);
+            down = requestAnimationFrame(pause);
+        }
+    }
+
+    function stop() {
+        pause();
+        audio.currentTime = 0;
+    }
+};
+
+/***/ }),
+
+/***/ "./src/js/components/text.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Text; });
+
+var Text = function () {
+    this.init = function () {};
+};
+
+/***/ }),
+
+/***/ "./src/js/components/vector.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Vector; });
+
+var Vector = function () {
+    this.init = function () {};
+};
+
+/***/ }),
+
+/***/ "./src/js/utils/collect.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = collect;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collect_generateUUID__ = __webpack_require__("./src/js/utils/collect/generateUUID.js");
 
 
+function collect() {
 
+    var regexp = new RegExp('.*?\.wakkl', 'i');
+    var imgs = document.getElementsByTagName('img'),
+        img;
 
+    var elements = [],
+        id;
 
+    for (var i = 0; i < imgs.length; i++) {
 
+        img = imgs[i];
 
+        if (!img.hasAttribute('src')) continue;
+        if (!regexp.test(img.src)) continue;
 
+        var path, meta, sound, mask, vector;
 
+        path = img.currentSrc || img.src;
+        path = path.replace('.jpg', '');
+        path = path.replace('.wakkl', '');
+        path = path + '/';
+
+        loadJSON(path + 'meta.json', function (json) {
+            console.log(path);
+            meta = {
+                "Path": path,
+                "Count": json.Sequence.Count,
+                "AngleOfView": json.Sequence.AngleOfView,
+                "Phi": json.Sequence.Phi,
+                "Chi": json.Sequence.Chi
+            };
+            sound = json.Sound;
+            mask = json.Mask;
+            vector = json.Vector;
+        });
+
+        img.id = img.id || Object(__WEBPACK_IMPORTED_MODULE_0__collect_generateUUID__["a" /* generateUUID */])(); // making sure the img has an ID
+        img.meta = meta;
+        img.sound = sound;
+        img.mask = mask;
+        img.vector = vector;
+
+        elements.push(img);
+    }
+    return elements;
+}
+
+function loadJSON(path, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                if (callback) callback(data);
+            }
+        }
+    };
+    xhr.open('GET', path, false); // make synchronous XMLHttpRequest in order receive value outside of the callback function
+    xhr.send();
+}
+
+/***/ }),
+
+/***/ "./src/js/utils/collect/generateUUID.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = generateUUID;
+function generateUUID() {
+    // Public Domain/MIT
+    var d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+    });
+}
+
+/***/ }),
+
+/***/ "./src/js/utils/isElementVisible.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = isElementVisible;
+function isElementVisible(el) {
+    var rect = el.getBoundingClientRect(),
+        vWidth = window.innerWidth || doc.documentElement.clientWidth,
+        vHeight = window.innerHeight || doc.documentElement.clientHeight,
+        efp = function (x, y) {
+        return document.elementFromPoint(x, y);
+    };
+
+    // Return false if it's not in the viewport
+    if (rect.right < 0 || rect.bottom < 0 || rect.left > vWidth || rect.top > vHeight) return false;
+
+    // Return true if any of its four corners are visible
+    return el.contains(efp(rect.left, rect.top)) || el.contains(efp(rect.right, rect.top)) || el.contains(efp(rect.right, rect.bottom)) || el.contains(efp(rect.left, rect.bottom));
+}
 
 /***/ }),
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <!--<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>-->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     <style>
      img {
          object-fit: cover; width: 100%; height: 100%
@@ -14,8 +14,13 @@
 </head>
 
 <body>
-    <!-- <object data=<%= require('./images/Richterhaus_1920x1280.wakkl') %> type="image/jpeg"></object> -->
-    <img src=<%= require('./images/Richterhaus_1920x1280.wakkl') %>>
+    <figure>
+        <img src=<%= require('./images/Richterhaus_1920x1280.wakkl') %>>
+        <svg data-mask='vector'></svg>
+        <figcaption data-mask='text' data-x='' data-y='' data-z='' data-rotation-x='' data-rotation-y='' data-rotation-z=''>
+            <h1>Come on in</h1>
+        </figcaption>
+    </figure>
 </body>
 
 </html>

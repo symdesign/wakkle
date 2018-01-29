@@ -1,4 +1,6 @@
 
-export var vector = function() {
+export var Vector = function() {
+    this.init = function() {
 
+    }
 }

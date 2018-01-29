@@ -19,7 +19,7 @@ window.matchMedia || (window.matchMedia = function() {
 
         // 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
         info = ('getComputedStyle' in window) && window.getComputedStyle(style, null) || style.currentStyle;
-
+ 
         styleMedia = {
             matchMedium: function(media) {
                 var text = '@media ' + media + '{ #matchmediajs-test { width: 1px; } }';

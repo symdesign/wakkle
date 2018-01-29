@@ -1,4 +1,6 @@
 
-export var mask = function() {
+export var Mask = function() {
+    this.init = function() {
 
+    }
 }

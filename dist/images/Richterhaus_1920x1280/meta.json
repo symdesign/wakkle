@@ -1,9 +1,12 @@
 {
-    "wakkl": {
+    "Sequence": {
         "Count": 37,
         "AngleOfView": "Unknown",
         "Phi": "Unknown",
         "Chi": "Unknown"
+    },
+    "Sound": {
+        "Source": "sound.mp3"
     },
     "XMP-dc": {
         "Format": "image/tiff",
