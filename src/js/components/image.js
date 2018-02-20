@@ -9,20 +9,22 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
 
     this.initialized    = false;
     this.q              = 0.5;
+    this.idx;        // absolute image index
+    this._idx;       // temp absolute image index (easing)
 
     var that        = this,
         image       = new Image(),
         q,          // relative image index
-        idx,        // absolute image index
-        _idx,       // temp absolute image index (easing)
         count,      // number of loaded image
         listener;   // listens for changes of q made by controller
 
     this.init = function() {
-
+        
         count   = 0;
         image.onload = function() { // TODO: test if onload gets fired again inside init-function when currentSrc changes
+            
             loadImages();
+            
         }
         image.src = element.currentSrc || element.src;
 
@@ -74,6 +76,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
             },
             onComplete: function(loaded, errors) {
                 progress.style.display = 'none';
+                this.initialized = true;
             }
         });
     }
@@ -113,31 +116,59 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
         return array;
     }
 
-    function listen() {
-
-        _idx = _idx || 0;
-         idx = Math.round( (count-1) * that.q );
+    this.update = function() {
+        that._idx = that._idx || 0;
+         that.idx = Math.round( (count-1) * that.q );
         
         var image = document.getElementById(element.id).getElementsByTagName('img');
 
-        /* 
-        // this would be more performant than a for-loop each time but
-        // for some reasons not every image is hidden fromt he beginning
-        image[_idx].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
-        image[_idx].style.opacity   = 0;
-        */
 
-        for ( var i = 0; i < image.length; i++ ) {
-            image[i].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
-            image[i].style.opacity   = 0;
+        if (!that.initialized) {
+            for ( var i = 0; i < image.length; i++ ) {
+                image[i].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
+                image[i].style.opacity   = 0;
+            }
         }
+        // this is more performant than a for-loop each time but
+        // for some reasons not every image is hidden fromt he beginning
+        // so I have added it as long as the sequence is not completely initialized
+        image[that._idx].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
+        image[that._idx].style.opacity   = 0;
 
-        image[ idx].style.filter    = "alpha(opacity = 1)"; // Internet Explorer
-        image[ idx].style.opacity   = 1;
 
-        _idx = idx;
+        image[ that.idx].style.filter    = "alpha(opacity = 1)"; // Internet Explorer
+        image[ that.idx].style.opacity   = 1;
 
-        listener = window.requestAnimationFrame(listen)
+        that._idx = that.idx;
+    }
+
+    function listen() {
+
+        that._idx = that._idx || 0;
+         that.idx = Math.round( (count-1) * that.q );
+        
+        var image = document.getElementById(element.id).getElementsByTagName('img');
+
+
+        if (!that.initialized) {
+            for ( var i = 0; i < image.length; i++ ) {
+                image[i].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
+                image[i].style.opacity   = 0;
+            }
+        }
+        // this is more performant than a for-loop each time but
+        // for some reasons not every image is hidden fromt he beginning
+        // so I have added it as long as the sequence is not completely initialized
+        image[that._idx].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
+        image[that._idx].style.opacity   = 0;
+
+
+        image[ that.idx].style.filter    = "alpha(opacity = 1)"; // Internet Explorer
+        image[ that.idx].style.opacity   = 1;
+
+        that._idx = that.idx;
+
+        //listener = window.requestAnimationFrame(listen)
     }
 
 }

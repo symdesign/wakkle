@@ -1,11 +1,20 @@
 
 import {loadScript} from "./controller/loadScript.js";
 
-const pathToHeadtrackr = 'js/headtrackr.js';
+const HEADTRACKR = {
 
-var WIDTH = windowWidth(),
-    HEIGHT = windowHeight(),
-    getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+    path: 'js/headtrackr.js',
+    icon: {
+        on: require('./controller/icon-headtrackr-on.svg'),
+        off: require('./controller/icon-headtrackr-off.svg')
+    }
+
+}
+
+const WIDTH = windowWidth(),
+      HEIGHT = windowHeight();
+
+var getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 
 // Singleton http://robdodson.me/javascript-design-patterns-singleton/
 export var Controller = function() {
@@ -27,24 +36,31 @@ export var Controller = function() {
         mousedown,
         mouseMoveX,
         dX      = 0,
-        easing  = 0.01,
+        easing  = 0.05,
         q       = 0.5;
     
     var updater,
         components = [],
         component;
 
-    isMobile() ? set('orientationdrag') : set('mousemove');
 
     this.init = function() {
-        this.initialized = true;
+        
+        isMobile() ? set('deviceorientationdrag') : set('mousedrag');
+
+        // set('mouse_move_drag')
+        // set('device_orientation_drag')
+
         update();
+
+        this.initialized = true;
+
     }
 
     this.control = function( obj ) {
         components.push( obj );
     }
-    
+
     function update() {
         // TODO: performance optimisation -> delay in dependence of distance between last and current mouse position 
         // look up: ease to value in certain speed
@@ -53,14 +69,14 @@ export var Controller = function() {
             var component = components[i]
             that.q += (q - that.q) * easing; 
             component.q = that.q;
-            
+            component.update()
         }
-        updater = window.requestAnimationFrame(update);
     }
 
     function mouseHandler(e) {
         var mouseX = e.pageX;
         q = mouseX / WIDTH;
+        update();
     }
 
     function dragStart(e) {
@@ -95,12 +111,13 @@ export var Controller = function() {
         var dQ = dX / WIDTH;
         dQ = -dQ;
 
-        _q = 1 - q;
-
-        _q = _q + dQ;
-        _q = _q > 1 ? 1 : _q;
-        _q = _q < 0 ? 0 : _q;
-        q = 1 - _q;
+        q = 1 - q;
+        q = q + dQ;
+        q = q > 1 ? 1 : q;
+        q = q < 0 ? 0 : q;
+        q = 1 - q;
+        
+        update();
     }
 
     function deviceOrientationHandler(e) {
@@ -128,6 +145,7 @@ export var Controller = function() {
         q = (angle + 45) * (1 / 90);
         q = q < 0 ? 0 : q;
         q = q > 1 ? 1 : q;
+        update();
     }
 
     function headtrackringStatus(e) {
@@ -143,6 +161,7 @@ export var Controller = function() {
         q = q * 0.1
         q = q >= 1 ? 1 : q
         q = q <= 0 ? 0 : q
+        update();
     }
 
     function facetrackHandler(e) {
@@ -152,6 +171,7 @@ export var Controller = function() {
         q = q * 0.1
         q = q >= 1 ? 1 : q
         q = q <= 0 ? 0 : q
+        update();
     }
 
     function set(mode) {
@@ -185,8 +205,8 @@ export var Controller = function() {
                 setTouchdrag()
                 break;
 
-            case 'orientationdrag':
-                setOrientationDrag()
+            case 'deviceorientationdrag':
+                setDeviceOrientationDrag()
                 break;
         }
     }
@@ -225,14 +245,16 @@ export var Controller = function() {
         document.removeEventListener('touchmove', dragHandler);
     }
 
-    function setOrientationDrag() {
+
+
+    function setDeviceOrientationDrag() {
         window.addEventListener('deviceorientation', deviceOrientationHandler, false)
         document.addEventListener('touchstart', dragStart);
         document.addEventListener('touchmove', dragHandler);
         document.addEventListener('touchend', dragEnd);
     }
 
-    function unsetOrientationDrag() {
+    function unsetDeviceOrientationDrag() {
         window.removeEventListener('deviceorientation', deviceOrientationHandler, false)
         document.removeEventListener('touchstart', dragStart);
         document.removeEventListener('touchend', dragEnd);
@@ -241,7 +263,7 @@ export var Controller = function() {
 
 
     if (getUserMedia) {
-        loadScript(pathToHeadtrackr, getHeadtrackr);
+        loadScript( HEADTRACKR.path, getHeadtrackr );
     }
 
     function getHeadtrackr() {
@@ -325,7 +347,7 @@ export var Controller = function() {
             if (getUserMedia) list.push('headtrack')
         }
         if (isMobile()) {
-            list = ['orientationdrag'];
+            list = ['deviceorientationdrag'];
         }
 
         return list;
@@ -393,7 +415,7 @@ function windowHeight() {
 }
 var onresize = function(e) {
     WIDTH = windowWidth(),
-        HEIGHT = windowHeight();
+    HEIGHT = windowHeight();
 }
 window.addEventListener("resize", onresize); 
 

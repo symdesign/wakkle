@@ -2,8 +2,10 @@
     "Sequence": {
         "Count": 37,
         "AngleOfView": "Unknown",
-        "Phi": "Unknown",
-        "Chi": "Unknown"
+        "Phi": -36,
+        "Chi": 14,
+        "OriginX": "50%",
+        "OriginY": "55%"
     },
     "Sound": {
         "Source": "sound.mp3"
