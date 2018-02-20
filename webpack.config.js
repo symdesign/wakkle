@@ -6,13 +6,19 @@ const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackReloadPlugin = require('reload-html-webpack-plugin');
+const HtmlWebpackPolyfillIOPlugin = require('html-webpack-polyfill-io-plugin')
 
 // CSS File Handling
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurifyCSSPlugin = require('purifycss-webpack');
 
-// Dynamic Assets Handling
+
+// External Assets (copy only)
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+// External Assets (include)
+//require('./src/js/vendor/ResizeSensor.js')
+
 
 // Configurations
 var cssDev = [
@@ -54,6 +60,10 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif|json|wakkl)$/,
                 use: 'file-loader?name=[name].[ext]&outputPath=images/'
+            },
+            {
+                test: /\.svg$/,
+                use: 'svg-inline-loader?removeTags=true'
             }
         ]
     },
@@ -81,8 +91,9 @@ module.exports = {
         }),
         new HtmlWebpackHarddiskPlugin(),
         new HtmlWebpackReloadPlugin(),
+        new HtmlWebpackPolyfillIOPlugin(),
 
-        new CopyWebpackPlugin([
+        new CopyWebpackPlugin([ // Those files become copied to dist
             {
                 context: path.resolve(__dirname, './src/'),
                 from: 'images/*/*', 
@@ -90,7 +101,12 @@ module.exports = {
             },
             {
                 context: path.resolve(__dirname, './src/'),
-                from: 'js/conditionals/headtrackr.js', 
+                from: 'js/vendor/headtrackr.js', 
+                to: path.resolve(__dirname, './dist/js/')
+            },
+            {
+                context: path.resolve(__dirname, './src/'),
+                from: 'js/vendor/matchMedia.js', 
                 to: path.resolve(__dirname, './dist/js/')
             }
         ]),

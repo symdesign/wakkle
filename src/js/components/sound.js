@@ -40,26 +40,20 @@ export var Sound = function( element ) {
     }
 
     this.start = function() {
-        listen();
         play();
     }
     this.stop = function() {
-        unlisten();
         pause();
     }
 
-    function listen() {
-        var x = (that.q - 0.5) * 2,
+    this.update = function() {
+        var x = -1 * (that.q - 0.5) * 2,
         y = 0,
         z = 1 - Math.abs(x);
     
         panner.setPosition(x,y,z);
-        listener = window.requestAnimationFrame(listen);
     }
-    function unlisten() {
-        listener = window.cancelAnimationFrame(listen);
-    }
-    
+
     function play() {
         volume = 1
 
