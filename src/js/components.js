@@ -55,9 +55,9 @@ export var init = function( settings ) {
 
         //if ( !isElementVisible( element ) ) { // Needs to be fixed
 
-            controller[i] = new Controller();
-            controller[i].init();
+            controller[i] = new Controller( element );
             controller[i].UI = settings.ui;
+            controller[i].init();
 
             image[i] = new Sequence( element );
             image[i].init();

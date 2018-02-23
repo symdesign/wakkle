@@ -10,5 +10,6 @@ wakkl.init({
         xy: false,
         yz: false,
         xz: false
-    }
+    },
+    ui: true
 });
