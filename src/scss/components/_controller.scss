@@ -1,4 +1,19 @@
 
-@import "controller/drag";
-@import "controller/move";
-@import "controller/headtrackr";
+@import "controller/mouse-move";
+@import "controller/mouse-drag";
+@import "controller/touch-drag";
+@import "controller/device-orientation";
+@import "controller/head-move";
+
+.control-buttons {
+    top: 0;
+    right: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0.5em 1em;
+}
+
+.control-button {
+    display: inline-block;
+    padding: 0.5em;
+}

@@ -145,7 +145,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
     function listen() {
 
         that._idx = that._idx || 0;
-         that.idx = Math.round( (count-1) * that.q );
+        that.idx = Math.round( (count-1) * that.q );
         
         var image = document.getElementById(element.id).getElementsByTagName('img');
 
