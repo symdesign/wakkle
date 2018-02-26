@@ -2,11 +2,10 @@
 import {generateUUID} from './collector/generateUUID';
 import { setTimeout } from 'timers';
 
-var elementResizeDetectorMaker = require("element-resize-detector");
-var ResizeDetector = elementResizeDetectorMaker();
+// var elementResizeDetectorMaker = require("element-resize-detector");
+// var ResizeDetector = elementResizeDetectorMaker();
 
-
-/* import 'script-loader!./../vendor/ResizeSensor.js';*/
+import observeResize from 'simple-element-resize-detector';
 
 const WAKKL_FILE_EXTENSION = 'wakkl';
 const WAKKL_TAGNAME  = 'wakkl-image';
@@ -72,7 +71,7 @@ export var Collector = function() {
                 'display':              'block',
                 'width':                '100%',
                 'height':               '0',
-                'padding-bottom':       ( img.height / img.width * 100 ) + '%',
+                'padding-bottom':       ( img.naturalHeight / img.naturalWidth * 100 ) + '%',
 
                 'overflow':             'hidden',
     
@@ -98,14 +97,22 @@ export var Collector = function() {
 
         for ( var i = 0; i < elements.length; i++ ) {
     
-            ResizeDetector.listenTo( elements[i], function( element ) {
 
+            observeResize(elements[i], ( element ) => {
                 var width = element.children[0].offsetWidth,
                     height = element.children[0].offsetHeight;
                 
                 element.style.perspective = getCSSPerspective( img.meta.FOV, width, height );
-
             });
+
+            // ResizeDetector.listenTo( elements[i], function( element ) {
+
+            //     var width = element.children[0].offsetWidth,
+            //         height = element.children[0].offsetHeight;
+                
+            //     element.style.perspective = getCSSPerspective( img.meta.FOV, width, height );
+
+            // });
             
         }
 

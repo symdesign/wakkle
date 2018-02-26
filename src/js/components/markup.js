@@ -125,7 +125,7 @@ export var Markup = function( element ) {
                 'display':          'flex',
                 'align-items':      'center',
                 'justify-content':  'center',
-                'transform-style':  'preserve-3d'
+
             });
             Object.assign( placement.style, {
                 'position':         'absolute',

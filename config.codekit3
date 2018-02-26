@@ -1395,16 +1395,6 @@
 		"sC": 1,
 		"tS": 0
 		},
-	"\/dist\/js\/matchMedia.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/dist\/js\/matchMedia-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
 	"\/node_modules": {
 		"ft": 65536,
 		"oA": 2,
@@ -2865,6 +2855,16 @@
 		"sC": 1,
 		"tS": 0
 		},
+	"\/src\/js\/components\/controller\/control-icons.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/src\/js\/components\/controller\/control-icons.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
 	"\/src\/js\/components\/controller\/loadScript.js": {
 		"ft": 64,
 		"ma": 0,
@@ -2991,26 +2991,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/src\/js\/vendor\/headtrackr-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
-	"\/src\/js\/vendor\/matchMedia.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/src\/js\/vendor\/matchMedia-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
-	"\/src\/js\/vendor\/ResizeSensor.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/src\/js\/vendor\/ResizeSensor-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -3167,7 +3147,7 @@
 		"oS": 0,
 		"uL": 1
 		},
-	"\/src\/scss\/components\/controller\/_drag.scss": {
+	"\/src\/scss\/components\/controller\/_device-orientation.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
@@ -3175,12 +3155,12 @@
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
-		"oAP": "\/src\/scss\/components\/controller\/_drag.css",
+		"oAP": "\/src\/scss\/components\/controller\/_device-orientation.css",
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
 		},
-	"\/src\/scss\/components\/controller\/_headtrackr.scss": {
+	"\/src\/scss\/components\/controller\/_head-move.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
@@ -3188,12 +3168,12 @@
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
-		"oAP": "\/src\/scss\/components\/controller\/_headtrackr.css",
+		"oAP": "\/src\/scss\/components\/controller\/_head-move.css",
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
 		},
-	"\/src\/scss\/components\/controller\/_move.scss": {
+	"\/src\/scss\/components\/controller\/_mouse-drag.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
@@ -3201,12 +3181,12 @@
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
-		"oAP": "\/src\/scss\/components\/controller\/_move.css",
+		"oAP": "\/src\/scss\/components\/controller\/_mouse-drag.css",
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
 		},
-	"\/src\/scss\/components\/controller\/_orientation.scss": {
+	"\/src\/scss\/components\/controller\/_mouse-move.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
@@ -3214,7 +3194,20 @@
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
-		"oAP": "\/src\/scss\/components\/controller\/_orientation.css",
+		"oAP": "\/src\/scss\/components\/controller\/_mouse-move.css",
+		"oF": 0,
+		"oS": 0,
+		"uL": 1
+		},
+	"\/src\/scss\/components\/controller\/_touch-drag.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/src\/scss\/components\/controller\/_touch-drag.css",
 		"oF": 0,
 		"oS": 0,
 		"uL": 1

@@ -9,7 +9,7 @@ import {Markup}     from './components/markup';
 import {Vector}     from './components/vector';
 import {Grid}       from './components/grid';
 
-import {isElementVisible}   from './utils/isElementVisible';
+//import {isElementVisible}   from './utils/isElementVisible';
 
 
 export var init = function( settings ) {
@@ -73,9 +73,9 @@ export var init = function( settings ) {
 
             markup[i] = new Markup( element );
             markup[i].init();
-            markup[i].insert( grid.xy );
-            markup[i].insert( grid.yz );
-            markup[i].insert( grid.xz );
+            if ( settings.grid.xy ) markup[i].insert( grid.xy );
+            if ( settings.grid.yz ) markup[i].insert( grid.yz );
+            if ( settings.grid.xz ) markup[i].insert( grid.xz );
             controller[i].control( markup[i] );
 
             vector[i] = new Vector( element );

@@ -88,6 +88,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
         image.style.filter = "alpha(opacity = 0)"; // Internet Explorer
         image.style.opacity = 0;
         image.style.position = 'absolute'; // stack images on z axis
+
         if (objectFit != 'fill' && objectFit != 'none') {
             image.style.objectFit = objectFit;
             image.style.width = (element.hasAttribute('width') ? element.width : element.style.width) || '100%';

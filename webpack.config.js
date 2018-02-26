@@ -5,19 +5,14 @@ const glob = require('glob');
 // HTML Templates
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const HtmlWebpackReloadPlugin = require('reload-html-webpack-plugin');
 const HtmlWebpackPolyfillIOPlugin = require('html-webpack-polyfill-io-plugin')
 
 // CSS File Handling
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const PurifyCSSPlugin = require('purifycss-webpack');
 
 
 // External Assets (copy only)
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-// External Assets (include)
-//require('./src/js/vendor/ResizeSensor.js')
 
 
 // Configurations
@@ -32,7 +27,7 @@ var cssProd = ExtractTextPlugin.extract({
 });
 
 // Production or Development
-var isProd = process.env.NODE_ENV === 'prod'; // true or false
+var isProd = process.env.NODE_ENV === 'production'; // true or false
 var cssConfig = isProd ? cssProd : cssDev;
 
 
@@ -79,10 +74,6 @@ module.exports = {
             filename: 'css/style.css',
             disable: !isProd
         }),
-        new PurifyCSSPlugin({
-            paths: glob.sync(path.join(__dirname, 'src/*.html')),
-        }),
-
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './src/index.ejs',
@@ -90,7 +81,6 @@ module.exports = {
             hash: true
         }),
         new HtmlWebpackHarddiskPlugin(),
-        new HtmlWebpackReloadPlugin(),
         new HtmlWebpackPolyfillIOPlugin(),
 
         new CopyWebpackPlugin([ // Those files become copied to dist
@@ -101,14 +91,9 @@ module.exports = {
             },
             {
                 context: path.resolve(__dirname, './src/'),
-                from: 'js/vendor/headtrackr.js', 
+                from: 'js/vendor/headtrackr.min.js', 
                 to: path.resolve(__dirname, './dist/js/')
             },
-            {
-                context: path.resolve(__dirname, './src/'),
-                from: 'js/vendor/matchMedia.js', 
-                to: path.resolve(__dirname, './dist/js/')
-            }
         ]),
 
         new webpack.HotModuleReplacementPlugin(),
