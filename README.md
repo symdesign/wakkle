@@ -1,7 +1,8 @@
 # wakkl
 Wakkl is a JavaScript library for multi-sensory three-dimensional photographs. For more background information to the project or to find out how to contribute, please read the Wiki.
 
-## File structure
+
+## Files
 The file structure inside your `images` directory needs to look as follows.
 ```
 images
@@ -29,9 +30,9 @@ For better visibility you can replace the original file extension `.jpg` with `.
 Make sure that the folder which includes the image's assets has the same name as your wakkl-image but without its file extension.
 
 ### meta.json
-`meta.json` contains the exif data of any image of the sequence. As you can see, it contains amongst other things information about the camera, the artist and the lens. 
+`meta.json` contains the exif data of any image of the sequence. As you can see, it contains amongst other things information about the camera, the artist and the lens. But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
  
-But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
+I am currently working on a wizard that facilitates writing the `meta.json` file.
  
 Depending on the feature components (see below) you would like to use, you can include dataset attributes to the file as well.
 ```
@@ -123,7 +124,7 @@ This component requires `phi` and `chi` dataset attribute or the `arc`'s angle v
     <object><!-- HTML goes here. --></object>
 </wakkl-image>
 ```
-Elements wrapped inside the object will be mapped automatically  to the user's interaction. In addition, they can be moved and rotated with attributes `x`. `y`, `z` and `rotation-x`, `rotation-y`and `rotation-z`.
+Elements wrapped inside the object will be mapped automatically  to the user's interaction. In addition, they can be moved and rotated with attributes `x`, `y`, `z` and `rotation-x`, `rotation-y`and `rotation-z`.
 
 ### Vector
 This feature is not yet supported but coming soon!
@@ -133,3 +134,21 @@ This feature is not yet supported but coming soon!
 
 ### Masks
 This feature is not yet supported but coming soon!
+
+
+
+
+
+## How to contribute?
+
+
+Spread the word! And if you like, help me with the code :)
+
+
+```
+git clone https://github.com/symdesign/wakkl.git
+```
+
+```
+npm install
+```
