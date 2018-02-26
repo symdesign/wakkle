@@ -29,13 +29,14 @@ For better visibility you can replace the original file extension `.jpg` with `.
 Make sure that the folder which includes the image's assets has the same name as your wakkl-image but without its file extension.
 
 ### meta.json
-`meta.json` contains the exif data of any image of the sequence. As you can see, it contains amongst other things information about the camera, the artist and the lens.
+`meta.json` contains the exif data of any image of the sequence. As you can see, it contains amongst other things information about the camera, the artist and the lens. 
+ 
+But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
  
 Depending on the feature components (see below) you would like to use, you can include dataset attributes to the file as well.
 ```
 {
     "XMP-exif": {
-        "ExifToolVersion": 10.77,
 
         ...
 
@@ -43,18 +44,11 @@ Depending on the feature components (see below) you would like to use, you can i
         "ExifByteOrder": "Little-endian (Intel, II)",
         "Make": "Canon",
         "Model": "Canon EOS 600D",
-        "XResolution": 300,
-        "YResolution": 300,
-        "ResolutionUnit": "inches",
-        "Software": "Adobe Photoshop Lightroom Classic 7.0",
-        "ModifyDate": "2018:01:28 21:48:59",
         "Artist": "Friedrich Schultheiss",
-        "ExposureTime": "1/50",
 
         ...
 
         "Lens": "11-16mm",
-        "ImageNumber": 0,
         "ApproximateFocusDistance": 4294967295,
         
         ...
@@ -62,8 +56,7 @@ Depending on the feature components (see below) you would like to use, you can i
         "FOV": "92.3 deg",
         "FocalLength35efl": "11.0 mm (35 mm equivalent: 17.3 mm)",
         "HyperfocalDistance": "1.27 m",
-        "LensID": "Tokina AT-X 116 AF Pro DX 11-16mm f/2.8",
-        "LightValue": 10.3
+        "LensID": "Tokina AT-X 116 AF Pro DX 11-16mm f/2.8"
     },
 
     "WAKKL-dataset": {
@@ -103,6 +96,20 @@ Depending on the feature components (see below) you would like to use, you can i
 - `grid`: (default: `false`) A grid on the xy plane in the scene
 - `ui`: (default: `true`) Icons that allow switch between different controllers
 - `fullscreen`: (default: `false`) Fullscreen button
+
+
+## Controllers
+
+### Mouse move
+
+### Mouse drag
+
+### Device orientation
+
+### Touch drag
+
+### Head move
+
 
 
 ## Feature components
