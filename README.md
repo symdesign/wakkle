@@ -40,14 +40,9 @@ Depending on the feature components (see below) you would like to use, you can i
 
         ...
 
-        "MIMEType": "image/jpeg",
-        "ExifByteOrder": "Little-endian (Intel, II)",
         "Make": "Canon",
         "Model": "Canon EOS 600D",
         "Artist": "Friedrich Schultheiss",
-
-        ...
-
         "Lens": "11-16mm",
         "ApproximateFocusDistance": 4294967295,
         
