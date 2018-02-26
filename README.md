@@ -80,11 +80,11 @@ Depending on the feature components (see below) you would like to use, you can i
 
 
 
-## Installation
+## Useage
 1. Simply insert your multi-sensory, three-dimensional photograph into your html document the following way.
 ```html
 <img src="images/[your-image].wakkl">
-```
+``` 
 2. Add the JavaScript file at the end of your html document, before the closing body tag.
 ```html
 <script src="wakkl.min.js"></script>
@@ -97,6 +97,7 @@ Depending on the feature components (see below) you would like to use, you can i
 </script>
 ```
 
+
 ## Options
 
 - `grid`: (default: `false`) A grid on the xy plane in the scene
@@ -107,19 +108,20 @@ Depending on the feature components (see below) you would like to use, you can i
 ## Feature components
 
 ### Image
-requires the `count` dataset attribute.
+This component requires the `count` dataset attribute which contains the length of the sequence. It can be set inside `meta.json` (recommended) or as html attribute.
 
 ### Sound
-requires the `sound` dataset attribute.
+This component requires the `sound` dataset attribute which contains the path to a sound file (relative to the image's asset folder). It can be set inside `meta.json` (recommended) or as html attribute.
 
 ### Markup
-requires `phi` and `chi` dataset attribute or the `arc`'s angle value.
-
+This component requires `phi` and `chi` dataset attribute or the `arc`'s angle value as well as rapping your image between `<wakkl-image>` and `</wakkl-image>`.
 ```html
-<object><!-- HTML markup goes here. --></object>
+<wakkl-image>
+    <img src="images/[your-image].wakkl">
+    <object><!-- HTML goes here. --></object>
+</wakkl-image>
 ```
-
- x='0' y='0' z='0' rotation-x='0' rotation-y='0' rotation-z='0'
+Elements wrapped inside the object will be mapped automatically  to the user's interaction. In addition, they can be moved and rotated with attributes `x`. `y`, `z` and `rotation-x`, `rotation-y`and `rotation-z`.
 
 ### Vector
 This feature is not yet supported but coming soon!

@@ -1375,25 +1375,42 @@
 		"oAP": "\/dist\/index.html",
 		"oF": 0
 		},
-	"\/dist\/js\/app.js": {
+	"\/dist\/js\/headtrackr.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/dist\/js\/app-min.js",
+		"oAP": "\/dist\/js\/headtrackr.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/dist\/js\/headtrackr.js": {
+	"\/dist\/js\/wakkl.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/dist\/js\/headtrackr-min.js",
+		"oAP": "\/dist\/js\/wakkl-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
+		},
+	"\/dist\/js\/wakkl.min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/dist\/js\/wakkl.min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/LICENSE": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/LICENSE",
+		"oF": 0
 		},
 	"\/node_modules": {
 		"ft": 65536,
@@ -2991,6 +3008,16 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/src\/js\/vendor\/headtrackr-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/src\/js\/vendor\/headtrackr.min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/src\/js\/vendor\/headtrackr.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
