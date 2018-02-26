@@ -32,6 +32,7 @@
     "style-loader": "^0.19.1",
     "svg-inline-loader": "^0.8.0",
     "svg-loader": "0.0.2",
+    "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-sass-loader": "^2.2.1"

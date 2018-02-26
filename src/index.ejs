@@ -16,7 +16,7 @@
 
     <wakkl-image>
 
-        <img src=<%= require('./images/Richterhaus_1920x1280.wakkl') %>>
+        <img src="<%= require('./images/Richterhaus_1920x1280.wakkl') %>">
         <!-- Sequence gets loaded here. -->
 
         <svg><!-- SVG goes here. --></svg>
@@ -34,6 +34,18 @@
         
     </wakkl-image>
 
-</body>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 
+    <% for (key in htmlWebpackPlugin.files.js) { %>
+	<script src="<%= htmlWebpackPlugin.files.js[key] %>"></script>
+    <% } %>
+
+    <script>
+        wakkl.init({
+            grid: false,
+            ui: true
+        });
+    </script>
+
+</body>
 </html>

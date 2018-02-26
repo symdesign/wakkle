@@ -7,9 +7,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPolyfillIOPlugin = require('html-webpack-polyfill-io-plugin')
 
-// CSS File Handling
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// JS
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+// CSS File Handling
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // External Assets (copy only)
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -33,7 +35,8 @@ var cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
     entry: {
-        app: './src/js/app.js'
+        'wakkl': './src/js/app.js',
+        'wakkl.min': './src/js/app.js'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -65,7 +68,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true, // gzip compression
-        stats: "errors-only",
+        stats: 'errors-only',
         hot: true,
         open: true
     },
@@ -77,11 +80,16 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './src/index.ejs',
-            chunks: ['app'],
-            hash: true
+            chunks: ['wakkl.min'],
+            hash: false,
+            inject : false
         }),
         new HtmlWebpackHarddiskPlugin(),
         new HtmlWebpackPolyfillIOPlugin(),
+
+        new UglifyJsPlugin({
+            include: /\.min\.js$/
+        }),
 
         new CopyWebpackPlugin([ // Those files become copied to dist
             {
