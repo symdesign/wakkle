@@ -69,7 +69,7 @@ Depending on the feature components (see below) you would like to use, you can i
 
 
 
-## Useage
+## Usage
 1. Simply insert your multi-sensory, three-dimensional photograph into your html document the following way.
 ```html
 <img src="images/[your-image].wakkl">

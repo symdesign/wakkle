@@ -5,7 +5,6 @@ const glob = require('glob');
 // HTML Templates
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const HtmlWebpackPolyfillIOPlugin = require('html-webpack-polyfill-io-plugin')
 
 // JS
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -85,7 +84,6 @@ module.exports = {
             inject : false
         }),
         new HtmlWebpackHarddiskPlugin(),
-        new HtmlWebpackPolyfillIOPlugin(),
 
         new UglifyJsPlugin({
             include: /\.min\.js$/
