@@ -62,7 +62,7 @@ var wakkle =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a2de9460fbebdb8ae28a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b09d955db843b05aca54"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1398,13 +1398,13 @@ var Collector = function () {
                 img.vector = json.Vector;
                 img.meta = {
                     "Path": path,
-                    "Count": json['Sequence'].Count,
-                    "AngleOfView": json['Sequence'].AngleOfView,
-                    "Phi": json['Sequence'].Phi,
-                    "Chi": json['Sequence'].Chi,
+                    "Count": json['WAKKLE-dataset'].Count,
+                    "AngleOfView": json['WAKKLE-dataset'].AngleOfView,
+                    "Phi": json['WAKKLE-dataset'].Phi,
+                    "Chi": json['WAKKLE-dataset'].Chi,
                     "FOV": parseFloat(json['XMP-exif'].FOV),
-                    "OriginX": json['Sequence'].OriginX,
-                    "OriginY": json['Sequence'].OriginY
+                    "OriginX": json['WAKKLE-dataset'].OriginX,
+                    "OriginY": json['WAKKLE-dataset'].OriginY
                 };
             });
 
@@ -1552,7 +1552,7 @@ const HEAD_MOVE = {
     icon: {
         selector: '#icon-head-move'
     },
-    lib: 'js/headtrackr.js'
+    lib: 'js/headtrackr.min.js'
 };
 
 const MOUSE_MOVE = {

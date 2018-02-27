@@ -1,11 +1,6 @@
 
-import {generateUUID} from './collector/generateUUID';
-import { setTimeout } from 'timers';
-
-// var elementResizeDetectorMaker = require("element-resize-detector");
-// var ResizeDetector = elementResizeDetectorMaker();
-
 import observeResize from 'simple-element-resize-detector';
+import {generateUUID} from './collector/generateUUID';
 
 const WAKKLE_FILE_EXTENSION = 'wakkle';
 const WAKKLE_TAGNAME  = 'wakkle-image';
@@ -45,16 +40,22 @@ export var Collector = function() {
                 img.vector  = json.Vector;
                 img.meta = {
                     "Path":         path,
-                    "Count":        json[ 'Sequence' ].Count,
-                    "AngleOfView":  json[ 'Sequence' ].AngleOfView,
-                    "Phi":          json[ 'Sequence' ].Phi,
-                    "Chi":          json[ 'Sequence' ].Chi,
+                    "Count":        json[ 'WAKKLE-dataset' ].Count,
+                    "Phi":          json[ 'WAKKLE-dataset' ].Phi,
+                    "Chi":          json[ 'WAKKLE-dataset' ].Chi,
                     "FOV":          parseFloat( json[ 'XMP-exif' ].FOV ),
-                    "OriginX":      json[ 'Sequence' ].OriginX,
-                    "OriginY":      json[ 'Sequence' ].OriginY,
+                    "OriginX":      json[ 'WAKKLE-dataset' ].OriginX,
+                    "OriginY":      json[ 'WAKKLE-dataset' ].OriginY,
                 }
             });
-    
+
+            if ( !img.meta.Count ) img.meta.Count = img.getAttribute('count') || console.error('Sequence count is not defined.');
+            if ( !img.meta.FOV ) img.meta.FOV = img.getAttribute('fov') || console.error('FOV is not defined.');
+            if ( !img.meta.Phi ) img.meta.Phi = img.getAttribute('phi') || console.error('Angle phi is not defined.');
+            if ( !img.meta.Chi ) img.meta.Chi = img.getAttribute('chi') || console.error('Angle chi is not defined.');
+            if ( !img.meta.OriginX ) img.meta.OriginX = img.getAttribute('origin-x') || console.error('Perspective origin X is not defined.');
+            if ( !img.meta.OriginY ) img.meta.OriginX = img.getAttribute('origin-y') || console.error('Perspective origin Y is not defined.');
+
             document.registerElement( WAKKLE_TAGNAME );
             img.wrapper     = img.parentElement.nodeName.toLowerCase() == WAKKLE_TAGNAME ? img.parentElement : wrap( img );
             img.wrapper.id  = img.id;
@@ -96,7 +97,6 @@ export var Collector = function() {
         var elements = document.getElementsByTagName( WAKKLE_TAGNAME );
 
         for ( var i = 0; i < elements.length; i++ ) {
-    
 
             observeResize(elements[i], ( element ) => {
                 var width = element.children[0].offsetWidth,
@@ -104,22 +104,12 @@ export var Collector = function() {
                 
                 element.style.perspective = getCSSPerspective( img.meta.FOV, width, height );
             });
-
-            // ResizeDetector.listenTo( elements[i], function( element ) {
-
-            //     var width = element.children[0].offsetWidth,
-            //         height = element.children[0].offsetHeight;
-                
-            //     element.style.perspective = getCSSPerspective( img.meta.FOV, width, height );
-
-            // });
             
         }
 
     }
 
 }
-
 
 
 function loadJSON(path, callback) {

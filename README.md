@@ -57,7 +57,7 @@ Depending on the feature components (see below) you would like to use, you can i
         "LensID": "Tokina AT-X 116 AF Pro DX 11-16mm f/2.8"
     },
 
-    "WAKKL-dataset": {
+    "WAKKLE-dataset": {
         "Count": 30,
         "Phi": -36,
         "Chi": 14,
