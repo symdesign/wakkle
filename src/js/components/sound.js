@@ -47,17 +47,17 @@ export var Sound = function( element ) {
     }
 
     this.update = function() {
-        var x = -1 * (that.q - 0.5) * 2,
+        var x = -1 * (that.q - 0.5) * 2, // values between 1 and -1
         y = 0,
-        z = 1 - Math.abs(x);
-    
+        z = 0.5;
+        
         panner.setPosition(x,y,z);
     }
 
     function play() {
         volume = 1
 
-        audio.play()
+        //audio.play()
         level = audio.volume + speed >= volume ? volume : audio.volume + speed
         audio.volume = level
 

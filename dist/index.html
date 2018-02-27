@@ -10,28 +10,44 @@
          object-fit: cover; width: 100%; height: 100%
      }
     </style>
-<link href="css/style.css?c9ce8b2313cd04542b83" rel="stylesheet"><script src="https://cdn.polyfill.io/v2/polyfill.js"></script></head>
+</head>
 
 <body>
-    <wakkl>
 
-        <img src=images/Richterhaus_1920x1280.wakkl>
+    <wakkle-image>
+
+        <img src="images/Richterhaus_1920x1280.wakkle">
         <!-- Sequence gets loaded here. -->
 
         <svg><!-- SVG goes here. --></svg>
         
         <canvas><!-- WebGL goes here. --></canvas>
 
-        <object>
+        <object><!-- HTML markup goes here. -->
 
-            <div data-x='0' data-y='10' data-z='10' data-rotation-x='0' data-rotation-y='0' data-rotation-z='0'>
+            <div x='0' y='0' z='0' rotation-x='0' rotation-y='0' rotation-z='0' style="transform: translateY(-50%)">
                 <h1>Here we go!</h1>
                 <p>This is a canvas for html elements.</p>
             </div>
             
         </object>
         
-    </wakkl>
-<script type="text/javascript" src="./js/app.js?c9ce8b2313cd04542b83"></script></body>
+    </wakkle-image>
 
-</html><script src="http://localhost:8196/socket.io/socket.io.js"></script><script>var socket = io.connect("http://localhost:8196");socket.on("reload", function(){window.location.reload()});</script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+    
+	<script src="./js/wakkle.js"></script>
+    
+
+    <script>
+
+        wakkl.init({
+            grid: false,
+            ui: true
+        });
+
+    </script>
+
+</body>
+</html>

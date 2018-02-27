@@ -4,6 +4,7 @@
   "description": "A JavaScript library for multi-sensory three-dimensional photographs.",
   "main": "index.js",
   "dependencies": {
+    "simple-element-resize-detector": "^1.1.0",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "style-loader": "^0.19.1",
     "svg-inline-loader": "^0.8.0",
     "svg-loader": "0.0.2",
+    "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-sass-loader": "^2.2.1"
@@ -38,7 +40,7 @@
   "scripts": {
     "dev": "npm run clean && webpack -d --watch",
     "dev-server": "webpack-dev-server --open 'google chrome'",
-    "prod": "npm run clean && NODE_ENV=prod webpack",
+    "prod": "npm run clean && NODE_ENV=production webpack",
     "clean": "rimraf ./dist/*"
   },
   "repository": {
