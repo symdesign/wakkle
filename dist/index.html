@@ -14,9 +14,9 @@
 
 <body>
 
-    <wakkl-image>
+    <wakkle-image>
 
-        <img src=images/Richterhaus_1920x1280.wakkl>
+        <img src="images/Richterhaus_1920x1280.wakkle">
         <!-- Sequence gets loaded here. -->
 
         <svg><!-- SVG goes here. --></svg>
@@ -32,16 +32,21 @@
             
         </object>
         
-    </wakkl-image>
+    </wakkle-image>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
     
-	    <script src="./js/wakkl.min.js"></script>
+	<script src="./js/wakkle.js"></script>
     
 
     <script>
+
         wakkl.init({
             grid: false,
             ui: true
         });
+
     </script>
 
 </body>

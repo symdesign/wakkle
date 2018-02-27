@@ -1,19 +1,10 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["wakkl"] = factory();
-	else
-		root["wakkl"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+var wakkle =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	function hotDisposeChunk(chunkId) {
 /******/ 		delete installedChunks[chunkId];
 /******/ 	}
-/******/ 	var parentHotUpdateCallback = window["webpackHotUpdatewakkl"];
-/******/ 	window["webpackHotUpdatewakkl"] = 
+/******/ 	var parentHotUpdateCallback = window["webpackHotUpdatewakkle"];
+/******/ 	window["webpackHotUpdatewakkle"] = 
 /******/ 	function webpackHotUpdateCallback(chunkId, moreModules) { // eslint-disable-line no-unused-vars
 /******/ 		hotAddUpdateChunk(chunkId, moreModules);
 /******/ 		if(parentHotUpdateCallback) parentHotUpdateCallback(chunkId, moreModules);
@@ -71,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5c3aec2871a18959b675"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a2de9460fbebdb8ae28a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1241,34 +1232,23 @@ module.exports = g;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return version; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss__ = __webpack_require__("./src/scss/style.scss");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_document_register_element__ = __webpack_require__("./node_modules/document-register-element/build/document-register-element.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_document_register_element___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_document_register_element__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components__ = __webpack_require__("./src/js/components.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_collector__ = __webpack_require__("./src/js/components/collector.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_controller__ = __webpack_require__("./src/js/components/controller.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_image__ = __webpack_require__("./src/js/components/image.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_mask__ = __webpack_require__("./src/js/components/mask.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sound__ = __webpack_require__("./src/js/components/sound.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_markup__ = __webpack_require__("./src/js/components/markup.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_vector__ = __webpack_require__("./src/js/components/vector.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_grid__ = __webpack_require__("./src/js/components/grid.js");
 
 
 
-
-
-
-
-/***/ }),
-
-/***/ "./src/js/components.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export init */
-/* unused harmony export setControl */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_collector__ = __webpack_require__("./src/js/components/collector.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_controller__ = __webpack_require__("./src/js/components/controller.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_image__ = __webpack_require__("./src/js/components/image.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_mask__ = __webpack_require__("./src/js/components/mask.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_sound__ = __webpack_require__("./src/js/components/sound.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_markup__ = __webpack_require__("./src/js/components/markup.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_vector__ = __webpack_require__("./src/js/components/vector.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_grid__ = __webpack_require__("./src/js/components/grid.js");
 
 
 
@@ -1282,6 +1262,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 //import {isElementVisible}   from './utils/isElementVisible';
 
+var version = '1.0';
 
 var init = function (settings) {
 
@@ -1300,13 +1281,13 @@ var init = function (settings) {
         settings.grid.xy = settings.grid.yz = settings.grid.xz = status;
     }
 
-    var grid = new __WEBPACK_IMPORTED_MODULE_7__components_grid__["a" /* Grid */]({
+    var grid = new __WEBPACK_IMPORTED_MODULE_9__components_grid__["a" /* Grid */]({
         xy: settings.grid.xy,
         yz: settings.grid.yz,
         xz: settings.grid.xz
     });
 
-    var collector = new __WEBPACK_IMPORTED_MODULE_0__components_collector__["a" /* Collector */]();
+    var collector = new __WEBPACK_IMPORTED_MODULE_2__components_collector__["a" /* Collector */]();
     collector.init();
     collector.ResizeSensor();
 
@@ -1324,30 +1305,30 @@ var init = function (settings) {
 
         //if ( !isElementVisible( element ) ) { // Needs to be fixed
 
-        controller[i] = new __WEBPACK_IMPORTED_MODULE_1__components_controller__["a" /* Controller */](element);
+        controller[i] = new __WEBPACK_IMPORTED_MODULE_3__components_controller__["a" /* Controller */](element);
         controller[i].UI = settings.ui;
         controller[i].init();
 
-        image[i] = new __WEBPACK_IMPORTED_MODULE_2__components_image__["a" /* Sequence */](element);
+        image[i] = new __WEBPACK_IMPORTED_MODULE_4__components_image__["a" /* Sequence */](element);
         image[i].init();
         controller[i].control(image[i]);
 
-        mask[i] = new __WEBPACK_IMPORTED_MODULE_3__components_mask__["a" /* Mask */](element);
+        mask[i] = new __WEBPACK_IMPORTED_MODULE_5__components_mask__["a" /* Mask */](element);
         mask[i].init();
         controller[i].control(mask[i]);
 
-        sound[i] = new __WEBPACK_IMPORTED_MODULE_4__components_sound__["a" /* Sound */](element);
+        sound[i] = new __WEBPACK_IMPORTED_MODULE_6__components_sound__["a" /* Sound */](element);
         !sound[i == 0 ? 0 : i - 1].initialized && sound[i].init();
         controller[i].control(sound[i]);
 
-        markup[i] = new __WEBPACK_IMPORTED_MODULE_5__components_markup__["a" /* Markup */](element);
+        markup[i] = new __WEBPACK_IMPORTED_MODULE_7__components_markup__["a" /* Markup */](element);
         markup[i].init();
         if (settings.grid.xy) markup[i].insert(grid.xy);
         if (settings.grid.yz) markup[i].insert(grid.yz);
         if (settings.grid.xz) markup[i].insert(grid.xz);
         controller[i].control(markup[i]);
 
-        vector[i] = new __WEBPACK_IMPORTED_MODULE_6__components_vector__["a" /* Vector */](element);
+        vector[i] = new __WEBPACK_IMPORTED_MODULE_8__components_vector__["a" /* Vector */](element);
         vector[i].init();
         controller[i].control(vector[i]);
 
@@ -1357,14 +1338,6 @@ var init = function (settings) {
         //}
     }
 };
-
-function setControl(mode) {
-    for (var i = 0; i < controller.length; i++) {
-        controller[i].setActive(mode);
-    }
-}
-
-function userSettings() {}
 
 /***/ }),
 
@@ -1387,14 +1360,14 @@ function userSettings() {}
 
 
 
-const WAKKL_FILE_EXTENSION = 'wakkl';
-const WAKKL_TAGNAME = 'wakkl-image';
+const WAKKLE_FILE_EXTENSION = 'wakkle';
+const WAKKLE_TAGNAME = 'wakkle-image';
 
 var Collector = function () {
 
     this.initialized = false;
 
-    var regexp = new RegExp('.*?\.' + WAKKL_FILE_EXTENSION, 'i');
+    var regexp = new RegExp('.*?\.' + WAKKLE_FILE_EXTENSION, 'i');
     var imgs = document.getElementsByTagName('img'),
         img,
         path,
@@ -1413,7 +1386,7 @@ var Collector = function () {
 
             path = img.currentSrc || img.src;
             path = path.replace('.jpg', '');
-            path = path.replace('.wakkl', '');
+            path = path.replace('.wakkle', '');
             path = path + '/';
 
             img.id = img.id || Object(__WEBPACK_IMPORTED_MODULE_0__collector_generateUUID__["a" /* generateUUID */])(); // making sure the img has an ID
@@ -1435,8 +1408,8 @@ var Collector = function () {
                 };
             });
 
-            document.registerElement(WAKKL_TAGNAME);
-            img.wrapper = img.parentElement.nodeName.toLowerCase() == WAKKL_TAGNAME ? img.parentElement : wrap(img);
+            document.registerElement(WAKKLE_TAGNAME);
+            img.wrapper = img.parentElement.nodeName.toLowerCase() == WAKKLE_TAGNAME ? img.parentElement : wrap(img);
             img.wrapper.id = img.id;
             for (var i = 0; i < img.wrapper.children.length; i++) {
                 img.wrapper.children[i].style.position = 'absolute';
@@ -1471,7 +1444,7 @@ var Collector = function () {
 
     this.ResizeSensor = function () {
 
-        var elements = document.getElementsByTagName(WAKKL_TAGNAME);
+        var elements = document.getElementsByTagName(WAKKLE_TAGNAME);
 
         for (var i = 0; i < elements.length; i++) {
 
@@ -1510,7 +1483,7 @@ function loadJSON(path, callback) {
 
 function wrap(element) {
 
-    var wrapper = document.createElement(WAKKL_TAGNAME);
+    var wrapper = document.createElement(WAKKLE_TAGNAME);
     if (element.hasAttributes()) cloneAttributes(element, wrapper);
 
     element.parentNode.insertBefore(wrapper, element); // insert wrapper
@@ -2852,4 +2825,3 @@ var Vector = function () {
 /***/ })
 
 /******/ });
-});

@@ -34,13 +34,13 @@ var cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
     entry: {
-        'wakkl': './src/js/app.js',
-        'wakkl.min': './src/js/app.js'
+        'wakkle': './src/js/app.js',
+        'wakkle.min': './src/js/app.js'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: './js/[name].js',
-        library: 'wakkl'
+        library: 'wakkle'
     },
     module: {
         rules: [
@@ -54,7 +54,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(png|jpg|gif|json|wakkl)$/,
+                test: /\.(png|jpg|gif|json|wakkle|wkkl)$/,
                 use: 'file-loader?name=[name].[ext]&outputPath=images/'
             },
             {
@@ -78,7 +78,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './src/index.ejs',
-            chunks: ['wakkl'],
+            chunks: ['wakkle'],
             hash: false,
             inject : false
         }),

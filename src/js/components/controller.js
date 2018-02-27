@@ -13,7 +13,7 @@ const HEAD_MOVE = {
     icon: {
         selector: '#icon-head-move',
     },
-    lib:  'js/headtrackr.js',
+    lib:  'js/headtrackr.min.js',
 }
 
 const MOUSE_MOVE = {

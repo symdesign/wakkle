@@ -7,14 +7,14 @@ import { setTimeout } from 'timers';
 
 import observeResize from 'simple-element-resize-detector';
 
-const WAKKL_FILE_EXTENSION = 'wakkl';
-const WAKKL_TAGNAME  = 'wakkl-image';
+const WAKKLE_FILE_EXTENSION = 'wakkle';
+const WAKKLE_TAGNAME  = 'wakkle-image';
 
 export var Collector = function() {
 
     this.initialized = false;
 
-    var regexp = new RegExp('.*?\.' + WAKKL_FILE_EXTENSION, 'i');
+    var regexp = new RegExp('.*?\.' + WAKKLE_FILE_EXTENSION, 'i');
     var imgs = document.getElementsByTagName('img'),
         img,
         path,
@@ -33,7 +33,7 @@ export var Collector = function() {
 
             path = img.currentSrc || img.src;
             path = path.replace('.jpg','');
-            path = path.replace('.wakkl','');
+            path = path.replace('.wakkle','');
             path = path + '/';
 
             img.id      = img.id || generateUUID(); // making sure the img has an ID
@@ -55,8 +55,8 @@ export var Collector = function() {
                 }
             });
     
-            document.registerElement( WAKKL_TAGNAME );
-            img.wrapper     = img.parentElement.nodeName.toLowerCase() == WAKKL_TAGNAME ? img.parentElement : wrap( img );
+            document.registerElement( WAKKLE_TAGNAME );
+            img.wrapper     = img.parentElement.nodeName.toLowerCase() == WAKKLE_TAGNAME ? img.parentElement : wrap( img );
             img.wrapper.id  = img.id;
             for ( var i = 0; i < img.wrapper.children.length; i++ ) {
                 img.wrapper.children[i].style.position = 'absolute';
@@ -93,7 +93,7 @@ export var Collector = function() {
     
     this.ResizeSensor = function() {
 
-        var elements = document.getElementsByTagName( WAKKL_TAGNAME );
+        var elements = document.getElementsByTagName( WAKKLE_TAGNAME );
 
         for ( var i = 0; i < elements.length; i++ ) {
     
@@ -138,7 +138,7 @@ function loadJSON(path, callback) {
 
 function wrap( element ) {
 
-    var wrapper = document.createElement( WAKKL_TAGNAME );
+    var wrapper = document.createElement( WAKKLE_TAGNAME );
     if (element.hasAttributes()) cloneAttributes(element, wrapper);
 
     element.parentNode.insertBefore(wrapper, element); // insert wrapper
