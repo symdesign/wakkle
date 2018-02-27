@@ -1,5 +1,5 @@
 # wakkle
-Wakkl is a JavaScript library for multi-sensory three-dimensional photographs. For more background information to the project or to find out how to contribute, please read the Wiki.
+Wakkle is a JavaScript library for multi-sensory three-dimensional photographs. For more background information to the project or to find out how to contribute, please read the Wiki.
 
 ![schultheiss_lpgd-02_720](https://user-images.githubusercontent.com/9745432/36749241-79fece72-1bfa-11e8-8f70-9743132d264d.gif)
 
