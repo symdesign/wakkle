@@ -40,8 +40,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: './js/[name].js',
-        library: 'wakkl',
-        libraryTarget: 'umd'
+        library: 'wakkl'
     },
     module: {
         rules: [
@@ -79,7 +78,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Demo',
             template: './src/index.ejs',
-            chunks: ['wakkl.min'],
+            chunks: ['wakkl'],
             hash: false,
             inject : false
         }),
