@@ -1,11 +1,14 @@
-# wakkle
-Wakkle is a JavaScript library for multi-sensory three-dimensional photographs. For more background information to the project or to find out how to contribute, please read the Wiki.
+
+# <img src='https://user-images.githubusercontent.com/9745432/36868247-12190c9c-1d98-11e8-9e37-61c0734627dc.jpg' alt='wakkle.js' width='124' height='40'>
 
 ![schultheiss_lpgd-02_720](https://user-images.githubusercontent.com/9745432/36749241-79fece72-1bfa-11e8-8f70-9743132d264d.gif)
+wakkle.js is a library that lets your users intuitively experience multi-sensory three-dimensional photographs with help of a variety of device-built-in sensors.
 
+For more background information how wakkle images improve your visual storytelling or to find out how to contribute, please read the Wiki.
 
 ## Files
-The file structure inside your `images` directory needs to look as follows.
+For wakkle.js to work, it needs a specific file structure inside your `images` directory.
+
 ```
 images
 ├── [your-image].wakkle
@@ -20,7 +23,7 @@ images
     └── meta.json
 ```
 
-As you can see, the image name `[your-image]` is represented on two places. This is at `[your-image].wakkle` which is a two-dimensional preview and at `[your-image]` which is the directory that contains the wakkle image's assets. 
+As you can see, the image filename `[your-image]` is represented on two places. This is at `[your-image].wakkle` which is a two-dimensional preview and at `[your-image]` which is the directory that contains the wakkle image's assets. 
  
 Assets are a sequence of three-dimensionally photographed subject and other files such as sound or the photos's meta data (e.g. exif).
 
@@ -71,16 +74,16 @@ Depending on the feature components (see below) you would like to use, you can i
 
 
 
-## Usage
-1. Simply insert your multi-sensory, three-dimensional photograph into your html document the following way.
+## Installation
+1. Insert as many wakkle images as you like into your page:
 ```html
 <img src="images/[your-image].wakkle">
 ``` 
-2. Add the JavaScript file at the end of your html document, before the closing body tag.
+2. Include the script in your page:
 ```html
 <script src="wakkle.min.js"></script>
 ```
-3. Initialize wakkle by calling
+3. Initialize wakkle at the very end of your page by calling:
 ```html
 <script>
     var options = {}; // your options (instructions below)
@@ -144,8 +147,12 @@ This feature is not yet supported but coming soon!
 ## How to contribute?
 
 
-Spread the word! And if you like, help me with the code :)
+wakkle.js is created in the spare time by <a href="http://sym.design">Friedrich Schultheiß</a> and released under MIT licence.
 
+Any help on the project is more than welcomed.
+For any problem/question do not hesitate to open an issue.
+
+If you like wakkle.js start using it and spread the word!
 
 ```
 git clone https://github.com/symdesign/wakkle.git
