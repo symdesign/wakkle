@@ -1,9 +1,10 @@
  
-# <img src='https://user-images.githubusercontent.com/9745432/36901209-a38c1bb8-1e26-11e8-9c1b-821023e79f57.png' srcset='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png 2x' alt='wakkle.js' title='wakkle.js'>
+# <img src='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png' width='110' alt='wakkle.js' title='wakkle.js'>
 
 This project is a rethink of how we can read, create and communicate information online. 
 
 `wakkle.js` is the accompanying Javascript library that lets you display high-fidel AND emotional photography inside the web-browser.
+
 
 ## Motivation
 
@@ -16,30 +17,34 @@ Physical perception and screen based media hitherto contradicts each other. By c
 
 ## Examples
 
-`wakkle.js` includes different modes of control which allow an intuitive interaction on various device types.
-
-It automatically detects available device sensors and lets access the according controller which feels most natural.
-
-<img src='https://user-images.githubusercontent.com/9745432/36917591-9043708e-1e57-11e8-912b-7eb2395ad774.jpg' srcset='https://user-images.githubusercontent.com/9745432/36917593-9061167a-1e57-11e8-9d76-17471a03ed90.jpg 2x' alt=''>
-
-
-On desktop computers which don't have device orientation sensors but e.g. a front-camera, you can set the event listener to `head_move` which lets `wakkle.js` track your head movement and magically moves the image.
-
-<img src='https://user-images.githubusercontent.com/9745432/36917594-907ef97e-1e57-11e8-9812-5c1954481e77.jpg' srcset='https://user-images.githubusercontent.com/9745432/36917595-909d0ee6-1e57-11e8-888b-b869e55cfd90.jpg 2x' alt=''>
-
-
-But better than talking is seeing.
-
-
 ![Image control through device orientation](https://user-images.githubusercontent.com/9745432/36902425-af3c2eb8-1e2a-11e8-8d23-0f32b7e2b76f.gif) | ![Image control through touch and drag](https://user-images.githubusercontent.com/9745432/36902427-af569672-1e2a-11e8-824a-e86b57cc69ec.gif)
 :--------------------------------:|:-----------------------------:
 <small>Device orientation</small> | <small>Touch and drag</small>
 
+For a live demo follow this link:
 
-See the project 'Campus Dessau'. It's a concatenation of multiple wakkles.
+
+## Installation
 
 
-## Files
+1. Insert as many wakkle images as you like into your page:
+```html
+<img src="images/[your-image].wakkle">
+``` 
+2. Include the script in your page:
+```html
+<script src="wakkle.min.js"></script>
+```
+3. Initialize wakkle at the very end of your page by calling:
+```html
+<script>
+    var options = {}; // your options (instructions below)
+    wakkle.init( options );
+</script>
+```
+
+
+## Directory structure
 For wakkle.js to work, it needs a specific file structure inside your `images` directory.
 
 ```
@@ -107,22 +112,7 @@ Depending on the feature components (see below) you would like to use, you can i
 
 
 
-## Installation
-1. Insert as many wakkle images as you like into your page:
-```html
-<img src="images/[your-image].wakkle">
-``` 
-2. Include the script in your page:
-```html
-<script src="wakkle.min.js"></script>
-```
-3. Initialize wakkle at the very end of your page by calling:
-```html
-<script>
-    var options = {}; // your options (instructions below)
-    wakkle.init( options );
-</script>
-```
+
 
 
 ## Options
@@ -134,15 +124,49 @@ Depending on the feature components (see below) you would like to use, you can i
 
 ## Controllers
 
-### Mouse move
+`wakkle.js` includes different modes of control which allow an intuitive interaction on various device types.
 
-### Mouse drag
+It automatically detects available device sensors and lets access the according controller which feels most natural.
+
 
 ### Device orientation
 
+On mobile, `device_orientation` is probably the most intuitive gesture, when thinking of the metaphor holding a picture in your hands. 
+
+<img src='https://user-images.githubusercontent.com/9745432/36917593-9061167a-1e57-11e8-9d76-17471a03ed90.jpg' width='360' alt=''>
+
 ### Touch drag
 
+`touch_drag` 
+
+
+
 ### Head move
+
+`head_move` 
+
+On desktop computers which don't have device orientation sensors but e.g. a front-camera, you can set the event listener to `head_move` which lets `wakkle.js` track your head movement and magically moves the image.
+
+<img src='https://user-images.githubusercontent.com/9745432/36917595-909d0ee6-1e57-11e8-888b-b869e55cfd90.jpg' width='360' alt=''>
+
+
+### Mouse move
+
+`mouse_move` is a controller that usually works on any desktop computer; it is reactive to cursor movements.
+
+
+### Mouse drag
+
+`mouse_drag` 
+
+
+
+
+
+
+
+
+
 
 
 
