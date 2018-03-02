@@ -1,5 +1,5 @@
  
-# <img src='https://user-images.githubusercontent.com/9745432/36868567-03f0f2aa-1d99-11e8-9ba1-a5e20370e913.png' alt='wakkle.js' width='248' height='80'>
+# <img src='https://user-images.githubusercontent.com/9745432/36901209-a38c1bb8-1e26-11e8-9c1b-821023e79f57.png' srcset='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png 2x' alt='wakkle.js'>
 
 wakkle.js is a library that lets your users intuitively experience multi-sensory three-dimensional photographs with help of a variety of device-built-in sensors.
 
