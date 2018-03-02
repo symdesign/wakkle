@@ -1,12 +1,24 @@
  
 # <img src='https://user-images.githubusercontent.com/9745432/36901209-a38c1bb8-1e26-11e8-9c1b-821023e79f57.png' srcset='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png 2x' alt='wakkle.js'>
 
-wakkle.js is a library that lets your users intuitively experience multi-sensory three-dimensional photographs with help of a variety of device-built-in sensors.
+Project `wakkle` is a rethink of how we can read, create and communicate information online.
 
-For more background information how wakkle images improve your visual storytelling or to find out how to contribute, please read the Wiki.
+`wakkle.js` is the accompanying Javascript library that lets you display high fidel <u>and</u> emotional photography inside the web-browser.
+
+## The reason
+
+Our physical world where we can experience many sorts of information in a visceral and playful manner holds little resemblance to the digital world.
+
+After all, 'smart' devices are still governed by flat and two-dimensional imagery, whereas in reality we can touch and explore our surroundings and grasp spatial information through different lines of sight and the way how sight and sound change. 
+
+Physical perception and screen based media hitherto contradicted each other. What if we are able to bridge that gap?
+
+The principle of Emotional Design describes how emotions have a crucial role in the human ability to understand the world. 
 
 
 ## Examples
+
+Different modes of control allow an intuitive interaction on various devices.
 
 ![device-orientation](https://user-images.githubusercontent.com/9745432/36902425-af3c2eb8-1e2a-11e8-8d23-0f32b7e2b76f.gif)
 ![touch-drag](https://user-images.githubusercontent.com/9745432/36902427-af569672-1e2a-11e8-824a-e86b57cc69ec.gif)
