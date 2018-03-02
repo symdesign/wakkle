@@ -16,8 +16,8 @@ Physical perception and screen based media hitherto contradicts each other. By c
 
 Different modes of control allow an intuitive interaction on various devices.
 
-<img src='https://user-images.githubusercontent.com/9745432/36902425-af3c2eb8-1e2a-11e8-8d23-0f32b7e2b76f.gif' width="48%" alt='Image control through device orientation'>
-<img src='https://user-images.githubusercontent.com/9745432/36902427-af569672-1e2a-11e8-824a-e86b57cc69ec.gif' width="48%" alt='Image control through touch and drag'>
+<img src='https://user-images.githubusercontent.com/9745432/36902425-af3c2eb8-1e2a-11e8-8d23-0f32b7e2b76f.gif' width="45%" alt='Image control through device orientation'>
+<img src='https://user-images.githubusercontent.com/9745432/36902427-af569672-1e2a-11e8-824a-e86b57cc69ec.gif' width="45%" alt='Image control through touch and drag'>
 
 
 
