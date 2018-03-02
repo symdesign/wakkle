@@ -5,9 +5,11 @@ wakkle.js is a library that lets your users intuitively experience multi-sensory
 
 For more background information how wakkle images improve your visual storytelling or to find out how to contribute, please read the Wiki.
 
+
 ## Examples
 
-![schultheiss_lpgd-02_720](https://user-images.githubusercontent.com/9745432/36749241-79fece72-1bfa-11e8-8f70-9743132d264d.gif)
+![device-orientation](https://user-images.githubusercontent.com/9745432/36902425-af3c2eb8-1e2a-11e8-8d23-0f32b7e2b76f.gif)
+![touch-drag](https://user-images.githubusercontent.com/9745432/36902427-af569672-1e2a-11e8-824a-e86b57cc69ec.gif)
 
 ### Demo
 See the project 'Campus Dessau'. It's a concatenation of multiple wakkles.
