@@ -1,56 +1,77 @@
  
 # <img src='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png' width='110' alt='wakkle.js' title='wakkle.js'>
 
-This project is a rethink of how we can read, create and communicate information online. 
+Project <a href='http://wakkle.co'>wakkle</a> is a rethink of how we can read, create and communicate information online. 
 
-`wakkle.js` is the accompanying Javascript library that lets you display high-fidel AND emotional photography inside the web-browser.
+`wakkle.js` is the accompanying Javascript library that lets you display high-fidel — and — emotional photography inside the web-browser.
 
 
 ## Motivation
 
 Our physical world where we can experience many sorts of information in a visceral and playful manner holds little resemblance to the digital world.
 
-After all, <em>"smart"</em> devices are still governed by flat and two-dimensional imagery, whereas in reality we can touch and explore our surroundings and grasp spatial information through different lines of sight and the way how sight and sound change. 
+After all, <em>smart</em> devices are still governed by flat and two-dimensional imagery, whereas in reality we can touch and explore our surroundings and grasp spatial information through different lines of sight and the way how sight and sound change. 
 
-Physical perception and screen based media hitherto contradicts each other. By closing that gap, we can create experiences that not only stand out of the crowd but stay in users' minds.
+You can say physical perception and screen based media hitherto contradicts each other. 
+
+But if we follow the principle of Emotional Designe and start designing digital products for perception and emotion, we can create experiences that not only stand out of the crowd but stay in users' minds.
 
 
 ## Examples
+
+How this can look like can be seen in an early prototype of `wakkle.js` titled <a href='http://wakkle.co/campus-dessau'>Campus Dessau</a>. The application guides you around the university campus of the Anhalt University of Applied Sciences in Germany with its famous <a href='https://www.bauhaus-dessau.de/en/history/bauhaus-dessau.html'>Bauhaus</a> on it.
+
+But `wakkle.js` found also application in simpler setups e.g. just showing and linking multiple products of a <a href='http://kommod-nea.de'>fabric shop</a> (see images below).
 
 ![Image control through device orientation](https://user-images.githubusercontent.com/9745432/36902425-af3c2eb8-1e2a-11e8-8d23-0f32b7e2b76f.gif) | ![Image control through touch and drag](https://user-images.githubusercontent.com/9745432/36902427-af569672-1e2a-11e8-824a-e86b57cc69ec.gif)
 :--------------------------------:|:-----------------------------:
 <small>Device orientation</small> | <small>Touch and drag</small>
 
-For a live demo follow this link:
+
 
 
 ## Installation
 
-
-1. Insert as many wakkle images as you like into your page:
+1. Insert as many wakkle images as you like on your page <a href='https://www.w3schools.com/tags/tag_img.asp'>the same way as you would do it for static images</a>.
 ```html
-<img src="images/[your-image].wakkle">
+<img src="images/{image-name}.wakkle">
 ``` 
-2. Include the script in your page:
+The only difference is to rename the original image file extension from e.g. `.jpg`, `.png`, `.gif` etc. to `.wakkle`. This allows the script to find the according images. 
+
+Alternatively you could also keep the original file extension and give your image the class name `wakkle`.
+```html
+<img src="images/{image-name}.jpg" class="wakkle">
+```
+
+2. Include the `wakkle.js` script somewhere on your page but before you initialize it.
 ```html
 <script src="wakkle.min.js"></script>
 ```
-3. Initialize wakkle at the very end of your page by calling:
+3. Initialize `wakkle` at the very end of your page by calling `wakkle`'s `init` function.
 ```html
 <script>
-    var options = {}; // your options (instructions below)
-    wakkle.init( options );
+    wakkle.init();
 </script>
 ```
 
+At this step, you can pass options to `wakkle` if you like.
+```html
+<script>
+    wakkle.init({
+        ui: false
+    });
+</script>
+```
+More details about available options later.
+
 
 ## Directory structure
-For wakkle.js to work, it needs a specific file structure inside your `images` directory.
+`wakkle.js` requires a specific file structure inside your `images` directory.
 
 ```
 images
-├── [your-image].wakkle
-└── [your-image]
+├── {image-name}.wakkle
+└── {image-name}
     ├── 01.jpg
     ├── 02.jpg
     ├── ...
@@ -61,13 +82,24 @@ images
     └── meta.json
 ```
 
-As you can see, the image filename `[your-image]` is represented on two places. This is at `[your-image].wakkle` which is a two-dimensional preview and at `[your-image]` which is the directory that contains the wakkle image's assets. 
- 
-Assets are a sequence of three-dimensionally photographed subject and other files such as sound or the photos's meta data (e.g. exif).
+As you can see, your `{image-name}` is represented on two places. 
 
-`[your-image].wakkle` equals in this case `15.jpg` inside wakkle's assets folder. It is the mid of the sequence (30 images ÷ 2 = image number 15).
+First, at `{image-name}.wakkle` which is the two-dimensional preview that you have included into your HTML file.
 
-### [your-image].wakkle
+`{image-name}.wakkle` equals the image in the middle of the sequence `15.jpg` inside wakkle's assets folder. It is the mid of the sequence (30 images ÷ 2 = image number 15).
+
+Second, at `{image-name}` which is the directory that contains the wakkle image's assets. 
+
+These assets are
+- the sequence of images `01.jpg` to `30.jpg` <small>**[required]**</small>
+- a `meta.json` which contains important information about the sequence which would otherwise needed to be passed as attributes on the `img` html tag <small>**[optional but recommended]**</small>
+- an ambient sound file `sound.mp3` <small>**[optional]**</small>
+- and a mask file `mask.svg` which can be used to integrate generated content better into the three-dimensional scene <small>**[optional]**</small>
+
+
+
+
+### {image-name}.wakkle
 For better visibility you can replace the original file extension `.jpg` with `.wakkle`. Since the file's internal headers remain in tact the image can still be displayed by the browser and act as a fallback in case the browser cannot execute the `wakkle.js` properly.
  
 Make sure that the folder which includes the image's assets has the same name as your wakkle-image but without its file extension.
@@ -108,10 +140,6 @@ Depending on the feature components (see below) you would like to use, you can i
     }
 }
 ```
-
-
-
-
 
 
 
@@ -182,7 +210,7 @@ This component requires the `sound` dataset attribute which contains the path to
 This component requires `phi` and `chi` dataset attribute or the `arc`'s angle value as well as rapping your image between `<wakkle-image>` and `</wakkle-image>`.
 ```html
 <wakkle-image>
-    <img src="images/[your-image].wakkle">
+    <img src="images/{image-name}.wakkle">
     <object><!-- HTML goes here. --></object>
 </wakkle-image>
 ```
