@@ -98,8 +98,6 @@ For better visibility you can replace the original file extension `.jpg` with `.
 
 ### Assets directory
 
-Make sure that the folder which includes the image's assets has the same name as your wakkle-image but without its file extension.
-
 #### Sequence of images <small>**[required]**</small>
 
 Even though the script handles any number of images, for best performance it is recommended to have a sequence of 30 images.
@@ -132,22 +130,22 @@ The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.p
     }
 }
 ```
-##### FOV
-`FOV` is the abbreviation for <a href="https://en.wikipedia.org/wiki/Field_of_view">Field Of View</a> which is determined by   focal length and sensor size used for the photo's production.
+- <small>**FOV**</small>
+    
+    `FOV` is the abbreviation for <a href="https://en.wikipedia.org/wiki/Field_of_view">Field Of View</a>. It is a number in degrees which provides `wakkle.js` details about the perspective which in turn makes it possible to map objects seamlesly into the scene.
 
-It is a number in degrees which provides `wakkle.js` details about the perspective which in turn makes it possible to map objects seamlesly into the scene.
+    To find out this number, you can check camera and lens specifications or simply <a href="http://exifdata.com/">look into the EXIF data</a> of one of the images in the sequence. This conditions, though, that the photo's exif data hasn't got stripped away through e.g. image compression.
 
-To find out this number, you can check camera and lens specifications or simply <a href="http://exifdata.com/">look into the EXIF data</a>. This conditions that the photo's exif data hasn't got stripped away through e.g. image compression.
+- <small>**Phi**</small>
 
-##### Phi
+- <small>**Chi**</small>
 
-##### Chi
+- <small>**OriginX**</small>
 
-##### OriginX
+- <small>**OriginY**</small>
 
-##### OriginY
+- <small>**Sound**</small>
 
-##### Sound
 
 
 ## Options
