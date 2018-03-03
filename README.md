@@ -84,32 +84,73 @@ images
 
 As you can see, your `{image-name}` is represented on two places. 
 
-First, at `{image-name}.wakkle` which is the static image which you have included into your HTML file in one of the previous steps.
+First, at `{image-name}.wakkle` which is the **static image** which you have included into your HTML file in one of the previous steps.
 
-`{image-name}.wakkle` equals the image in the middle of the sequence `15.jpg` inside wakkle's assets folder. It is the mid of the sequence (30 images ÷ 2 = image number 15).
-
-Second, it can be found in the name of the directory which contains the wakkle image's assets.
+Second, in the name of the **directory** which contains the wakkle image's assets.
 
 
-### {image-name}.wakkle
+### Static image
+
+`{image-name}.wakkle` equals the image in the middle of the sequence. In case of a sequence of 30 images this means image `15.jpg` (30 images ÷ 2 = image number 15).
+
 For better visibility you can replace the original file extension `.jpg` with `.wakkle`. Since the file's internal headers remain in tact the image can still be displayed by the browser and act as a fallback in case the browser cannot execute the `wakkle.js` properly.
  
+
+### Assets directory
+
 Make sure that the folder which includes the image's assets has the same name as your wakkle-image but without its file extension.
 
+#### Sequence of images <small>**[required]**</small>
 
-### Assets
-- the sequence of images `01.jpg` to `30.jpg` <small>**[required]**</small>
-- a `meta.json` which contains important information about the sequence which would otherwise needed to be passed as attributes on the `img` html tag <small>**[optional but recommended]**</small>
-- an ambient sound file `sound.mp3` <small>**[optional]**</small>
-- and a mask file `mask.svg` which can be used to integrate generated content better into the three-dimensional scene <small>**[optional]**</small>
+Even though the script handles any number of images, for best performance it is recommended to have a sequence of 30 images.
+
+The naming should start at `1` and be padded with leading zero until it reaches the same amount of digits as the last image in the sequence. For example if the sequence contained 30 images, the first image would be `01.jpg`. If the sequence contained 100 images (not recommended!), the first image would be `001.jpg`.
+
+The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.png` etc.
 
 
-#### meta.json
-`meta.json` contains the exif data of any image of the sequence. As you can see, it contains amongst other things information about the camera, the artist and the lens. But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
+#### meta.json <small>**[required]**</small>
+
+`meta.json` contains important information about the sequence. It is optional when the same information is passed as attributes on the `img` HTML element. This can cause a lot of repetition and therefore, is not recommended.
+
+```javascript
+{
+    "WAKKLE-dataset": {
+        "Count":     30,
+        "Phi":      -36,
+        "Chi":       14,
+        "FOV":       92.3
+        "OriginX":   50,
+        "OriginY":   55,
+        "Sound":    "sound.mp3"
+    }
+}
+```
+
+<dl>
+    <dt>Count</dt>
+    <dd>asdf</dd>
+    <dt>Count</dt>
+    <dd>asdf</dd>
+</dl>
+
+- Count
+- Phi
+- Chi 
+- FOV But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
+- 
+
+
+
+If the photo's exif data gets stripped away through compression, it can contain this data as well. As you can see, it contains amongst other things information about the camera, the artist and the lens. 
  
 Depending on the feature components (see below) you would like to use, you can include dataset attributes to the file as well.
-```
+```javascript
 {
+
+    // WAKKLE-dataset goes here
+    // ...
+
     "XMP-exif": {
 
         ...
@@ -127,19 +168,20 @@ Depending on the feature components (see below) you would like to use, you can i
         "HyperfocalDistance": "1.27 m",
         "LensID": "Tokina AT-X 116 AF Pro DX 11-16mm f/2.8"
     },
-
-    "WAKKLE-dataset": {
-        "Count": 30,
-        "Phi": -36,
-        "Chi": 14,
-        "OriginX": "50%",
-        "OriginY": "55%",
-        "Sound": "sound.mp3"
-    }
 }
 ```
  
 I am currently working on a wizard that facilitates writing the `meta.json` file.
+
+
+#### sound.mp3 <small>**[optional]**</small>
+
+- an ambient sound file `sound.mp3` 
+
+
+#### mask.svg <small>**[optional]**</small>
+
+- and a mask file `mask.svg` which can be used to integrate generated content better into the three-dimensional scene 
 
 
 ## Options
