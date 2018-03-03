@@ -42,7 +42,7 @@ export var Collector = function() {
                 img.mask    = json.Mask;
                 img.vector  = json.Vector;
                 img.meta = {
-                    "FOV":          json[ 'XMP-exif' ].FOV ? parseFloat( json[ 'XMP-exif' ].FOV ) : json[ 'WAKKLE-dataset' ].FOV,
+                    "FOV":          json[ 'WAKKLE-dataset' ].FOV,
                     "Phi":          json[ 'WAKKLE-dataset' ].Phi,
                     "Chi":          json[ 'WAKKLE-dataset' ].Chi,
                     "OriginX":      json[ 'WAKKLE-dataset' ].OriginX,
