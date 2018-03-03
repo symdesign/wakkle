@@ -47,14 +47,14 @@ But `wakkle.js` found also application in simpler setups e.g. just showing and l
 ```html
 <script src="wakkle.min.js"></script>
 ```
-3. Initialize `wakkle` at the very end of your page by calling `wakkle`'s `init` function.
+3. Initialize `wakkle` at the very end of your page by calling its `init` function.
 ```html
 <script>
     wakkle.init();
 </script>
 ```
 
-At this step, you can pass options to `wakkle` if you like.
+At this step, you can also pass options to `wakkle` if you like.
 ```html
 <script>
     wakkle.init({
@@ -84,19 +84,11 @@ images
 
 As you can see, your `{image-name}` is represented on two places. 
 
-First, at `{image-name}.wakkle` which is the two-dimensional preview that you have included into your HTML file.
+First, at `{image-name}.wakkle` which is the static image which you have included into your HTML file in one of the previous steps.
 
 `{image-name}.wakkle` equals the image in the middle of the sequence `15.jpg` inside wakkle's assets folder. It is the mid of the sequence (30 images ÷ 2 = image number 15).
 
-Second, at `{image-name}` which is the directory that contains the wakkle image's assets. 
-
-These assets are
-- the sequence of images `01.jpg` to `30.jpg` <small>**[required]**</small>
-- a `meta.json` which contains important information about the sequence which would otherwise needed to be passed as attributes on the `img` html tag <small>**[optional but recommended]**</small>
-- an ambient sound file `sound.mp3` <small>**[optional]**</small>
-- and a mask file `mask.svg` which can be used to integrate generated content better into the three-dimensional scene <small>**[optional]**</small>
-
-
+Second, it can be found in the name of the directory which contains the wakkle image's assets.
 
 
 ### {image-name}.wakkle
@@ -104,10 +96,16 @@ For better visibility you can replace the original file extension `.jpg` with `.
  
 Make sure that the folder which includes the image's assets has the same name as your wakkle-image but without its file extension.
 
-### meta.json
+
+### Assets
+- the sequence of images `01.jpg` to `30.jpg` <small>**[required]**</small>
+- a `meta.json` which contains important information about the sequence which would otherwise needed to be passed as attributes on the `img` html tag <small>**[optional but recommended]**</small>
+- an ambient sound file `sound.mp3` <small>**[optional]**</small>
+- and a mask file `mask.svg` which can be used to integrate generated content better into the three-dimensional scene <small>**[optional]**</small>
+
+
+#### meta.json
 `meta.json` contains the exif data of any image of the sequence. As you can see, it contains amongst other things information about the camera, the artist and the lens. But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
- 
-I am currently working on a wizard that facilitates writing the `meta.json` file.
  
 Depending on the feature components (see below) you would like to use, you can include dataset attributes to the file as well.
 ```
@@ -140,7 +138,8 @@ Depending on the feature components (see below) you would like to use, you can i
     }
 }
 ```
-
+ 
+I am currently working on a wizard that facilitates writing the `meta.json` file.
 
 
 ## Options
