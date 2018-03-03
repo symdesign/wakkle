@@ -36,9 +36,9 @@ But `wakkle.js` found also application in simpler setups e.g. just showing and l
 ```html
 <img src="images/{image-name}.wakkle">
 ``` 
-The only difference is to rename the original image file extension from e.g. `.jpg`, `.png`, `.gif` etc. to `.wakkle`. This allows the script to find the according images. 
+ The only difference is to rename the original image file extension from e.g. `.jpg`, `.png`, `.gif` etc. to `.wakkle`. This allows the script to find the according images. 
 
-Alternatively you could also keep the original file extension and give your image the class name `wakkle`.
+ Alternatively you could also keep the original file extension and give your image the class name `wakkle`.
 ```html
 <img src="images/{image-name}.jpg" class="wakkle">
 ```
