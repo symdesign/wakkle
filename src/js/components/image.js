@@ -42,8 +42,6 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
             currAfter,
             prevAfter = element;
 
-        console.log(images)
-
         var progress = document.createElement('progress');
             progress.setAttribute('max', images.length);
             progress.setAttribute('value', 0);
