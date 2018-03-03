@@ -1,9 +1,39 @@
  
 # <img src='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png' width='110' alt='wakkle.js' title='wakkle.js'>
 
+## Table of contents
+
+* [Introduction](#introduction)
+* [Motivation](#motivation)
+* [Examples](#examples)
+* [Installation](#installation)
+* [Directory structure](#directory-structure)
+    * [Static image](#static-image)
+    * [Assets](#assets)
+        * [Sequence of images](#sequence-of-images-required)
+        * [Sound](#sound-optional)
+        * [Mask](#mask-optional)
+        * [Meta](#meta-optional)
+* [Options](#options)
+* [Controllers](#controllers)
+    * [Device orientation](#device-orientation)
+    * [Touch drag](#touch-drag)
+    * [Head move](#head-move)
+    * [Mouse move](#mouse-move)
+    * [Mouse drag](#mouse-drag)
+* [Feature components](#feature-components)
+    * [Sound](#sound)
+    * [Markup](#markup)
+    * [Vector](#vector)
+    * [Masks](#masks)
+* [Workflow](#workflow)
+* [How to contribute?](#how-to-contribute)
+
+## Introduction
+
 Project <a href='http://wakkle.co'>wakkle</a> is a rethink of how we can read, create and communicate information online. 
 
-`wakkle.js` is the accompanying Javascript library that lets you display high-fidel — and — emotional photography inside the web-browser.
+`wakkle.js` is the accompanying Javascript library that lets you display high fidel —and— emotional photography inside the web-browser.
 
 
 ## Motivation
@@ -96,7 +126,7 @@ Second, in the name of the **directory** which contains the wakkle image's asset
 For better visibility you can replace the original file extension `.jpg` with `.wakkle`. Since the file's internal headers remain in tact the image can still be displayed by the browser and act as a fallback in case the browser cannot execute the `wakkle.js` properly.
  
 
-### Assets directory
+### Assets
 
 #### Sequence of images <small>**[required]**</small>
 
@@ -106,15 +136,15 @@ The naming should start at `1` and be padded with leading zero until it reaches 
 
 The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.png` etc.
 
-#### sound.mp3 <small>**[optional]**</small>
+#### Sound <small>**[optional]**</small>
 
 `sound.mp3` is a stereo ambient sound file whose channels get re-mixed according to the users interaction.
 
-#### mask.svg <small>**[optional]**</small>
+#### Mask <small>**[optional]**</small>
 
 `mask.svg` can be used to integrate generated content better into the three-dimensional scene.
 
-#### meta.json <small>**[optional]**</small>
+#### Meta <small>**[optional]**</small>
 
 `meta.json` holds necessary information if you want to add other features to the three-dimensional scene, such as spatial ambient sound or HTML elements.
 
@@ -195,18 +225,7 @@ On desktop computers which don't have device orientation sensors but e.g. a fron
 
 
 
-
-
-
-
-
-
-
-
 ## Feature components
-
-### Image
-This component requires the `count` dataset attribute which contains the length of the sequence. It can be set inside `meta.json` (recommended) or as html attribute.
 
 ### Sound
 This component requires the `sound` dataset attribute which contains the path to a sound file (relative to the image's asset folder). It can be set inside `meta.json` (recommended) or as html attribute.
