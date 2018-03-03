@@ -108,80 +108,46 @@ The naming should start at `1` and be padded with leading zero until it reaches 
 
 The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.png` etc.
 
+#### sound.mp3 <small>**[optional]**</small>
 
-#### meta.json <small>**[required]**</small>
+`sound.mp3` is a stereo ambient sound file whose channels get re-mixed according to the users interaction.
 
-`meta.json` contains important information about the sequence. It is optional when the same information is passed as attributes on the `img` HTML element. This can cause a lot of repetition and therefore, is not recommended.
+#### mask.svg <small>**[optional]**</small>
+
+`mask.svg` can be used to integrate generated content better into the three-dimensional scene.
+
+#### meta.json <small>**[optional]**</small>
+
+`meta.json` holds necessary information if you want to add other features to the three-dimensional scene, such as spatial ambient sound or HTML elements.
 
 ```javascript
 {
     "WAKKLE-dataset": {
-        "Count":     30,
+        "FOV":       92.3
         "Phi":      -36,
         "Chi":       14,
-        "FOV":       92.3
         "OriginX":   50,
         "OriginY":   55,
         "Sound":    "sound.mp3"
     }
 }
 ```
+##### FOV
+`FOV` is the abbreviation for <a href="https://en.wikipedia.org/wiki/Field_of_view">Field Of View</a> which is determined by   focal length and sensor size used for the photo's production.
 
-<dl>
-    <dt>Count</dt>
-    <dd>asdf</dd>
-    <dt>Count</dt>
-    <dd>asdf</dd>
-</dl>
+It is a number in degrees which provides `wakkle.js` details about the perspective which in turn makes it possible to map objects seamlesly into the scene.
 
-- Count
-- Phi
-- Chi 
-- FOV But the most important information is the `FOV` (= Field Of View) which is used to map generated element into the scene.
-- 
+To find out this number, you can check camera and lens specifications or simply <a href="http://exifdata.com/">look into the EXIF data</a>. This conditions that the photo's exif data hasn't got stripped away through e.g. image compression.
 
+##### Phi
 
+##### Chi
 
-If the photo's exif data gets stripped away through compression, it can contain this data as well. As you can see, it contains amongst other things information about the camera, the artist and the lens. 
- 
-Depending on the feature components (see below) you would like to use, you can include dataset attributes to the file as well.
-```javascript
-{
+##### OriginX
 
-    // WAKKLE-dataset goes here
-    // ...
+##### OriginY
 
-    "XMP-exif": {
-
-        ...
-
-        "Make": "Canon",
-        "Model": "Canon EOS 600D",
-        "Artist": "Friedrich Schultheiss",
-        "Lens": "11-16mm",
-        "ApproximateFocusDistance": 4294967295,
-        
-        ...
-
-        "FOV": "92.3 deg",
-        "FocalLength35efl": "11.0 mm (35 mm equivalent: 17.3 mm)",
-        "HyperfocalDistance": "1.27 m",
-        "LensID": "Tokina AT-X 116 AF Pro DX 11-16mm f/2.8"
-    },
-}
-```
- 
-I am currently working on a wizard that facilitates writing the `meta.json` file.
-
-
-#### sound.mp3 <small>**[optional]**</small>
-
-- an ambient sound file `sound.mp3` 
-
-
-#### mask.svg <small>**[optional]**</small>
-
-- and a mask file `mask.svg` which can be used to integrate generated content better into the three-dimensional scene 
+##### Sound
 
 
 ## Options
