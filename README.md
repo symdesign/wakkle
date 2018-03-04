@@ -130,13 +130,13 @@ For better differentiation it got a proper name and the original file extension 
 
 #### Sequence of images <small>**[required]**</small>
 
-Even though the script handles any number of images, for best performance it is recommended to have a sequence of 30 images. `.png`.
+Even though the script handles any number of images, for best performance it is recommended to have a sequence of 30 images. 
 
 The naming starts at `1` and the number of digits has to stay consistent.
 
-><small>**Example:** If the sequence contained 30 images, which means the highest number has 2 digits, the first image needs to have 2 digits as well. This can be done by adding leading a zero `01.jpg`. If the sequence contained 100 images (not recommended!), the first image would be `001.jpg`.</small>
+><small>**Example:** If the sequence contained 30 images, which means the highest number has 2 digits, the other images need to have 2 digits as well. This can be done by filling up the missing digits with leading zeros e.g. `01.jpg`. If the sequence contained 100 images (not recommended!), the first image would be `001.jpg`.</small>
 
-The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, 
+The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.png`.
 
 
 #### Sound <small>**[optional]**</small>
@@ -222,7 +222,7 @@ On desktop computers which don't have device orientation sensors but e.g. a fron
 
 <img src='https://user-images.githubusercontent.com/9745432/36917595-909d0ee6-1e57-11e8-888b-b869e55cfd90.jpg' width='360' alt=''>
 
-><small>**Note:** This feature is based <a href="https://github.com/auduno">Audun Mathias Øygard</a>'s  <a href="https://github.com/auduno/headtrackr">headtrackr</a> and requires that library to be located in the same directory.</small>
+><small>**Note:** This feature is based on <a href="https://github.com/auduno">Audun Mathias Øygard</a>'s  <a href="https://github.com/auduno/headtrackr">headtrackr</a> and requires this library to be located in the same directory.</small>
 
 
 
