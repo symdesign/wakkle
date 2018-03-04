@@ -1,11 +1,8 @@
 
-import {generateUUID} from './collector/generateUUID';
-import { setTimeout } from 'timers';
+import observeResize    from 'simple-element-resize-detector';
 
-// var elementResizeDetectorMaker = require("element-resize-detector");
-// var ResizeDetector = elementResizeDetectorMaker();
-
-import observeResize from 'simple-element-resize-detector';
+import {generateUUID}   from './collector/generateUUID';
+import {pad}            from './collector/numberPadding';
 
 const WAKKLE_FILE_EXTENSION = 'wakkle';
 const WAKKLE_TAGNAME  = 'wakkle-image';
@@ -27,7 +24,7 @@ export var Collector = function() {
         for (var i = 0; i < imgs.length; i++) {
             
             img = imgs[i];
-    
+
             if (!img.hasAttribute('src'))   continue;
             if (!regexp.test(img.src))      continue;
 
@@ -36,26 +33,31 @@ export var Collector = function() {
             path = path.replace('.wakkle','');
             path = path + '/';
 
-            img.id      = img.id || generateUUID(); // making sure the img has an ID
-            img.markup  = img.parentElement.getElementsByTagName('object');
+            img.id          = img.id || generateUUID(); // making sure the img has an ID
+            img.sequence    = getSequence( path );
+            img.markup      = img.parentElement.getElementsByTagName( 'object' );
 
             loadJSON(path + 'meta.json', function(json) {
                 img.sound   = json.Sound;
                 img.mask    = json.Mask;
                 img.vector  = json.Vector;
                 img.meta = {
-                    "Path":         path,
-                    "Count":        json[ 'Sequence' ].Count,
-                    "AngleOfView":  json[ 'Sequence' ].AngleOfView,
-                    "Phi":          json[ 'Sequence' ].Phi,
-                    "Chi":          json[ 'Sequence' ].Chi,
-                    "FOV":          parseFloat( json[ 'XMP-exif' ].FOV ),
-                    "OriginX":      json[ 'Sequence' ].OriginX,
-                    "OriginY":      json[ 'Sequence' ].OriginY,
+                    "FOV":          json[ 'WAKKLE-dataset' ].FOV,
+                    "Phi":          json[ 'WAKKLE-dataset' ].Phi,
+                    "Chi":          json[ 'WAKKLE-dataset' ].Chi,
+                    "OriginX":      json[ 'WAKKLE-dataset' ].OriginX,
+                    "OriginY":      json[ 'WAKKLE-dataset' ].OriginY,
                 }
             });
-    
+
+            if ( !img.meta.FOV ) img.meta.FOV = img.getAttribute('fov') || console.error('FOV is not defined.');
+            if ( !img.meta.Phi ) img.meta.Phi = img.getAttribute('phi') || console.error('Angle phi is not defined.');
+            if ( !img.meta.Chi ) img.meta.Chi = img.getAttribute('chi') || console.error('Angle chi is not defined.');
+            if ( !img.meta.OriginX ) img.meta.OriginX = img.getAttribute('origin-x') || console.error('Perspective origin X is not defined.');
+            if ( !img.meta.OriginY ) img.meta.OriginX = img.getAttribute('origin-y') || console.error('Perspective origin Y is not defined.');
+
             document.registerElement( WAKKLE_TAGNAME );
+
             img.wrapper     = img.parentElement.nodeName.toLowerCase() == WAKKLE_TAGNAME ? img.parentElement : wrap( img );
             img.wrapper.id  = img.id;
             for ( var i = 0; i < img.wrapper.children.length; i++ ) {
@@ -96,7 +98,6 @@ export var Collector = function() {
         var elements = document.getElementsByTagName( WAKKLE_TAGNAME );
 
         for ( var i = 0; i < elements.length; i++ ) {
-    
 
             observeResize(elements[i], ( element ) => {
                 var width = element.children[0].offsetWidth,
@@ -104,23 +105,12 @@ export var Collector = function() {
                 
                 element.style.perspective = getCSSPerspective( img.meta.FOV, width, height );
             });
-
-            // ResizeDetector.listenTo( elements[i], function( element ) {
-
-            //     var width = element.children[0].offsetWidth,
-            //         height = element.children[0].offsetHeight;
-                
-            //     element.style.perspective = getCSSPerspective( img.meta.FOV, width, height );
-
-            // });
             
         }
 
     }
 
 }
-
-
 
 function loadJSON(path, callback) {
     var xhr = new XMLHttpRequest();
@@ -135,6 +125,97 @@ function loadJSON(path, callback) {
     xhr.open('GET', path, false); // make synchronous XMLHttpRequest in order receive value outside of the callback function
     xhr.send();
 }
+
+
+function getSequence( path ) {
+
+    var xhr, sequence = {};
+    
+    (function() {
+
+        findNaming();
+        findLength();
+
+        sequence.path = path;
+
+    })();
+
+    return sequence;
+
+    function findNaming() {
+
+        var testNumber      = 1,
+            testPaddings    = [ 1, 2 ], // e.g 1 or 01
+            testExtensions  = [ 'jpg', 'png', 'gif', 'jpeg' ],
+            found = false;
+
+        for ( var i = 0; i <= testPaddings.length; i++ ) {
+
+            for ( var j = 0; j < testExtensions.length; j++ ) {
+
+                xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) { // found
+
+                            found = true;
+                            sequence.padding = i + 1;
+                            sequence.extension = testExtensions[ j ];
+
+                        }
+                    }
+                };
+            
+                xhr.open('HEAD', path + pad( testNumber, testPaddings[ i ] ) + '.' + testExtensions[ j ], false);
+                xhr.send();  
+
+            }
+
+            if ( found ) break;
+
+        }
+
+    }
+
+    function findLength() {
+
+        var maxLength = 60,
+            found = false;
+
+        if ( sequence.padding == null && sequence.extension == null ) return;
+
+        sequence.images = [];
+
+        for ( var i = 0; i <= maxLength; i++ ) {
+
+            var testImage = pad( i, sequence.padding ) + '.' + sequence.extension;
+            xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) { // length not found
+
+                        sequence.images.push( path + testImage )
+
+                    }
+                    if (xhr.status === 404) { // length found
+
+                        sequence.length = i - 1;
+                        found = true;
+                        
+                    }
+                }
+            };
+        
+            xhr.open('HEAD', path + testImage, false);
+            xhr.send();
+
+            if ( found ) break;
+        }
+    }
+}
+
 
 function wrap( element ) {
 

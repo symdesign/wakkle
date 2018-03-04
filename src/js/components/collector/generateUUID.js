@@ -1,4 +1,4 @@
-export function generateUUID () { // Public Domain/MIT
+export var generateUUID = function() { // Public Domain/MIT
     var d = new Date().getTime();
     if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
         d += performance.now(); //use high-precision timer if available

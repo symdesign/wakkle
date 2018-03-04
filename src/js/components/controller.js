@@ -130,13 +130,11 @@ export var Controller = function( element ) {
         mousedown = 1;
         mouseDownX = e.pageX || e.changedTouches[0].pageX;
         mouseDownY = e.pageY || e.changedTouches[0].pageY;
-        document.body.style.cursor = 'grabbing';
     }
 
     function dragEnd(e) {
         mousedown = 0;
         mouseMoveX = 0;
-        document.body.style.cursor = 'grab';
     }
 
     function dragHandler(e) {
@@ -275,14 +273,14 @@ export var Controller = function( element ) {
     function unsetDeviceorientation() { window.removeEventListener('device_orientation', deviceOrientationHandler, false) }
 
     function setMousedrag() {
-        document.body.style.cursor = 'grab';
+        element.wrapper.classList.add('grabbable');
         document.addEventListener('mousedown', dragStart);
         document.addEventListener('mouseup', dragEnd);
         document.addEventListener('mousemove', dragHandler);
     }
 
     function unsetMousedrag(status) {
-        document.body.style.cursor = 'initial'
+        element.wrapper.classList.remove('grabbable');
         document.removeEventListener('mousedown', dragStart);
         document.removeEventListener('mouseup', dragEnd);
         document.removeEventListener('mousemove', dragHandler);
