@@ -1,11 +1,11 @@
 {
     "WAKKLE-dataset": {
-        "Count": 37,
-        "Phi": -36,
-        "Chi": 14,
+        "FOV":      92.3,
+        "Phi":      -36,
+        "Chi":      14,
         "OriginX": "50%",
         "OriginY": "55%",
-        "Sound": "sound.mp3"
+        "Sound":    "sound.mp3"
     },
     "XMP-exif": {
         "ExifToolVersion": 10.77,
