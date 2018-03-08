@@ -16,8 +16,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
     var that        = this,
         image       = new Image(),
         q,          // relative image index
-        count,      // number of loaded image
-        listener;   // listens for changes of q made by controller
+        count;      // number of loaded image
 
     this.init = function() {
         
@@ -56,7 +55,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
                 progress.value = index;
 
                 if (prevBefore != element && prevAfter != element && element) element.remove();
-                if (count > 3 && !listener) listen();
+                if (count > 3) that.update();
 
                 loaded.push(image);
 
@@ -139,36 +138,4 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
 
         that._idx = that.idx;
     }
-
-    function listen() {
-
-        that._idx = that._idx || 0;
-        that.idx = Math.round( (count-1) * that.q );
-        
-        
-
-        var image = document.getElementById(element.id).getElementsByTagName('img');
-
-
-        if (!that.initialized) {
-            for ( var i = 0; i < image.length; i++ ) {
-                image[i].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
-                image[i].style.opacity   = 0;
-            }
-        }
-        // this is more performant than a for-loop each time but
-        // for some reasons not every image is hidden fromt he beginning
-        // so I have added it as long as the sequence is not completely initialized
-        image[that._idx].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
-        image[that._idx].style.opacity   = 0;
-
-
-        image[ that.idx].style.filter    = "alpha(opacity = 1)"; // Internet Explorer
-        image[ that.idx].style.opacity   = 1;
-
-        that._idx = that.idx;
-
-        //listener = window.requestAnimationFrame(listen)
-    }
-
 }

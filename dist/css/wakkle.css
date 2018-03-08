@@ -472,11 +472,9 @@ body {
   overflow-x: auto; }
 
 .wakkle-controller-buttons {
-  top: 0;
+  bottom: 0;
   right: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0.5em 1em; }
+  list-style: none; }
 
 .wakkle-controller-button {
   display: inline-block;
@@ -529,3 +527,15 @@ img {
   top: 0px;
   left: 0px;
   z-index: 999; }
+
+.wakkle-sound-button {
+  bottom: 0;
+  left: 0; }
+
+.wakkle-fullscreen-button {
+  top: 0;
+  right: 0; }
+
+.wakkle-ui {
+  margin: 0;
+  padding: 0.5em 1em; }
