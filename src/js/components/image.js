@@ -47,9 +47,9 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
             progress.setAttribute('value', 0);
         document.body.appendChild(progress); // TODO: add to element.wrapper instead of body
 
-        var b = ( ( element.sequence.length / 2) % 2 ? Math.round( element.sequence.length / 2 ) -1  : element.sequence.length / 2), 
+        var b = ( ( element.sequence.length / 2) % 2 ? Math.round( element.sequence.length / 2 ) - 1  : element.sequence.length / 2), 
             a = ( ( element.sequence.length / 2) % 2 ? Math.round( element.sequence.length / 2 )  : element.sequence.length / 2);
-            
+
         new imagePreload( images, {
             onProgress: function(image, imageEl, index) {
                 var percent = Math.floor((100 / this.queue.length) * this.completed.length);
@@ -61,6 +61,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
                 loaded.push(image);
 
                 for (var i = 0; i < loaded.length; i++) { // to keep the loaded as short as possible
+
                     if ( loaded.indexOf( element.sequence.images[ b ] ) >= 0 ) {
                         removeFromArray(loaded, element.sequence.images[ b ] );
 
@@ -118,7 +119,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
     this.update = function() {
         that._idx = that._idx || 0;
         that.idx = Math.round( (count-1) * that.q );
-        
+
         var image = document.getElementById(element.id).getElementsByTagName('img');
 
         if (!that.initialized) {
@@ -133,7 +134,6 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
         image[that._idx].style.filter    = "alpha(opacity = 0)"; // Internet Explorer
         image[that._idx].style.opacity   = 0;
 
-
         image[ that.idx].style.filter    = "alpha(opacity = 1)"; // Internet Explorer
         image[ that.idx].style.opacity   = 1;
 
@@ -145,6 +145,8 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
         that._idx = that._idx || 0;
         that.idx = Math.round( (count-1) * that.q );
         
+        
+
         var image = document.getElementById(element.id).getElementsByTagName('img');
 
 

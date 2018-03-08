@@ -1,4 +1,6 @@
 
+import observeResize from 'simple-element-resize-detector';
+
 export var Markup = function( element ) {
 
     this.initialized = false;
@@ -22,6 +24,20 @@ export var Markup = function( element ) {
 
         }
 
+        observeResize( element.wrapper, () => {
+
+            for ( var i = 0; i < objects.length; i++ ) {
+
+                var object = objects[i],
+                    width  = objects[i].clientWidth,
+                    height = objects[i].clientHeight;
+
+                object.style.perspective = getCSSPerspective( element.meta.FOV, width, height );
+
+            }
+
+        });
+
         this.initialized = true;
 
     }
@@ -30,15 +46,15 @@ export var Markup = function( element ) {
         
         for ( var i = 0; i < objects.length; i++ ) {
 
-            var object = objects[i];
-            object.style.transform = 'rotateY( ' + ( that.q * (chi-phi) + phi ) + 'deg )';
+            var q = objects[i].querySelector('.q');
+            q.style.transform = 'rotateY( ' + ( that.q * (chi-phi) + phi ) + 'deg )';
 
         }
     }
 
     this.insert = function( attr ) {
 
-        var object    = document.createElement('object'); // = where the controller is applied to
+        var object    = document.createElement('object'); // = where the css perspective is applied to
         var childNode = document.createElement('div');    // = where attributes are assigned to 
 
         childNode.id       = attr.id || '';
@@ -74,11 +90,14 @@ export var Markup = function( element ) {
 
             var childNode = object.children[j];
 
-            var placement = document.createElement('div'), // = where the transformation attributes are applied to
-                size      = childNode;                     // = where the size attribute is applied to
+            var q    = document.createElement('div'), // = where the controller is applied to
+                xyz  = document.createElement('div'), // = where the transformation attributes are applied to
+                size = childNode;                     // = where the size attribute is applied to
+
+            q.className = 'q';
 
             // Parse attributes
-            var id     = childNode.id    || '',
+            var id     = childNode.id   || '',
             className = childNode.class || '',
             
             position = {
@@ -105,8 +124,8 @@ export var Markup = function( element ) {
             childNode.id        = id;
             childNode.className = className;
 
-            placement.style.transformOrigin = 'center';
-            placement.style.transform = ' translateX(' + -1 * ( parseInt(position.x) + origin.x ) + '%)'
+            xyz.style.transformOrigin = 'center';
+            xyz.style.transform = ' translateX(' + -1 * ( parseInt(position.x) + origin.x ) + '%)'
                                       + ' translateY(' + -1 * ( parseInt(position.y) + origin.y ) + '%)'
                                       + ' translateZ(' + -1 * ( position.z / 100 * element.width ) + 'px)'
                                       + ' rotateX(' + rotation.x + 'deg)' 
@@ -115,19 +134,27 @@ export var Markup = function( element ) {
             size.style.width = width;
             size.style.height = height;
 
-            object.appendChild( placement );
-            placement.appendChild( size );
+            object.appendChild( q );
+            q.appendChild( xyz );
+            xyz.appendChild( size );
+
 
             Object.assign( object.style, {
+                'position':             'absolute',
+                'width':                '100%',
+                'height':               '100%',
+                'perspective':          getCSSPerspective( element.meta.FOV, element.width, element.height ),
+                'perspective-origin':   ( element.meta.OriginX || '50%' ) + ' ' + ( element.meta.OriginY || '50%' )
+            });
+            Object.assign( q.style, {
                 'position':         'absolute',
                 'width':            '100%',
                 'height':           '100%',
                 'display':          'flex',
                 'align-items':      'center',
                 'justify-content':  'center',
-
             });
-            Object.assign( placement.style, {
+            Object.assign( xyz.style, {
                 'position':         'absolute',
                 'width':            '50%',
                 'height':           ( 50 * element.width / element.height ) + '%',
@@ -141,5 +168,9 @@ export var Markup = function( element ) {
         }
     }
 
-}
+    function getCSSPerspective( fov, width, height) {
+        if ( !fov || !width || !height ) return 0;
+        return Math.pow( width/2*width/2 + height/2*height/2, 0.5 ) / Math.tan( (fov/2) * Math.PI / 180 ) + 'px';
+    }
 
+}

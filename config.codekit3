@@ -956,11 +956,11 @@
 		"oO": 0,
 		"oS": 1
 		},
-	"\/dist\/images\/Richterhaus_1920x1280.wakkl": {
+	"\/dist\/images\/Richterhaus_1920x1280.wakkle": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/dist\/images\/Richterhaus_1920x1280.wakkl",
+		"oAP": "\/dist\/images\/Richterhaus_1920x1280.wakkle",
 		"oF": 0
 		},
 	"\/dist\/images\/Richterhaus_1920x1280\/00.jpg": {
@@ -1385,25 +1385,32 @@
 		"sC": 1,
 		"tS": 0
 		},
-	"\/dist\/js\/wakkl.js": {
+	"\/dist\/js\/wakkle.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/dist\/js\/wakkl-min.js",
+		"oAP": "\/dist\/js\/wakkle-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/dist\/js\/wakkl.min.js": {
+	"\/dist\/js\/wakkle.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/dist\/js\/wakkl.min-min.js",
+		"oAP": "\/dist\/js\/wakkle.min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
+		},
+	"\/gh-md-toc": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/gh-md-toc",
+		"oF": 0
 		},
 	"\/LICENSE": {
 		"cB": 0,
@@ -1451,15 +1458,12 @@
 		"oAP": "\/src\/images\/.htaccess",
 		"oF": 0
 		},
-	"\/src\/images\/Metallwerkstatt_1920x1280.wakkl.jpg": {
-		"ft": 16384,
-		"iS": 224520,
+	"\/src\/images\/Metallwerkstatt_1920x1280.wakkle": {
+		"cB": 0,
+		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/src\/images\/Metallwerkstatt_1920x1280.wakkl.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
+		"oAP": "\/src\/images\/Metallwerkstatt_1920x1280.wakkle",
+		"oF": 0
 		},
 	"\/src\/images\/Metallwerkstatt_1920x1280\/00.jpg": {
 		"ft": 16384,
@@ -1679,15 +1683,12 @@
 		"oO": 0,
 		"oS": 1
 		},
-	"\/src\/images\/Modell_1920x1011.jpg": {
-		"ft": 16384,
-		"iS": 280966,
+	"\/src\/images\/Modell_1920x1011.wakkle": {
+		"cB": 0,
+		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/src\/images\/Modell_1920x1011.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
+		"oAP": "\/src\/images\/Modell_1920x1011.wakkle",
+		"oF": 0
 		},
 	"\/src\/images\/Modell_1920x1011\/00.jpg": {
 		"ft": 16384,
@@ -2017,15 +2018,12 @@
 		"oO": 0,
 		"oS": 1
 		},
-	"\/src\/images\/Moments_1920x1080.wakkl.jpg": {
-		"ft": 16384,
-		"iS": 251557,
+	"\/src\/images\/Moments_1920x1080.wakkle": {
+		"cB": 0,
+		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/src\/images\/Moments_1920x1080.wakkl.jpg",
-		"oF": 0,
-		"oIPL": 0,
-		"opt": 0,
-		"q": 100
+		"oAP": "\/src\/images\/Moments_1920x1080.wakkle",
+		"oF": 0
 		},
 	"\/src\/images\/Moments_1920x1080\/00.jpg": {
 		"ft": 16384,
@@ -2403,11 +2401,11 @@
 		"oO": 0,
 		"oS": 1
 		},
-	"\/src\/images\/Richterhaus_1920x1280.wakkl": {
+	"\/src\/images\/Richterhaus_1920x1280.wakkle": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/src\/images\/Richterhaus_1920x1280.wakkl",
+		"oAP": "\/src\/images\/Richterhaus_1920x1280.wakkle",
 		"oF": 0
 		},
 	"\/src\/images\/Richterhaus_1920x1280\/00.jpg": {
@@ -2832,16 +2830,6 @@
 		"sC": 1,
 		"tS": 0
 		},
-	"\/src\/js\/components.js": {
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/src\/js\/components-min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
 	"\/src\/js\/components\/collector.js": {
 		"ft": 64,
 		"ma": 0,
@@ -2858,6 +2846,16 @@
 		"mi": 1,
 		"oA": 1,
 		"oAP": "\/src\/js\/components\/collector\/generateUUID-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/src\/js\/components\/collector\/numberPadding.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "\/src\/js\/components\/collector\/numberPadding-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0

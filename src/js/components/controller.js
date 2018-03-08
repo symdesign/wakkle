@@ -1,60 +1,17 @@
 
+import * as CONST   from './const';
+import {icons}      from './UI/icons';
 import {loadScript} from "./controller/loadScript.js";
-
-
-const CONTROL_ICONS = {
-    html: require('./controller/control-icons.svg'),
-    fill: '#fff',
-    size: '32'
-}
-
-const HEAD_MOVE = {
-    name: 'head_move',
-    icon: {
-        selector: '#icon-head-move',
-    },
-    lib:  'js/headtrackr.min.js',
-}
-
-const MOUSE_MOVE = {
-    name: 'mouse_move',
-    icon: {
-        selector: '#icon-mouse-move',
-    },
-}
-
-const MOUSE_DRAG = {
-    name: 'mouse_drag',
-    icon: {
-        selector: '#icon-mouse-drag',
-    },
-}
-
-const TOUCH_DRAG = {
-    name: 'touch_drag',
-    icon: {
-        selector: '#icon-touch-drag',
-    },
-}
-
-const DEVICE_ORIENTATION = {
-    name: 'device_orientation',
-    icon: {
-        selector: '#icon-device-orientation',
-    },
-}
-
 
 var WIDTH = windowWidth(), HEIGHT = windowHeight();
 
-
 export var Controller = function( element ) {
 
-    this.initialized    = false;
-    this.q              = 0.5;
+    this.initialized = false;
+    this.q           = 0.5;
 
-    this.UI             = false;
-    var trackers        = [];
+    var trackers   = [],
+        UI         = element.ui.controllers;
 
     var that = this;
 
@@ -80,33 +37,104 @@ export var Controller = function( element ) {
 
     this.init = function() {
 
-        if ( this.UI && hasWebcam() ) {
-            trackers.push( HEAD_MOVE );
+        if ( UI && hasWebcam() ) {
+            trackers.push( CONST.head_move );
         }
-        if ( this.UI && hasMouse() ) {
-            trackers.push( MOUSE_MOVE );
-            trackers.push( MOUSE_DRAG );
+        if ( UI && hasMouse() ) {
+            trackers.push( CONST.mouse_move );
+            trackers.push( CONST.mouse_drag );
         }
-        if ( this.UI && hasTouch() ) {
-            trackers.push( TOUCH_DRAG );
+        if ( UI && hasTouch() ) {
+            trackers.push( CONST.touch_drag );
         }
-        if ( this.UI && hasDeviceOrientation() ) {
-            trackers.push( DEVICE_ORIENTATION );
+        if ( UI && hasDeviceOrientation() ) {
+            trackers.push( CONST.device_orientation );
         }
 
-        drawControllers();
-        update();
-
-        if ( hasMouse() ) this.setActive('mouse_move');
+        if ( UI )           this.UI.init();
+        if ( hasMouse() )   this.setActive('mouse_move');
         if ( hasDeviceOrientation() ) this.setActive('device_orientation');
 
         this.initialized = true;
 
+        update();
     }
 
     this.control = function( obj ) {
         components.push( obj );
     }
+
+    this.setActive = function( tracker ) {
+        set( tracker );
+        that.UI.set( tracker );
+    }
+
+    this.getActive = function() {
+        return active;
+    }
+
+    this.icons = icons;
+
+    this.UI = {
+
+        init: function() {
+
+            var ul = document.createElement('ul'),
+                li,
+                tracker;
+
+            for ( var i = 0; i < trackers.length; i++ ) {
+                
+                tracker = trackers[i];
+
+                li                  = document.createElement('li');
+                li.className        = CONST.class_prefix + 'controller-button ' + tracker.name;
+                li.style.width      = '2em';
+                li.style.height     = '2em';
+                li.style.cursor     = 'pointer';
+                li.dataset.tracker  = tracker.name;
+                
+                li.appendChild( that.icons.use( tracker.icon.selector ));
+
+                li.addEventListener( 'click', function(e){ 
+                    that.setActive( this.dataset.tracker );
+                }, false);
+
+                ul.className = CONST.class_prefix +'controller-buttons ' + CONST.class_prefix + 'ui ';
+                ul.appendChild( li );
+
+            }
+
+            ul.style.position   = 'absolute';
+            document.getElementById( element.id ).appendChild( ul )
+
+        },
+        set: function( tracker ) {
+
+            if ( !UI ) return;
+
+            var controllerButtons = element.wrapper.querySelectorAll('.' + CONST.class_prefix + 'controller-button');
+
+            controllerButtons.forEach( (item, index) => { 
+                item.classList.remove('active');
+    
+                var icon = item.querySelector('use');
+                var href = icon.getAttribute('xlink:href').replace('-off','');
+    
+                icon.setAttribute('xlink:href', href + '-off' );
+                
+            });
+    
+            var item = element.wrapper.querySelector('[data-tracker=' + tracker + ']');
+            var icon = item.querySelector('use');
+            var href = icon.getAttribute('xlink:href').replace('-off','');
+    
+            item.classList.add('active');
+            icon.setAttribute('xlink:href', href );
+
+        }
+    }
+
 
     function update() {
         // TODO: performance optimisation -> delay in dependence of distance between last and current mouse position 
@@ -316,7 +344,7 @@ export var Controller = function( element ) {
 
 
     if ( hasWebcam() ) {
-        loadScript( HEAD_MOVE.lib, initHeadtrackr );
+        loadScript( CONST.head_move.lib, initHeadtrackr );
     }
 
     function initHeadtrackr() {
@@ -372,85 +400,6 @@ export var Controller = function( element ) {
         document.removeEventListener('facetrackingEvent', facetrackHandler);
         htracker.stop();
         htracker.stopStream();
-    }
-
-
-    this.setActive = function( tracker ) {
-
-        set( tracker );
-
-        if ( !this.UI ) return;
-
-        var controlLinks = element.wrapper.querySelectorAll('.control-button');
-
-        controlLinks.forEach( (item, index) => { 
-            item.classList.remove('active');
-
-            var icon = item.querySelector('use');
-            var href = icon.getAttribute('xlink:href').replace('-off','');
-
-            icon.setAttribute('xlink:href', href + '-off' );
-            
-        });
-
-        var item = element.wrapper.querySelector('[data-tracker=' + tracker + ']');
-        var icon = item.querySelector('use');
-        var href = icon.getAttribute('xlink:href').replace('-off','');
-
-        item.classList.add('active');
-        icon.setAttribute('xlink:href', href );
-
-    }
-
-    this.getActive = function() {
-        return active;
-    }
-
-    function drawControllers() {
-
-        var icons = document.createElement('div');
-        icons.style.display = 'none';
-        icons.innerHTML = CONTROL_ICONS.html;
-
-        element.wrapper.appendChild( icons );
-
-        var ul = document.createElement('ul'),
-            li,
-            tracker;
-
-        for ( var i = 0; i < trackers.length; i++ ) {
-            
-            tracker = trackers[i];
-
-            li                  = document.createElement('li');
-            li.className        = 'control-button ' + tracker.name;
-            li.innerHTML        = '<svg '
-                                + 'width="' + CONTROL_ICONS.size + '" '
-                                + 'height="' + CONTROL_ICONS.size + '" '
-                                + '>'
-                                    + '<use '
-                                    + 'xlink:href="' + tracker.icon.selector + '-off" '
-                                    + 'fill="' + CONTROL_ICONS.fill + '" '
-                                    + '/>'
-                                + '</svg>';
-            li.style.width      = '2em';
-            li.style.height     = '2em';
-            li.style.cursor     = 'pointer';
-            li.dataset.tracker  = tracker.name;
-
-            li.addEventListener( 'click', function(e){ 
-                that.setActive( this.dataset.tracker );
-            }, false);
-
-            ul.className = 'control-buttons';
-            ul.appendChild( li );
-
-        }
-
-        ul.style.position   = 'absolute';
-        ul.style.zIndex     = '999' // looks bad but I really don't know how many items there will be
-        document.getElementById( element.id ).appendChild( ul )
-
     }
 
     function isMobile() {
