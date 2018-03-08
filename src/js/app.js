@@ -27,41 +27,42 @@ export var init = function( options ) {
 
     var settings = {
 
-        ui:                 typeof options.ui === 'boolean' ? {
-                                controllers:  options.ui, // show controller buttons
-                                fullscreen:   options.ui, // show fullscreen button
-                                minimap:      options.ui, // show minimap similar to facebook's 360° videos
-                                fade:         options.ui, // fade out on mouse-out, in on mouse-in
-                                minimal:      options.ui, // gather buttons in context menus
-                            } : 
-                            typeof options.ui === 'object' ? {
-                                controllers:  options.ui.controllers,
-                                fullscreen:   options.ui.fullscreen,
-                                minimap:      options.ui.minimap,
-                                fade:         options.ui.fade,
-                            } : {
-                                controllers:  true,
-                                fullscreen:   true,
-                                minimap:      true,
-                                fade:         true,
-                            },
+        ui:             typeof options.ui === 'boolean' ? {
+                            controllers:  options.ui, // show controller buttons
+                            fullscreen:   options.ui, // show fullscreen button
+                            minimap:      options.ui, // show minimap similar to facebook's 360° videos
+                            fade:         options.ui, // fade out on mouse-out, in on mouse-in
+                            minimal:      options.ui, // gather buttons in context menus
+                            sound:        options.ui, // true, false, mute
+                        } : 
+                        typeof options.ui === 'object' ? {
+                            controllers:  options.ui.controllers,
+                            fullscreen:   options.ui.fullscreen,
+                            minimap:      options.ui.minimap,
+                            fade:         options.ui.fade,
+                        } : {
+                            controllers:  true,
+                            fullscreen:   true,
+                            minimap:      true,
+                            fade:         true,
+                        },
 
-        grid:               typeof options.grid === 'boolean' ? {
-                                xy: options.grid,
-                                yz: options.grid,
-                                xz: options.grid
-                            } : 
-                            typeof options.grid === 'object' ? {
-                                xy: options.gird.xy,
-                                yz: options.grid.yz,
-                                xz: options.grid.xz
-                            } : {
-                                xy: false,
-                                yz: false,
-                                xz: false
-                            },
+        grid:           typeof options.grid === 'boolean' ? {
+                            xy: options.grid,
+                            yz: options.grid,
+                            xz: options.grid
+                        } : 
+                        typeof options.grid === 'object' ? {
+                            xy: options.gird.xy,
+                            yz: options.grid.yz,
+                            xz: options.grid.xz
+                        } : {
+                            xy: false,
+                            yz: false,
+                            xz: false
+                        },
 
-         bindFontSize:       default_( options.bindFontSize, true ),
+         bindFontSize:  default_( options.bindFontSize, true ),
 
     }
 

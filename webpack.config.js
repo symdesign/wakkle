@@ -80,7 +80,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: 'css/style.css',
+            filename: './css/wakkle.css',
             disable: !isProd
         }),
         new HtmlWebpackPlugin({
