@@ -1,4 +1,7 @@
 
+import * as CONST from './const';
+import {icons}    from './UI/icons';
+
 export var Sound = function( element ) {
 
     this.initialized    = false;
@@ -10,40 +13,80 @@ export var Sound = function( element ) {
         audio   = new Audio(),
         context = new AudioContext(),
         panner  = context.createPanner(),
-        level,
+        level;
+
+    var playing = false,
+        fadeIn,
+        fadeOut,
         volume,
-        up,
-        down,
-        speed   = 0.01,
-        listener;
+        target;
 
     this.init = function() {
 
         if ( !element.sound ) return;
 
-        audio.src       = element.meta.Path + element.sound.Source;
-        audio.autoplay  = element.sound.Autoplay || false;
+        audio.src       = element.sound.Source;
+        audio.autoplay  = element.sound.Autoplay || true;
         audio.loop      = element.sound.Loop || true;
-        audio.volume    = 0; // let's make a nice fade-in instead
+        audio.volume    = volume = 0; // let's make a nice fade-in instead
         audio.controls  = false;
 
         panner.setPosition(0, 0, 1);
         panner.panningModel = 'equalpower';
         panner.connect( context.destination );
 
-        context.listener.setPosition(0, 0, 0);
         context.createMediaElementSource(audio).connect( panner );
 
-        this.initialized = true;
-        this.start();
+        document.addEventListener( 'visibilitychange', visibilityHandler );
 
+        this.play();
+        this.initialized = true;
+
+        setTimeout(() => {
+            if ( audio.currentTime == 0 ) this.pause();
+            this.UI.init();
+        },1000)
     }
 
-    this.start = function() {
+    this.play = function() {
+        playing = true;
         play();
     }
-    this.stop = function() {
+
+    this.pause = function() {
+        playing = false;
         pause();
+    }
+
+    this.toggle = function() {
+        playing = !playing;
+        that.UI.set( playing );
+        playing ? play() : pause();
+    }
+
+    this.icons = icons;
+
+    this.UI = {
+        init: function() { 
+
+            var soundButton = document.createElement('div');
+
+            soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) )
+            soundButton.className = CONST.class_prefix + 'sound-button ' + CONST.class_prefix + 'ui';
+            soundButton.style.position = 'absolute';
+            soundButton.style.cursor = 'pointer';
+            soundButton.addEventListener( 'click', function() {
+                that.toggle()
+            });
+
+            element.wrapper.appendChild( soundButton );
+
+        },
+        set: function( playing ) {
+            var soundButton = element.wrapper.querySelector('.' + CONST.class_prefix + 'sound-button');
+            soundButton.innerHTML = '';
+            soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) );
+        }
     }
 
     this.update = function() {
@@ -54,41 +97,63 @@ export var Sound = function( element ) {
         panner.setPosition(x,y,z);
     }
 
+
     function play() {
-        volume = 1
 
-        //audio.play()
-        level = audio.volume + speed >= volume ? volume : audio.volume + speed
-        audio.volume = level
+        audio.play();
 
-        if ( audio.volume == volume ) {
-            cancelAnimationFrame( up )
-            up = undefined
-        } else {
-            if ( down ) cancelAnimationFrame( down )
-            up = requestAnimationFrame( play )
-        }
+        if ( volume < 0 ) volume = 0;
+        if ( volume > 1 ) volume = 1;
+
+        fadeIn = setInterval(function() { 
+        // Note: we can't use requestAnimationFrame because fade wouldn't work when document hidden
+
+            target = 1;
+            volume += 0.1;
+            audio.volume = volume >= target ? target : volume;
+    
+            if ( fadeOut ) {
+                clearInterval( fadeOut );
+                fadeOut = false;
+            }
+            if ( audio.volume == target ) {
+                clearInterval( fadeIn );
+                fadeIn = false;
+            }
+    
+        }, 100)
     }
     
     function pause() {
-        volume = 0
 
-        audio.play()
-        level = audio.volume - speed <= volume ? volume : audio.volume - speed
-        audio.volume = level
+        audio.play();
 
-        if ( audio.volume == volume ) {
-            cancelAnimationFrame( down )
-            down = undefined
-        } else {
-            if ( up ) cancelAnimationFrame( up )
-            down = requestAnimationFrame( pause )
-        }
-    }
+        if ( volume < 0 ) volume = 0;
+        if ( volume > 1 ) volume = 1;
+
+        fadeOut = setInterval(function() {
+
+            target = 0
+            volume -= 0.1;
+            audio.volume = volume <= target ? target : volume;
     
-    function stop() {
-        pause()
-        audio.currentTime = 0
+            if ( fadeIn ) {
+                clearInterval( fadeIn );
+                fadeIn = false;
+            }
+            if ( audio.volume == target ) {
+                clearInterval( fadeOut );
+                fadeOut = false;
+            }
+            
+        }, 100)
     }
+
+    function visibilityHandler() {
+        if ( document.visibilityState == 'hidden' && playing ) pause();
+        if ( document.visibilityState == 'visible' && playing ) play();
+    }
+
 }
+
 

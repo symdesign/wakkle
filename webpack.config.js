@@ -50,7 +50,15 @@ module.exports = {
             },
             {
                 test: /\.js$/, 
-                use: 'babel-loader',
+                loader: 'babel-loader',
+                query: {
+                    babelrc: false,
+                    plugins: [
+                      'transform-es2015-arrow-functions',
+                      'transform-es2015-block-scoping',
+                      'transform-es2015-parameters'
+                    ]
+                },
                 exclude: /node_modules/
             },
             {
@@ -68,7 +76,7 @@ module.exports = {
         compress: true, // gzip compression
         stats: 'errors-only',
         hot: true,
-        open: true
+        open: false
     },
     plugins: [
         new ExtractTextPlugin({

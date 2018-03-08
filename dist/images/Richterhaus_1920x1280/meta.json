@@ -1,12 +1,11 @@
 {
     "WAKKLE-dataset": {
-        "Count": 37,
-        "AngleOfView": "Unknown",
-        "Phi": -36,
-        "Chi": 14,
+        "FOV":      92.3,
+        "Phi":      -36,
+        "Chi":      14,
         "OriginX": "50%",
         "OriginY": "55%",
-        "Sound": "sound.mp3"
+        "Sound":    "sound.mp3"
     },
     "XMP-exif": {
         "ExifToolVersion": 10.77,
@@ -63,7 +62,7 @@
         "Megapixels": 17.9,
         "ScaleFactor35efl": 1.6,
         "ShutterSpeed": "1/50",
-
+        "FOV": "92.3 deg",
         "FocalLength35efl": "11.0 mm (35 mm equivalent: 17.3 mm)",
         "HyperfocalDistance": "1.27 m",
         "LensID": "Tokina AT-X 116 AF Pro DX 11-16mm f/2.8",

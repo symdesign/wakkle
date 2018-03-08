@@ -4,12 +4,15 @@
   "description": "A JavaScript library for multi-sensory three-dimensional photographs.",
   "main": "index.js",
   "dependencies": {
+    "screenfull": "^3.3.2",
     "simple-element-resize-detector": "^1.1.0",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+    "babel-plugin-transform-es2015-parameters": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.21.0",
     "browser-sync-webpack-plugin": "^1.2.0",

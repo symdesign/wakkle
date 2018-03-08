@@ -5,15 +5,13 @@
 @import "controller/device-orientation";
 @import "controller/head-move";
 
-.control-buttons {
-    top: 0;
+.wakkle-controller-buttons {
+    bottom: 0;
     right: 0;
     list-style: none;
-    margin: 0;
-    padding: 0.5em 1em;
 }
 
-.control-button {
+.wakkle-controller-button {
     display: inline-block;
     padding: 0.5em;
 }

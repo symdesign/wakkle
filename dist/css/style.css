@@ -432,10 +432,24 @@ body {
 .fadein {
   opacity: 1; }
 
+.grabbable {
+  cursor: move;
+  /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab; }
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.grabbable:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing; }
+
 .icon-deviceorientation:after {
   content: "\E907"; }
 
-.dialog-container {
+.dialog-container,
+#headtrackerMessageDiv {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -447,7 +461,8 @@ body {
   left: 0;
   background: rgba(0, 0, 0, 0.5); }
 
-.dialog {
+.dialog,
+#headtrackerMessage {
   display: block;
   max-width: 80vw;
   max-height: 80vh;
@@ -456,14 +471,14 @@ body {
   border-radius: 1em;
   overflow-x: auto; }
 
-.control-buttons {
+.wakkle-controller-buttons {
   top: 0;
   right: 0;
   list-style: none;
   margin: 0;
   padding: 0.5em 1em; }
 
-.control-button {
+.wakkle-controller-button {
   display: inline-block;
   padding: 0.5em; }
 

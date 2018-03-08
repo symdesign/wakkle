@@ -1,5 +1,6 @@
 
-.dialog-container {
+.dialog-container,
+#headtrackerMessageDiv {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,7 +13,8 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
-.dialog {
+.dialog,
+#headtrackerMessage {
     display: block;
     max-width: 80vw;
     max-height: 80vh;
