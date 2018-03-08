@@ -100,20 +100,20 @@ export var Controller = function( element ) {
                     that.setActive( this.dataset.tracker );
                 }, false);
 
-                ul.className = CONST.class_prefix +'controller-buttons ' + CONST.class_prefix + 'ui ';
+                ul.className = CONST.class_prefix +'controller-buttons ';
                 ul.appendChild( li );
 
             }
 
-            ul.style.position   = 'absolute';
-            document.getElementById( element.id ).appendChild( ul )
+            ul.style.position = 'absolute';
+            element.ui.wrapper.appendChild( ul )
 
         },
         set: function( tracker ) {
 
             if ( !UI ) return;
 
-            var controllerButtons = element.wrapper.querySelectorAll('.' + CONST.class_prefix + 'controller-button');
+            var controllerButtons = element.ui.wrapper.querySelectorAll('.' + CONST.class_prefix + 'controller-button');
 
             controllerButtons.forEach( (item, index) => { 
                 item.classList.remove('active');
@@ -125,7 +125,7 @@ export var Controller = function( element ) {
                 
             });
     
-            var item = element.wrapper.querySelector('[data-tracker=' + tracker + ']');
+            var item = element.ui.wrapper.querySelector('[data-tracker=' + tracker + ']');
             var icon = item.querySelector('use');
             var href = icon.getAttribute('xlink:href').replace('-off','');
     
@@ -135,7 +135,7 @@ export var Controller = function( element ) {
         }
     }
 
-
+ 
     function update() {
         // TODO: performance optimisation -> delay in dependence of distance between last and current mouse position 
         // look up: ease to value in certain speed

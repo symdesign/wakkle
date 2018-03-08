@@ -18,7 +18,7 @@ export var Fullscreen = function( element ) {
         var fullscreenButton = document.createElement('div');
 
         fullscreenButton.appendChild( that.icons.use( '#icon-fullscreen-off' ) )
-        fullscreenButton.className = CONST.class_prefix + 'fullscreen-button ' + CONST.class_prefix + 'ui';
+        fullscreenButton.className = CONST.class_prefix + 'fullscreen-button ';
         fullscreenButton.style.position = 'absolute';
         fullscreenButton.style.cursor = 'pointer';
         fullscreenButton.addEventListener( 'click', function() {
@@ -27,10 +27,11 @@ export var Fullscreen = function( element ) {
         });
 
         screenfull.on('change', () => {
-            that.toggleUI()
+            fullscreen = !fullscreen;
+            that.toggleUI();
         });
 
-        element.wrapper.appendChild( fullscreenButton );
+        element.ui.wrapper.appendChild( fullscreenButton );
 
     }
 
@@ -40,11 +41,12 @@ export var Fullscreen = function( element ) {
         fullscreenButton.innerHTML = '';
         fullscreenButton.appendChild( that.icons.use( '#icon-fullscreen-' + ( fullscreen ? 'on' : 'off ') ) );
 
+        fullscreen ? element.wrapper.classList.add( 'fullscreen' ) : element.wrapper.classList.remove( 'fullscreen' );
+
     }
 
     this.toggleFullscreen = function() {
-        fullscreen = !fullscreen;
-        fullscreen ? screenfull.request( element.wrapper ) : screenfull.exit();
+        !fullscreen ? screenfull.request( element.wrapper ) : screenfull.exit();
     }
 
 }

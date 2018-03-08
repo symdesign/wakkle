@@ -2,6 +2,8 @@
 import './../scss/style.scss';
 import 'document-register-element'; // Polyfill for custom tagnames
 
+import * as CONST   from './components/const';
+
 import {Collector}  from './components/collector';
 
 import {Controller} from './components/controller';
@@ -81,6 +83,7 @@ export var init = function( options ) {
         vector      = [],
         minimap     = [],
         fullscreen  = [],
+        ui,
 
         grid = new Grid({
             xy: settings.grid.xy,
@@ -91,8 +94,14 @@ export var init = function( options ) {
 
     for (var i = 0; i < elements.length; i++) {
 
-        element     = elements[i];
-        element.ui  = settings.ui;
+        element             = elements[i];
+        element.ui          = settings.ui;
+
+        if ( element.ui ) {
+            element.ui.wrapper                  = document.createElement('div');
+            element.ui.wrapper.className        = CONST.class_prefix + 'ui';
+            element.wrapper.appendChild( element.ui.wrapper )
+        }
 
         //if ( !isElementVisible( element ) ) { // Needs to be fixed
 

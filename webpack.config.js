@@ -84,7 +84,7 @@ module.exports = {
             disable: !isProd
         }),
         new HtmlWebpackPlugin({
-            title: 'Demo',
+            title: 'Example',
             template: './src/index.ejs',
             chunks: ['wakkle'],
             hash: false,
