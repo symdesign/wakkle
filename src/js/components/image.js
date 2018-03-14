@@ -54,7 +54,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
                 var percent = Math.floor((100 / this.queue.length) * this.completed.length);
                 progress.value = index;
 
-                if (prevBefore != element && prevAfter != element && element) element.remove();
+                //if (prevBefore != element && prevAfter != element && element) element.remove();
                 if (count > 3) that.update();
 
                 loaded.push(image);
@@ -82,7 +82,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
                 }
             },
             onComplete: function(loaded, errors) {
-                element.remove();
+                //element.remove();
                 progress.style.display = 'none';
                 this.initialized = true;
             }
@@ -99,8 +99,9 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
 
         if (objectFit != 'fill' && objectFit != 'none') {
             image.style.objectFit = objectFit;
-            image.style.width = (element.hasAttribute('width') ? element.width : element.style.width) || '100%';
-            image.style.height = (element.hasAttribute('height') ? element.height : element.style.height) || 'auto';
+            image.style.top = image.style.right = image.style.bottom = image.style.left = 0;
+            //image.style.width = (element.hasAttribute('width') ? element.width : element.style.width) || '100%';
+            //image.style.height = (element.hasAttribute('height') ? element.height : element.style.height) || 'auto';
         }
         return image;
     }

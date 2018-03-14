@@ -148,16 +148,21 @@ export var Controller = function( element ) {
         }
     }
 
+    function mouseoverElement(e, rect) {
+        return e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+    }
+
     function mouseHandler(e) {
-        var mouseX = e.pageX;
-        q = mouseX / WIDTH;
+        var rect = element.wrapper.getBoundingClientRect();
+        if (!mouseoverElement(e,rect) ) return;
+
+        q = ( e.pageX - rect.left ) / rect.width
         update();
     }
 
     function dragStart(e) {
-        mousedown = 1;
+        mousedown  = 1;
         mouseDownX = e.pageX || e.changedTouches[0].pageX;
-        mouseDownY = e.pageY || e.changedTouches[0].pageY;
     }
 
     function dragEnd(e) {
@@ -166,12 +171,12 @@ export var Controller = function( element ) {
     }
 
     function dragHandler(e) {
+        var rect = element.wrapper.getBoundingClientRect();
+        if ( !mousedown || !mouseoverElement(e,rect) ) return;
 
         e.preventDefault();
-        if (!mousedown) return;
 
-        var pageX = e.pageX || e.changedTouches[0].pageX,
-            pageY = e.pageY || e.changedTouches[0].pageY;
+        var pageX = e.pageX || e.changedTouches[0].pageX;
 
         var _dX = pageX - (mouseMoveX || mouseDownX);
 
@@ -181,7 +186,7 @@ export var Controller = function( element ) {
         }
 
         dX = _dX;
-        var dQ = dX / WIDTH;
+        var dQ = dX / rect.width;
         dQ = -dQ;
 
         q = 1 - q;
