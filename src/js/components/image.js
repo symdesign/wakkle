@@ -100,8 +100,6 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
         if (objectFit != 'fill' && objectFit != 'none') {
             image.style.objectFit = objectFit;
             image.style.top = image.style.right = image.style.bottom = image.style.left = 0;
-            //image.style.width = (element.hasAttribute('width') ? element.width : element.style.width) || '100%';
-            //image.style.height = (element.hasAttribute('height') ? element.height : element.style.height) || 'auto';
         }
         return image;
     }

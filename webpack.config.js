@@ -87,6 +87,7 @@ module.exports = {
             title: 'Example',
             template: './src/index.ejs',
             chunks: ['wakkle'],
+            css: ['wakkle.css'],
             hash: false,
             inject : false
         }),

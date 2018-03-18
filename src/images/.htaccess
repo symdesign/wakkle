@@ -1,3 +1,0 @@
-# Redirect 301 / https://s3.eu-central-1.amazonaws.com/wakkl.demo/
-
-AddType image/jpeg .wakkl 

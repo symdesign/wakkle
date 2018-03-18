@@ -5,15 +5,20 @@
     <meta charset="UTF-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>">
     <style>
     * {
         margin: 0;
         padding: 0;
     }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     wakkle-image {
-        width: 500px;
+        width: 50%;
         height: auto;
-        margin-left: 200px;
     }
     </style>
 </head>

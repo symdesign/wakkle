@@ -62,7 +62,7 @@ var wakkle =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8ba3115c5724a6935db1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2e3914e81f3a664b30d6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -940,20 +940,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_document_register_element__ = __webpack_require__("./node_modules/document-register-element/build/document-register-element.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_document_register_element___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_document_register_element__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_collector__ = __webpack_require__("./src/js/components/collector.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_controller__ = __webpack_require__("./src/js/components/controller.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_image__ = __webpack_require__("./src/js/components/image.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_mask__ = __webpack_require__("./src/js/components/mask.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sound__ = __webpack_require__("./src/js/components/sound.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_markup__ = __webpack_require__("./src/js/components/markup.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_vector__ = __webpack_require__("./src/js/components/vector.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_minimap__ = __webpack_require__("./src/js/components/minimap.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_fullscreen__ = __webpack_require__("./src/js/components/fullscreen.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_grid__ = __webpack_require__("./src/js/components/grid.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_UI_icons__ = __webpack_require__("./src/js/components/UI/icons.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_const__ = __webpack_require__("./src/js/components/const.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_collector__ = __webpack_require__("./src/js/components/collector.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_controller__ = __webpack_require__("./src/js/components/controller.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_image__ = __webpack_require__("./src/js/components/image.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_mask__ = __webpack_require__("./src/js/components/mask.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sound__ = __webpack_require__("./src/js/components/sound.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_markup__ = __webpack_require__("./src/js/components/markup.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_vector__ = __webpack_require__("./src/js/components/vector.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_minimap__ = __webpack_require__("./src/js/components/minimap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_fullscreen__ = __webpack_require__("./src/js/components/fullscreen.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_grid__ = __webpack_require__("./src/js/components/grid.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_UI_icons__ = __webpack_require__("./src/js/components/UI/icons.js");
 
 
  // Polyfill for custom tagnames
+
+
 
 
 
@@ -1016,7 +1019,7 @@ var init = function (options) {
 
     };
 
-    var collector = new __WEBPACK_IMPORTED_MODULE_2__components_collector__["a" /* Collector */]();
+    var collector = new __WEBPACK_IMPORTED_MODULE_3__components_collector__["a" /* Collector */]();
     collector.init();
 
     var elements = collector.collect(),
@@ -1030,7 +1033,8 @@ var init = function (options) {
         vector = [],
         minimap = [],
         fullscreen = [],
-        grid = new __WEBPACK_IMPORTED_MODULE_11__components_grid__["a" /* Grid */]({
+        ui,
+        grid = new __WEBPACK_IMPORTED_MODULE_12__components_grid__["a" /* Grid */]({
         xy: settings.grid.xy,
         yz: settings.grid.yz,
         xz: settings.grid.xz
@@ -1041,39 +1045,45 @@ var init = function (options) {
         element = elements[i];
         element.ui = settings.ui;
 
+        if (element.ui) {
+            element.ui.wrapper = document.createElement('div');
+            element.ui.wrapper.className = __WEBPACK_IMPORTED_MODULE_2__components_const__["a" /* class_prefix */] + 'ui';
+            element.wrapper.appendChild(element.ui.wrapper);
+        }
+
         //if ( !isElementVisible( element ) ) { // Needs to be fixed
 
-        controller[i] = new __WEBPACK_IMPORTED_MODULE_3__components_controller__["a" /* Controller */](element);
+        controller[i] = new __WEBPACK_IMPORTED_MODULE_4__components_controller__["a" /* Controller */](element);
         controller[i].init();
 
-        image[i] = new __WEBPACK_IMPORTED_MODULE_4__components_image__["a" /* Sequence */](element);
+        image[i] = new __WEBPACK_IMPORTED_MODULE_5__components_image__["a" /* Sequence */](element);
         image[i].init();
         controller[i].control(image[i]);
 
-        mask[i] = new __WEBPACK_IMPORTED_MODULE_5__components_mask__["a" /* Mask */](element);
+        mask[i] = new __WEBPACK_IMPORTED_MODULE_6__components_mask__["a" /* Mask */](element);
         mask[i].init();
         controller[i].control(mask[i]);
 
-        sound[i] = new __WEBPACK_IMPORTED_MODULE_6__components_sound__["a" /* Sound */](element);
+        sound[i] = new __WEBPACK_IMPORTED_MODULE_7__components_sound__["a" /* Sound */](element);
         !sound[i == 0 ? 0 : i - 1].initialized && sound[i].init();
         controller[i].control(sound[i]);
 
-        markup[i] = new __WEBPACK_IMPORTED_MODULE_7__components_markup__["a" /* Markup */](element);
+        markup[i] = new __WEBPACK_IMPORTED_MODULE_8__components_markup__["a" /* Markup */](element);
         markup[i].init();
         if (settings.grid.xy) markup[i].insert(grid.xy);
         if (settings.grid.yz) markup[i].insert(grid.yz);
         if (settings.grid.xz) markup[i].insert(grid.xz);
         controller[i].control(markup[i]);
 
-        vector[i] = new __WEBPACK_IMPORTED_MODULE_8__components_vector__["a" /* Vector */](element);
+        vector[i] = new __WEBPACK_IMPORTED_MODULE_9__components_vector__["a" /* Vector */](element);
         vector[i].init();
         controller[i].control(vector[i]);
 
-        minimap[i] = new __WEBPACK_IMPORTED_MODULE_9__components_minimap__["a" /* Minimap */](element);
+        minimap[i] = new __WEBPACK_IMPORTED_MODULE_10__components_minimap__["a" /* Minimap */](element);
         minimap[i].init();
         controller[i].control(minimap[i]);
 
-        fullscreen[i] = new __WEBPACK_IMPORTED_MODULE_10__components_fullscreen__["a" /* Fullscreen */](element);
+        fullscreen[i] = new __WEBPACK_IMPORTED_MODULE_11__components_fullscreen__["a" /* Fullscreen */](element);
         fullscreen[i].init();
 
         // TODO: implement global control switch + control switch UI
@@ -1151,8 +1161,12 @@ module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: non
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Collector; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__const__ = __webpack_require__("./src/js/components/const.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__collector_generateUUID__ = __webpack_require__("./src/js/components/collector/generateUUID.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__collector_numberPadding__ = __webpack_require__("./src/js/components/collector/numberPadding.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_simple_element_resize_detector__ = __webpack_require__("./node_modules/simple-element-resize-detector/dist/simple-element-resize-detector.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_simple_element_resize_detector___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_simple_element_resize_detector__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__collector_generateUUID__ = __webpack_require__("./src/js/components/collector/generateUUID.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__collector_numberPadding__ = __webpack_require__("./src/js/components/collector/numberPadding.js");
+
+
 
 
 
@@ -1185,7 +1199,7 @@ var Collector = function () {
             path = path.replace('.wakkle', '');
             path = path + '/';
 
-            img.id = img.id || Object(__WEBPACK_IMPORTED_MODULE_1__collector_generateUUID__["a" /* generateUUID */])(); // making sure the img has an ID
+            img.id = img.id || Object(__WEBPACK_IMPORTED_MODULE_2__collector_generateUUID__["a" /* generateUUID */])(); // making sure the img has an ID
             img.sequence = getSequence(path);
             img.markup = img.parentElement.getElementsByTagName('object');
 
@@ -1217,18 +1231,14 @@ var Collector = function () {
             }
             Object.assign(img.wrapper.style, {
                 'position': getCSSValue('position', img.wrapper) == 'static' ? 'relative' : img.wrapper.position,
-
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-
                 'display': 'block',
-                'width': '100%',
-                'height': '0',
-                'padding-bottom': img.naturalHeight / img.naturalWidth * 100 + '%',
-
                 'overflow': 'hidden'
             });
+
+            __WEBPACK_IMPORTED_MODULE_1_simple_element_resize_detector___default()(img.wrapper, function () {
+                img.wrapper.style.height = img.naturalHeight * (img.clientWidth / img.naturalWidth) + 'px';
+            });
+            img.wrapper.style.height = img.naturalHeight * (img.clientWidth / img.naturalWidth) + 'px';
 
             components.push(img);
         }
@@ -1300,7 +1310,7 @@ function getSequence(path) {
                     }
                 };
 
-                xhr.open('HEAD', path + Object(__WEBPACK_IMPORTED_MODULE_2__collector_numberPadding__["a" /* pad */])(testNumber, testPaddings[i]) + '.' + testExtensions[j], false);
+                xhr.open('HEAD', path + Object(__WEBPACK_IMPORTED_MODULE_3__collector_numberPadding__["a" /* pad */])(testNumber, testPaddings[i]) + '.' + testExtensions[j], false);
                 xhr.send();
 
                 if (found) break;
@@ -1321,7 +1331,7 @@ function getSequence(path) {
 
         for (var i = 0; i <= maxLength; i++) {
 
-            var testImage = Object(__WEBPACK_IMPORTED_MODULE_2__collector_numberPadding__["a" /* pad */])(i + 1, sequence.padding) + '.' + sequence.extension;
+            var testImage = Object(__WEBPACK_IMPORTED_MODULE_3__collector_numberPadding__["a" /* pad */])(i + 1, sequence.padding) + '.' + sequence.extension;
             xhr = new XMLHttpRequest();
 
             xhr.onreadystatechange = function () {
@@ -1335,7 +1345,7 @@ function getSequence(path) {
                     if (xhr.status === 404) {
                         // length found
 
-                        console.log('⬆ Good. ' + Object(__WEBPACK_IMPORTED_MODULE_2__collector_numberPadding__["a" /* pad */])(i, sequence.padding) + '.' + sequence.extension + ' is the last image in sequence.');
+                        console.log('⬆ Good. ' + Object(__WEBPACK_IMPORTED_MODULE_3__collector_numberPadding__["a" /* pad */])(i, sequence.padding) + '.' + sequence.extension + ' is the last image in sequence.');
                         sequence.length = i;
                         found = true;
                     }
@@ -1353,6 +1363,7 @@ function getSequence(path) {
 function wrap(element) {
 
     var wrapper = document.createElement(__WEBPACK_IMPORTED_MODULE_0__const__["h" /* tagname */]);
+
     if (element.hasAttributes()) cloneAttributes(element, wrapper);
 
     element.parentNode.insertBefore(wrapper, element); // insert wrapper
@@ -1575,18 +1586,18 @@ var Controller = function (element) {
                     that.setActive(this.dataset.tracker);
                 }, false);
 
-                ul.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'controller-buttons ' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'ui ';
+                ul.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'controller-buttons ';
                 ul.appendChild(li);
             }
 
             ul.style.position = 'absolute';
-            document.getElementById(element.id).appendChild(ul);
+            element.ui.wrapper.appendChild(ul);
         },
         set: function (tracker) {
 
             if (!UI) return;
 
-            var controllerButtons = element.wrapper.querySelectorAll('.' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'controller-button');
+            var controllerButtons = element.ui.wrapper.querySelectorAll('.' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'controller-button');
 
             controllerButtons.forEach(function (item, index) {
                 item.classList.remove('active');
@@ -1597,7 +1608,7 @@ var Controller = function (element) {
                 icon.setAttribute('xlink:href', href + '-off');
             });
 
-            var item = element.wrapper.querySelector('[data-tracker=' + tracker + ']');
+            var item = element.ui.wrapper.querySelector('[data-tracker=' + tracker + ']');
             var icon = item.querySelector('use');
             var href = icon.getAttribute('xlink:href').replace('-off', '');
 
@@ -1618,16 +1629,21 @@ var Controller = function (element) {
         }
     }
 
+    function mouseoverElement(e, rect) {
+        return e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+    }
+
     function mouseHandler(e) {
-        var mouseX = e.pageX;
-        q = mouseX / WIDTH;
+        var rect = element.wrapper.getBoundingClientRect();
+        if (!mouseoverElement(e, rect)) return;
+
+        q = (e.pageX - rect.left) / rect.width;
         update();
     }
 
     function dragStart(e) {
         mousedown = 1;
         mouseDownX = e.pageX || e.changedTouches[0].pageX;
-        mouseDownY = e.pageY || e.changedTouches[0].pageY;
     }
 
     function dragEnd(e) {
@@ -1636,12 +1652,12 @@ var Controller = function (element) {
     }
 
     function dragHandler(e) {
+        var rect = element.wrapper.getBoundingClientRect();
+        if (!mousedown || !mouseoverElement(e, rect)) return;
 
         e.preventDefault();
-        if (!mousedown) return;
 
-        var pageX = e.pageX || e.changedTouches[0].pageX,
-            pageY = e.pageY || e.changedTouches[0].pageY;
+        var pageX = e.pageX || e.changedTouches[0].pageX;
 
         var _dX = pageX - (mouseMoveX || mouseDownX);
 
@@ -1651,7 +1667,7 @@ var Controller = function (element) {
         }
 
         dX = _dX;
-        var dQ = dX / WIDTH;
+        var dQ = dX / rect.width;
         dQ = -dQ;
 
         q = 1 - q;
@@ -2014,7 +2030,7 @@ var Fullscreen = function (element) {
         var fullscreenButton = document.createElement('div');
 
         fullscreenButton.appendChild(that.icons.use('#icon-fullscreen-off'));
-        fullscreenButton.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'fullscreen-button ' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'ui';
+        fullscreenButton.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'fullscreen-button ';
         fullscreenButton.style.position = 'absolute';
         fullscreenButton.style.cursor = 'pointer';
         fullscreenButton.addEventListener('click', function () {
@@ -2023,10 +2039,11 @@ var Fullscreen = function (element) {
         });
 
         __WEBPACK_IMPORTED_MODULE_1_screenfull__["on"]('change', function () {
+            fullscreen = !fullscreen;
             that.toggleUI();
         });
 
-        element.wrapper.appendChild(fullscreenButton);
+        element.ui.wrapper.appendChild(fullscreenButton);
     };
 
     this.toggleUI = function () {
@@ -2034,11 +2051,12 @@ var Fullscreen = function (element) {
         var fullscreenButton = element.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'fullscreen-button');
         fullscreenButton.innerHTML = '';
         fullscreenButton.appendChild(that.icons.use('#icon-fullscreen-' + (fullscreen ? 'on' : 'off ')));
+
+        fullscreen ? element.wrapper.classList.add('fullscreen') : element.wrapper.classList.remove('fullscreen');
     };
 
     this.toggleFullscreen = function () {
-        fullscreen = !fullscreen;
-        fullscreen ? __WEBPACK_IMPORTED_MODULE_1_screenfull__["request"](element.wrapper) : __WEBPACK_IMPORTED_MODULE_1_screenfull__["exit"]();
+        !fullscreen ? __WEBPACK_IMPORTED_MODULE_1_screenfull__["request"](element.wrapper) : __WEBPACK_IMPORTED_MODULE_1_screenfull__["exit"]();
     };
 };
 
@@ -2187,7 +2205,7 @@ var Sequence = function (element) {
                 var percent = Math.floor(100 / this.queue.length * this.completed.length);
                 progress.value = index;
 
-                if (prevBefore != element && prevAfter != element && element) element.remove();
+                //if (prevBefore != element && prevAfter != element && element) element.remove();
                 if (count > 3) that.update();
 
                 loaded.push(image);
@@ -2216,7 +2234,7 @@ var Sequence = function (element) {
                 }
             },
             onComplete: function (loaded, errors) {
-                element.remove();
+                //element.remove();
                 progress.style.display = 'none';
                 this.initialized = true;
             }
@@ -2233,8 +2251,7 @@ var Sequence = function (element) {
 
         if (objectFit != 'fill' && objectFit != 'none') {
             image.style.objectFit = objectFit;
-            image.style.width = (element.hasAttribute('width') ? element.width : element.style.width) || '100%';
-            image.style.height = (element.hasAttribute('height') ? element.height : element.style.height) || 'auto';
+            image.style.top = image.style.right = image.style.bottom = image.style.left = 0;
         }
         return image;
     }
@@ -2469,7 +2486,8 @@ var Markup = function (element) {
     var that = this,
         listener,
         phi = element.meta.Phi,
-        chi = element.meta.Chi;
+        chi = element.meta.Chi,
+        fontSize;
 
     var objects = element.markup;
 
@@ -2481,6 +2499,7 @@ var Markup = function (element) {
 
             var object = objects[i];
             convertAttributes(object);
+            bindFontSizes(object);
         }
 
         __WEBPACK_IMPORTED_MODULE_0_simple_element_resize_detector___default()(element.wrapper, function () {
@@ -2492,6 +2511,8 @@ var Markup = function (element) {
                     height = objects[i].clientHeight;
 
                 object.style.perspective = getCSSPerspective(element.meta.FOV, width, height);
+
+                scaleFontSize(object);
             }
         });
 
@@ -2586,15 +2607,19 @@ var Markup = function (element) {
 
             Object.assign(object.style, {
                 'position': 'absolute',
-                'width': '100%',
-                'height': '100%',
+                'top': '0',
+                'right': '0',
+                'bottom': '0',
+                'left': '0',
                 'perspective': getCSSPerspective(element.meta.FOV, element.width, element.height),
                 'perspective-origin': (element.meta.OriginX || '50%') + ' ' + (element.meta.OriginY || '50%')
             });
             Object.assign(q.style, {
                 'position': 'absolute',
-                'width': '100%',
-                'height': '100%',
+                'top': '0',
+                'right': '0',
+                'bottom': '0',
+                'left': '0',
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center'
@@ -2616,6 +2641,28 @@ var Markup = function (element) {
     function getCSSPerspective(fov, width, height) {
         if (!fov || !width || !height) return 0;
         return Math.pow(width / 2 * width / 2 + height / 2 * height / 2, 0.5) / Math.tan(fov / 2 * Math.PI / 180) + 'px';
+    }
+
+    function bindFontSizes(object) {
+
+        var childNodes = object.querySelectorAll('*'),
+            fontSizes = [];
+
+        for (var i = 0; i < childNodes.length; i++) {
+            fontSizes[i] = parseFloat(window.getComputedStyle(childNodes[i], null).getPropertyValue('font-size'));
+            childNodes[i].setAttribute('data-naturalFontSize', fontSizes[i]);
+        }
+
+        scaleFontSize(object);
+    }
+
+    function scaleFontSize(object) {
+        var childNodes = object.querySelectorAll('*');
+
+        for (var i = 0; i < childNodes.length; i++) {
+
+            childNodes[i].style.fontSize = childNodes[i].getAttribute('data-naturalFontSize') * (element.clientWidth / element.naturalWidth) + 'px';
+        }
     }
 };
 
@@ -2659,6 +2706,7 @@ var Minimap = function (element) {
         phi = element.meta.Phi,
         chi = element.meta.Chi;;
 
+    console.log(element.ui);
     this.init = function () {
 
         if (!element.ui.minimap) return;
@@ -2668,11 +2716,11 @@ var Minimap = function (element) {
         minimap = document.createElement('div');
 
         minimap.style.position = 'absolute';
-        minimap.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'minimap ' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'ui';
+        minimap.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'minimap ';
         minimap.appendChild(iconMinimap);
         minimap.appendChild(iconMinimapCenter);
 
-        element.wrapper.appendChild(minimap);
+        element.ui.wrapper.appendChild(minimap);
     };
 
     this.update = function () {
@@ -2767,14 +2815,14 @@ var Sound = function (element) {
             var soundButton = document.createElement('div');
 
             soundButton.appendChild(that.icons.use('#icon-sound-' + (playing ? 'on' : 'off ')));
-            soundButton.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'sound-button ' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'ui';
+            soundButton.className = __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'sound-button ';
             soundButton.style.position = 'absolute';
             soundButton.style.cursor = 'pointer';
             soundButton.addEventListener('click', function () {
                 that.toggle();
             });
 
-            element.wrapper.appendChild(soundButton);
+            element.ui.wrapper.appendChild(soundButton);
         },
         set: function (playing) {
             var soundButton = element.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_0__const__["a" /* class_prefix */] + 'sound-button');
