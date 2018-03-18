@@ -1,6 +1,8 @@
 
 import * as CONST       from './const';
 
+import observeResize    from 'simple-element-resize-detector';
+
 import {generateUUID}   from './collector/generateUUID';
 import {pad}            from './collector/numberPadding';
 
@@ -53,8 +55,6 @@ export var Collector = function() {
             if ( !img.meta.OriginX ) img.meta.OriginX = img.getAttribute('origin-x') || console.error('Perspective origin X is not defined.');
             if ( !img.meta.OriginY ) img.meta.OriginX = img.getAttribute('origin-y') || console.error('Perspective origin Y is not defined.');
 
-           
-
             document.registerElement( CONST.tagname );
 
             img.wrapper     = img.parentElement.nodeName.toLowerCase() == CONST.tagname ? img.parentElement : wrap( img );
@@ -64,18 +64,14 @@ export var Collector = function() {
             }
             Object.assign( img.wrapper.style, {
                 'position':             getCSSValue( 'position', img.wrapper ) == 'static' ? 'relative' : img.wrapper.position,
-    
-                'display':              'flex',
-                'align-items':          'center',
-                'justify-content':      'center',
-    
                 'display':              'block',
-                'width':                '100%',
-                'height':               '0',
-                'padding-bottom':       ( img.naturalHeight / img.naturalWidth * 100 ) + '%',
-
                 'overflow':             'hidden'
             })
+
+            observeResize( img.wrapper, () => {
+                img.wrapper.style.height = img.naturalHeight * (img.clientWidth / img.naturalWidth) + 'px';
+            });
+            img.wrapper.style.height = img.naturalHeight * (img.clientWidth / img.naturalWidth) + 'px';
             
             components.push(img);
 
@@ -207,6 +203,7 @@ function getSequence( path ) {
 function wrap( element ) {
 
     var wrapper = document.createElement( CONST.tagname );
+
     if (element.hasAttributes()) cloneAttributes(element, wrapper);
 
     element.parentNode.insertBefore(wrapper, element); // insert wrapper

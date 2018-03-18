@@ -9,7 +9,8 @@ export var Markup = function( element ) {
     var that = this,
         listener,
         phi = element.meta.Phi,
-        chi = element.meta.Chi;
+        chi = element.meta.Chi,
+        fontSize;
 
     var objects = element.markup;
 
@@ -21,6 +22,7 @@ export var Markup = function( element ) {
 
             var object = objects[i];
             convertAttributes( object );
+            bindFontSizes( object );
 
         }
 
@@ -33,6 +35,8 @@ export var Markup = function( element ) {
                     height = objects[i].clientHeight;
 
                 object.style.perspective = getCSSPerspective( element.meta.FOV, width, height );
+
+                scaleFontSize( object );
 
             }
 
@@ -141,15 +145,19 @@ export var Markup = function( element ) {
 
             Object.assign( object.style, {
                 'position':             'absolute',
-                'width':                '100%',
-                'height':               '100%',
+                'top':                  '0',
+                'right':                '0',
+                'bottom':               '0',
+                'left':                 '0',
                 'perspective':          getCSSPerspective( element.meta.FOV, element.width, element.height ),
                 'perspective-origin':   ( element.meta.OriginX || '50%' ) + ' ' + ( element.meta.OriginY || '50%' )
             });
             Object.assign( q.style, {
                 'position':         'absolute',
-                'width':            '100%',
-                'height':           '100%',
+                'top':              '0',
+                'right':            '0',
+                'bottom':           '0',
+                'left':             '0',
                 'display':          'flex',
                 'align-items':      'center',
                 'justify-content':  'center',
@@ -171,6 +179,30 @@ export var Markup = function( element ) {
     function getCSSPerspective( fov, width, height) {
         if ( !fov || !width || !height ) return 0;
         return Math.pow( width/2*width/2 + height/2*height/2, 0.5 ) / Math.tan( (fov/2) * Math.PI / 180 ) + 'px';
+    }
+
+    function bindFontSizes( object ) {
+
+        var childNodes  = object.querySelectorAll('*'),
+            fontSizes   = [];
+        
+        for ( var i = 0; i < childNodes.length; i++ ) {
+            fontSizes[i] = parseFloat(window.getComputedStyle( childNodes[i], null).getPropertyValue('font-size'));
+            childNodes[i].setAttribute('data-naturalFontSize', fontSizes[i]);
+        }
+
+        scaleFontSize( object );
+
+    }
+
+    function scaleFontSize( object ) {
+        var childNodes = object.querySelectorAll('*');
+
+        for ( var i = 0; i < childNodes.length; i++ ) {
+
+            childNodes[i].style.fontSize = childNodes[i].getAttribute('data-naturalFontSize') * ( element.clientWidth / element.naturalWidth ) + 'px';
+
+        }
     }
 
 }

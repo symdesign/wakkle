@@ -72,14 +72,14 @@ export var Sound = function( element ) {
             var soundButton = document.createElement('div');
 
             soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) )
-            soundButton.className = CONST.class_prefix + 'sound-button ' + CONST.class_prefix + 'ui';
+            soundButton.className = CONST.class_prefix + 'sound-button ';
             soundButton.style.position = 'absolute';
             soundButton.style.cursor = 'pointer';
             soundButton.addEventListener( 'click', function() {
                 that.toggle()
             });
 
-            element.wrapper.appendChild( soundButton );
+            element.ui.wrapper.appendChild( soundButton );
 
         },
         set: function( playing ) {

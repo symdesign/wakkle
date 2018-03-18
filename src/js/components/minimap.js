@@ -15,7 +15,7 @@ export var Minimap = function( element ) {
         phi = element.meta.Phi,
         chi = element.meta.Chi;;
 
-
+console.log(element.ui)
     this.init = function() {
 
         if ( !element.ui.minimap ) return;
@@ -25,11 +25,11 @@ export var Minimap = function( element ) {
         minimap = document.createElement('div');
 
         minimap.style.position  = 'absolute';
-        minimap.className       = CONST.class_prefix + 'minimap ' + CONST.class_prefix + 'ui';
+        minimap.className       = CONST.class_prefix + 'minimap ';
         minimap.appendChild( iconMinimap )
         minimap.appendChild( iconMinimapCenter )
 
-        element.wrapper.appendChild( minimap );
+        element.ui.wrapper.appendChild( minimap );
 
     }
     
