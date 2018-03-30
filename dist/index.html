@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>Example</title>
@@ -22,7 +21,6 @@
     }
     </style>
 </head>
-
 <body>
 
     <wakkle-image>
@@ -30,33 +28,26 @@
         <img src="images/example.wakkle">
         <!-- Sequence gets loaded here. -->
 
-        <svg><!-- SVG goes here. --></svg>
-        
-        <canvas><!-- WebGL goes here. --></canvas>
+        <wakkle-sound source="./images/example/sound.mp3"></wakkle-sound>
 
-        <object><!-- HTML markup goes here. -->
-
-            <div x='0' y='10' z='0' rotation-x='0' rotation-y='0' rotation-z='0'>
+        <wakkle-markup mask="./images/example/mask.svg">
+            <!-- HTML markup goes here. -->
+            <div x='0' y='10' z='10' rotation-x='0' rotation-y='0' rotation-z='0'>
                 <h1>Here we go!</h1>
                 <p>This is a canvas for html elements.</p>
             </div>
-            
-        </object>
+        </wakkle-markup>
         
     </wakkle-image>
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-
     
 	<script src="./js/wakkle.js"></script>
     
-
     <script>
-
         wakkle.init({
             ui: true
         });
-
     </script>
 
 </body>

@@ -8,6 +8,11 @@
     "simple-element-resize-detector": "^1.1.0",
     "webpack": "^3.10.0"
   },
+  "scripts": {
+    "start": "webpack-dev-server --open 'google chrome' --config webpack.dev.js",
+    "build": "npm run clean && webpack --config webpack.prod.js",
+    "clean": "rimraf ./dist/*"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -16,7 +21,7 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.21.0",
     "browser-sync-webpack-plugin": "^1.2.0",
-    "clean-webpack-plugin": "^0.1.17",
+    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.7",
     "element-resize-detector": "^1.1.13",
@@ -40,12 +45,6 @@
     "webpack-dev-server": "^2.9.7",
     "webpack-sass-loader": "^2.2.1"
   },
-  "scripts": {
-    "dev": "npm run clean && webpack -d --watch",
-    "dev-server": "webpack-dev-server --open 'google chrome'",
-    "prod": "npm run clean && NODE_ENV=production webpack",
-    "clean": "rimraf ./dist/*"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/symdesign/wakkl.git"
@@ -55,5 +54,5 @@
   "bugs": {
     "url": "https://github.com/symdesign/wakkl/issues"
   },
-  "homepage": "https://github.com/symdesign/wakkl#readme"
+  "homepage": "https://github.com/symdesign/wakkle#readme"
 }
