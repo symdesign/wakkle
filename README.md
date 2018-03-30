@@ -1,5 +1,5 @@
  
-# <img src='https://user-images.githubusercontent.com/9745432/36901210-a3a6b572-1e26-11e8-9cc7-574773799228.png' width='110' alt='wakkle.js' title='wakkle.js'>
+# <img src='https://user-images.githubusercontent.com/9745432/37833990-120f9c5e-2ead-11e8-8d9c-6708850f84cc.png' width='110' alt='wakkle.js' title='wakkle.js'>
 
 
 
@@ -169,17 +169,14 @@ The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.p
 
     To find out this number, you can check camera and lens specifications or simply <a href="http://exifdata.com/">look into the EXIF data</a> of one of the images in the sequence. This conditions, though, that the photo's exif data hasn't got stripped away through e.g. image compression.
 
-- <small>**Phi**</small>
+- <small>**Arc**</small>
     
-    `Phi` (from greek letter &phi;) represents the angle from the right starting point to the center.
+    Imagine two lines: One from the first standpoint directing to the center of the scene and the other from the last standpoint directing to the center of the scene.
+    `Arc` is the angle (in degrees) which results between those two lines.
 
-    ><small>**Note:** This will be replaced with an easier value in the next version.</small>
+- <small>**ArcShift**</small>
 
-- <small>**Chi**</small>
-
-    `Chi` (from greek letter &chi;) represents the angle from the center  point to the end.
-
-    ><small>**Note:** This will be replaced with an easier value in the next version.</small>
+    `ArcShift` is an angle (in degrees) that shifts the Y rotation zero.
 
 - <small>**OriginX**</small>
 
