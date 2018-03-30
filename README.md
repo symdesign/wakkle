@@ -155,8 +155,8 @@ The file extension can be any that is common on the web e.g. `.jpg`, `.gif`, `.p
 {
     "WAKKLE-dataset": {
         "FOV":       92.3
-        "Phi":      -36,
-        "Chi":       14,
+        "Arc":       50,
+        "ArcShift": -36,
         "OriginX":   50,
         "OriginY":   55,
         "Sound":    "sound.mp3"
