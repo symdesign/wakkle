@@ -59,6 +59,8 @@ But `wakkle.js` found also application in simpler setups e.g. just showing and l
 
 ## Installation
 
+### Basic
+
 1. Insert as many wakkle images as you like on your page <a href='https://www.w3schools.com/tags/tag_img.asp'>the same way as you would do it for static, non-3D images</a>.
 
 ```html
@@ -81,8 +83,40 @@ But `wakkle.js` found also application in simpler setups e.g. just showing and l
 ```
 ><small>**Note:** The initialization requires the DOM to be ready. To make sure this is the case, I recommend initializing `wakkle` at the very end of the page.</small>
 
+### Advanced
 
-At this step, you can also pass your individual configuration to `wakkle` if you like. More details about available options later.
+You can extend the image with custom HTML elements, since the idea of `wakkle` is not just about having a three-dimensional photo but to create an [immersive experience](https://medium.com/p/944c1ada9c5b/).
+
+```html
+<!-- Wakkle wrapper: -->
+<wakkle-image>
+
+    <!-- Sequence gets loaded here: -->
+    <img src="images/{image-name}.wakkle">
+        
+    <!-- Spacial sound goes here: -->
+    <wakkle-sound source="images/{image-name}/sound.mp3"></wakkle-sound>
+
+    <!-- HTML markup goes here: -->
+    <wakkle-markup mask="images/{image-name}/mask.svg">
+        <div x='0' y='10' z='10' rotation-x='0' rotation-y='0' rotation-z='0'>
+            <h1>Here we go!</h1>
+            <p>This is a canvas for html elements.</p>
+        </div>
+    </wakkle-markup>
+
+</wakkle-image>
+```
+Elements wrapped inside `wakkle-markup` will be positioned at the scene's three-dimensional origin. 
+
+Inside the `wakkle-markup` you can make use of the positioning attributes `x`, `y` and `z`. Visible positions range from `-100` to `+100` on each axis. 
+
+Additionally, you can make use of rotational attributes `rotation-x`, `rotation-y` and `rotation-z` which contain an angle value in degrees.
+ 
+><small>**Note:** The elements' anchorpoint is at the center. This means when you for example position an element at position 0 on the y-axis half of the element's height will be positioned below the horizontal plane. Depending on your photograph this might look a bit strange. You can fix this by for example setting the css property `transform: translateY(-50%);`</small>
+  
+
+At the init-step, you can also pass your individual configuration to `wakkle`. More details about available options later.
 ```html
 <script>
     wakkle.init({
@@ -241,20 +275,14 @@ On desktop computers which don't have device orientation sensors but e.g. a fron
 This component requires the `sound` dataset attribute which contains the path to a sound file (relative to the image's asset folder). It can be set inside `meta.json` (recommended) or as html attribute.
 
 ### Markup
-This component requires `phi` and `chi` dataset attribute or the `arc`'s angle value as well as rapping your image between `<wakkle-image>` and `</wakkle-image>`.
+This component requires the `arc`'s angle value as well as rapping your image between `<wakkle-image>` and `</wakkle-image>`.
 ```html
 <wakkle-image>
     <img src="images/{image-name}.wakkle">
-    <object><!-- HTML goes here. --></object>
+    <wakkle-markup><!-- HTML goes here. --></wakkle-markup>
 </wakkle-image>
 ```
-Elements wrapped inside `object` will be mapped automatically  to the user's interaction. In addition, they can be moved and rotated through attributes `x`, `y`, `z` and `rotation-x`, `rotation-y`and `rotation-z`.
-
-### Vector
-><small>**Note:** This feature is not yet supported but coming soon!</small>
-```html
-<svg><!-- SVG goes here. --></svg>
-```
+Elements wrapped inside `wakkle-markup` will be mapped automatically to the user's interaction. In addition, they can be moved and rotated through attributes `x`, `y`, `z` and `rotation-x`, `rotation-y`and `rotation-z`.
 
 ### Masks
 ><small>**Note:** This feature is not yet supported but coming soon!</small>

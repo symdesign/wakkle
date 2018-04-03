@@ -16,9 +16,6 @@ import {Minimap}    from './components/minimap';
 import {Fullscreen} from './components/fullscreen';
 import {Grid}       from './components/grid';
 
-import {icons}      from './components/UI/icons';
-
-
 //import {isElementVisible}   from './utils/isElementVisible';
 
 export var version = '1.0';
@@ -71,8 +68,8 @@ export var init = function( options ) {
     var collector = new Collector();
         collector.init();
     
-    var elements = collector.collect(),
-        element,
+    var wakkles = collector.collect(),
+        wakkle,
 
         controller  = [],
         components  = [],
@@ -92,54 +89,54 @@ export var init = function( options ) {
         });
 
 
-    for (var i = 0; i < elements.length; i++) {
+    for (var i = 0; i < wakkles.length; i++) {
 
-        element             = elements[i];
-        element.ui          = settings.ui;
+        wakkle             = wakkles[i];
+        wakkle.ui          = settings.ui;
 
-        if ( element.ui ) {
-            element.ui.wrapper                  = document.createElement('div');
-            element.ui.wrapper.className        = CONST.class_prefix + 'ui';
-            element.wrapper.appendChild( element.ui.wrapper )
+        if ( wakkle.ui ) {
+            wakkle.ui.wrapper                  = document.createElement('div');
+            wakkle.ui.wrapper.className        = CONST.pref + 'ui';
+            wakkle.wrapper.appendChild( wakkle.ui.wrapper )
         }
 
-        //if ( !isElementVisible( element ) ) { // Needs to be fixed
+        //if ( !isElementVisible( wakkle ) ) { // Needs to be fixed
 
-            controller[i] = new Controller( element );
+            controller[i] = new Controller( wakkle );
             controller[i].init();
 
-            image[i] = new Sequence( element );
+            image[i] = new Sequence( wakkle );
             image[i].init();
             controller[i].control( image[i] );
 
-            mask[i] = new Mask( element );
+            mask[i] = new Mask( wakkle );
             mask[i].init();
             controller[i].control( mask[i] );
 
-            sound[i] = new Sound( element );
+            sound[i] = new Sound( wakkle );
             !sound[ i==0?0 : i-1 ].initialized && sound[i].init();
             controller[i].control( sound[i] );
 
-            markup[i] = new Markup( element );
+            markup[i] = new Markup( wakkle );
             markup[i].init();
             if ( settings.grid.xy ) markup[i].insert( grid.xy );
             if ( settings.grid.yz ) markup[i].insert( grid.yz );
             if ( settings.grid.xz ) markup[i].insert( grid.xz );
             controller[i].control( markup[i] );
 
-            vector[i] = new Vector( element );
+            vector[i] = new Vector( wakkle );
             vector[i].init();
             controller[i].control( vector[i] );
 
-            minimap[i] = new Minimap( element );
+            minimap[i] = new Minimap( wakkle );
             minimap[i].init();
             controller[i].control( minimap[i] );
 
-            fullscreen[i] = new Fullscreen( element );
+            fullscreen[i] = new Fullscreen( wakkle );
             fullscreen[i].init();
             
             // TODO: implement global control switch + control switch UI
-            // TODO: watch() or listen() if element is in viewport
+            // TODO: watch() or listen() if wakkle is in viewport
 
         //}
     }

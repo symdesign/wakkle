@@ -1,10 +1,10 @@
 {
     "WAKKLE-dataset": {
         "FOV":      92.3,
-        "Phi":      -36,
-        "Chi":      14,
-        "OriginX": "50%",
-        "OriginY": "55%",
+        "Arc":      50,
+        "ArcShift": -36,
+        "OriginX":  0,
+        "OriginY":  10,
         "Sound":    "sound.mp3"
     },
     "XMP-exif": {

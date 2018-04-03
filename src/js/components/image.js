@@ -6,7 +6,7 @@ import {sortArrayMiddleToOut}   from './image/sortArrayMiddleToOut';
 import {imagePreload}           from './image/imagePreload';
 
 
-export var Sequence = function( element ) {  // rather call "new Sequence()" as "new Image()" is protected
+export var Sequence = function( wakkle ) {  // rather call "new Sequence()" as "new Image()" is protected
 
     this.initialized    = false;
     this.q              = 0.5;
@@ -26,54 +26,54 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
             loadImages();
             
         }
-        image.src = element.currentSrc || element.src;
+        image.src = wakkle.currentSrc || wakkle.src;
 
     }
 
     function loadImages() {
 
-        element.style.position = 'absolute';
+        wakkle.style.position = 'absolute';
 
-        var images = sortArrayMiddleToOut( element.sequence.images ), // in order to load progressively starting from the middle
+        var images = sortArrayMiddleToOut( wakkle.sequence.images ), // in order to load progressively starting from the middle
             loaded = [],
             currBefore,
-            prevBefore = element,
+            prevBefore = wakkle,
             currAfter,
-            prevAfter = element;
+            prevAfter = wakkle;
 
         var progress = document.createElement('progress');
             progress.setAttribute('max', images.length);
             progress.setAttribute('value', 0);
-        document.body.appendChild(progress); // TODO: add to element.wrapper instead of body
+        document.body.appendChild(progress); // TODO: add to wakkle.wrapper instead of body
 
-        var b = ( ( element.sequence.length / 2) % 2 ? Math.round( element.sequence.length / 2 ) - 1  : element.sequence.length / 2), 
-            a = ( ( element.sequence.length / 2) % 2 ? Math.round( element.sequence.length / 2 )  : element.sequence.length / 2);
+        var b = ( ( wakkle.sequence.length / 2) % 2 ? Math.round( wakkle.sequence.length / 2 ) - 1  : wakkle.sequence.length / 2), 
+            a = ( ( wakkle.sequence.length / 2) % 2 ? Math.round( wakkle.sequence.length / 2 )  : wakkle.sequence.length / 2);
 
         new imagePreload( images, {
             onProgress: function(image, imageEl, index) {
                 var percent = Math.floor((100 / this.queue.length) * this.completed.length);
                 progress.value = index;
 
-                //if (prevBefore != element && prevAfter != element && element) element.remove();
+                //if (prevBefore != wakkle && prevAfter != wakkle && wakkle) wakkle.remove();
                 if (count > 3) that.update();
 
                 loaded.push(image);
 
                 for (var i = 0; i < loaded.length; i++) { // to keep the loaded as short as possible
 
-                    if ( loaded.indexOf( element.sequence.images[ b ] ) >= 0 ) {
-                        removeFromArray(loaded, element.sequence.images[ b ] );
+                    if ( loaded.indexOf( wakkle.sequence.images[ b ] ) >= 0 ) {
+                        removeFromArray(loaded, wakkle.sequence.images[ b ] );
 
-                        currBefore = createImage( element.sequence.images[ b ] )
+                        currBefore = createImage( wakkle.sequence.images[ b ] )
                         placeBefore( currBefore, prevBefore );
 
                         prevBefore = currBefore;
                         b--;
                     }
-                    if ( loaded.indexOf( element.sequence.images[ a ] ) >= 0 ) {
-                        removeFromArray( loaded, element.sequence.images[ a ] );
+                    if ( loaded.indexOf( wakkle.sequence.images[ a ] ) >= 0 ) {
+                        removeFromArray( loaded, wakkle.sequence.images[ a ] );
 
-                        currAfter = createImage( element.sequence.images[ a ] )
+                        currAfter = createImage( wakkle.sequence.images[ a ] )
                         placeAfter( currAfter, prevAfter );
 
                         prevAfter = currAfter;
@@ -82,7 +82,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
                 }
             },
             onComplete: function(loaded, errors) {
-                //element.remove();
+                //wakkle.remove();
                 progress.style.display = 'none';
                 this.initialized = true;
             }
@@ -90,7 +90,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
     }
 
     function createImage(source) {
-        var objectFit = window.getComputedStyle(element, null).getPropertyValue('object-fit');
+        var objectFit = window.getComputedStyle(wakkle, null).getPropertyValue('object-fit');
         var image = document.createElement('img');
         image.src = source;
         image.style.filter = "alpha(opacity = 0)"; // Internet Explorer
@@ -118,7 +118,7 @@ export var Sequence = function( element ) {  // rather call "new Sequence()" as 
         that._idx = that._idx || 0;
         that.idx = Math.round( (count-1) * that.q );
 
-        var image = document.getElementById(element.id).getElementsByTagName('img');
+        var image = document.getElementById(wakkle.id).getElementsByTagName('img');
 
         if (!that.initialized) {
             for ( var i = 0; i < image.length; i++ ) {

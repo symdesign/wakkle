@@ -68,6 +68,13 @@ wakkle-image,
   border-radius: 1em;
   overflow-x: auto; }
 
+#debugCanvas {
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 999; }
+
 .wakkle-controller-buttons {
   bottom: 0;
   right: 0;
@@ -89,41 +96,17 @@ progress[value] {
 progress[value]::-webkit-progress-value {
   background-color: #3498db; }
 
-img {
+* {
+  pointer-events: none; }
+
+a, input, button, select, textarea {
+  pointer-events: all; }
+
+img,
+wakkle-image {
   width: 100%;
   height: auto;
   backface-visibility: visible; }
-
-.controls {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  z-index: 99;
-  position: fixed;
-  font-size: 14px; }
-  .controls li {
-    float: left;
-    line-height: 2em; }
-
-.control-link {
-  margin: 4px;
-  padding: 8px 16px;
-  background-color: #333;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  border: 2px solid transparent; }
-  .control-link:hover {
-    background-color: #222; }
-  .control-link.active {
-    border-color: #fff; }
-
-#debugCanvas {
-  display: block;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 999; }
 
 .wakkle-sound-button {
   bottom: 0;
@@ -150,6 +133,23 @@ img {
   transform: translateY(-50%);
   box-sizing: border-box; }
 
-.wakkle-ui > * {
-  margin: 0;
-  padding: 0.5em 1em; }
+wakkle-image.fullscreen {
+  width: 100% !important;
+  height: 100% !important; }
+
+.wakkle-ui {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%) no-repeat center top, linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center bottom;
+  background-size: 100% 60px, 100% 60px; }
+  .wakkle-ui > * {
+    margin: 0;
+    padding: 0.5em 1em; }
+  .wakkle-ui * {
+    pointer-events: all; }
+
+a {
+  pointer-events: all; }

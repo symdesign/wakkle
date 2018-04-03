@@ -1,43 +1,41 @@
 
-import * as CONST from './const';
-import {icons}    from './UI/icons';
+import * as button from './UI';
 
-export var Minimap = function( element ) {
+export var Minimap = function( wakkle ) {
 
     this.initialized    = false;
     this.q              = 0.5;
-    this.icons          = icons;
+    this.icons          = button.icons;
 
     var that = this,
         minimap,
         iconMinimap         = that.icons.use( '#icon-minimap' ),
         iconMinimapCenter   = that.icons.use( '#icon-minimap-center' ),
-        phi = element.meta.Phi,
-        chi = element.meta.Chi;;
+        arc = wakkle.meta.Arc,
+        arcShift = wakkle.meta.ArcShift;;
 
-console.log(element.ui)
     this.init = function() {
 
-        if ( !element.ui.minimap ) return;
+        if ( !wakkle.ui.minimap ) return;
 
         iconMinimap.style.position = 'absolute';
 
         minimap = document.createElement('div');
 
         minimap.style.position  = 'absolute';
-        minimap.className       = CONST.class_prefix + 'minimap ';
+        minimap.className       = button.pref + 'minimap ';
         minimap.appendChild( iconMinimap )
         minimap.appendChild( iconMinimapCenter )
 
-        element.ui.wrapper.appendChild( minimap );
+        wakkle.ui.wrapper.appendChild( minimap );
 
     }
     
     this.update = function() {
 
-        if ( !element.ui.minimap ) return;
+        if ( !wakkle.ui.minimap ) return;
 
-        iconMinimap.style.transform = 'rotateZ( ' + ( ( that.q * (chi-phi) + phi ) ) + 'deg )'
+        iconMinimap.style.transform = 'rotateZ( ' + ( ( that.q * arc + arcShift ) ) + 'deg )'
 
     }
 

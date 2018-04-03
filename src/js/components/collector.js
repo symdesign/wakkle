@@ -1,5 +1,4 @@
 
-import * as CONST       from './const';
 
 import observeResize    from 'simple-element-resize-detector';
 
@@ -10,70 +9,73 @@ export var Collector = function() {
 
     this.initialized = false;
 
-    var regexp = new RegExp('.*?\.' + CONST.file_extension, 'i');
-    var imgs = document.getElementsByTagName('img'),
-        img,
-        path,
-        listener;
+    var fileExtension = 'wakkle';
+    var metaSelector  = 'WAKKLE-dataset'; 
+
+    var regexp = new RegExp('.*?\.' + fileExtension, 'i');
+    var images = document.querySelectorAll('img'),
+        image,
+        wakkle,
+        path;
 
     var components = [];
 
     this.init = function() {
-        
-        for (var i = 0; i < imgs.length; i++) {
+
+        document.registerElement( 'wakkle-image' );
+        //document.registerElement( 'wakkle-markup' );
+        document.registerElement( 'wakkle-sound' );
+
+        for (var i = 0; i < images.length; i++) {
             
-            img = imgs[i];
+            image = images[i];
 
-            if (!img.hasAttribute('src'))   continue;
-            if (!regexp.test(img.src))      continue;
+            if ( !image.hasAttribute('src') )   continue;
+            if ( !regexp.test( image.src ) )    continue;
 
-            path = img.currentSrc || img.src;
+            wakkle = image;
+
+            path = wakkle.currentSrc || wakkle.src;
             path = path.replace('.jpg','');
             path = path.replace('.wakkle','');
             path = path + '/';
+            
+            wakkle.id          = wakkle.id || generateUUID(); // making sure the wakkle has an ID
+            wakkle.sequence    = getSequence( path );
 
-            img.id          = img.id || generateUUID(); // making sure the img has an ID
-            img.sequence    = getSequence( path );
-            img.markup      = img.parentElement.getElementsByTagName( 'object' );
+            wakkle.wrapper     = wakkle.parentElement.nodeName.toLowerCase() == 'wakkle-image' ? wakkle.parentElement : wrap( wakkle );
+            wakkle.wrapper.id  = wakkle.id;
 
-            img.sound       = {};
+            wakkle.wrapper.style.position   = getCSSValue( 'position', wakkle.wrapper ) == 'static' ? 'relative' : wakkle.wrapper.position;
+            wakkle.wrapper.style.display    = 'block';
+            wakkle.wrapper.style.overflow   = 'hidden';
+            wakkle.wrapper.style.height     = wakkle.naturalHeight * (wakkle.clientWidth / wakkle.naturalWidth) + 'px';
+
+            observeResize( wakkle.wrapper, () => {
+                wakkle.wrapper.style.height = wakkle.naturalHeight * (wakkle.clientWidth / wakkle.naturalWidth) + 'px';
+            });
+
+            for ( var i = 0; i < wakkle.wrapper.children.length; i++ ) {
+                wakkle.wrapper.children[i].style.position = 'absolute';
+            }
+
+            wakkle.markup      = wakkle.wrapper.querySelectorAll( 'wakkle-markup' );
+            wakkle.sound       = {};
+            wakkle.meta        = {};
 
             loadJSON(path + 'meta.json', function(json) {
-                img.sound.Source = path + json[ CONST.meta_key ].Sound || '';
-                img.meta = {
-                    "FOV":          json[ CONST.meta_key ].FOV,
-                    "Phi":          json[ CONST.meta_key ].Phi,
-                    "Chi":          json[ CONST.meta_key ].Chi,
-                    "OriginX":      json[ CONST.meta_key ].OriginX,
-                    "OriginY":      json[ CONST.meta_key ].OriginY,
-                }
+
+                wakkle.sound.Source    = json[ metaSelector ].Sound ? path + json[ metaSelector ].Sound : wakkle.parentElement.querySelector('wakkle-sound').getAttribute('source') || '';
+
+                wakkle.meta.FOV        = json[ metaSelector ].FOV      || wakkle.getAttribute('fov') || console.error('FOV is not defined.');
+                wakkle.meta.Arc        = json[ metaSelector ].Arc      || wakkle.getAttribute('arc') || console.error('Arc is not defined.');
+                wakkle.meta.ArcShift   = json[ metaSelector ].ArcShift || wakkle.getAttribute('arc-shift') || 0;
+                wakkle.meta.OriginX    = json[ metaSelector ].OriginX  || wakkle.getAttribute('origin-x')  || 0;
+                wakkle.meta.OriginY    = json[ metaSelector ].OriginY  || wakkle.getAttribute('origin-y')  || 0;
+
             });
 
-            if ( !img.meta.FOV ) img.meta.FOV = img.getAttribute('fov') || console.error('FOV is not defined.');
-            if ( !img.meta.Phi ) img.meta.Phi = img.getAttribute('phi') || console.error('Angle phi is not defined.');
-            if ( !img.meta.Chi ) img.meta.Chi = img.getAttribute('chi') || console.error('Angle chi is not defined.');
-            if ( !img.meta.OriginX ) img.meta.OriginX = img.getAttribute('origin-x') || console.error('Perspective origin X is not defined.');
-            if ( !img.meta.OriginY ) img.meta.OriginX = img.getAttribute('origin-y') || console.error('Perspective origin Y is not defined.');
-
-            document.registerElement( CONST.tagname );
-
-            img.wrapper     = img.parentElement.nodeName.toLowerCase() == CONST.tagname ? img.parentElement : wrap( img );
-            img.wrapper.id  = img.id;
-            for ( var i = 0; i < img.wrapper.children.length; i++ ) {
-                img.wrapper.children[i].style.position = 'absolute';
-            }
-            Object.assign( img.wrapper.style, {
-                'position':             getCSSValue( 'position', img.wrapper ) == 'static' ? 'relative' : img.wrapper.position,
-                'display':              'block',
-                'overflow':             'hidden'
-            })
-
-            observeResize( img.wrapper, () => {
-                img.wrapper.style.height = img.naturalHeight * (img.clientWidth / img.naturalWidth) + 'px';
-            });
-            img.wrapper.style.height = img.naturalHeight * (img.clientWidth / img.naturalWidth) + 'px';
-            
-            components.push(img);
+            components.push(wakkle);
 
         }
         
@@ -202,7 +204,7 @@ function getSequence( path ) {
 
 function wrap( element ) {
 
-    var wrapper = document.createElement( CONST.tagname );
+    var wrapper = document.createElement( 'wakkle-image' );
 
     if (element.hasAttributes()) cloneAttributes(element, wrapper);
 
