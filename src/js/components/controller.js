@@ -1,17 +1,14 @@
 
-import * as CONST   from './const';
-import {icons}      from './UI/icons';
+import * as button from './UI';
 import {loadScript} from "./controller/loadScript.js";
 
-var WIDTH = windowWidth(), HEIGHT = windowHeight();
-
-export var Controller = function( element ) {
+export var Controller = function( wakkle ) {
 
     this.initialized = false;
     this.q           = 0.5;
 
-    var trackers   = [],
-        UI         = element.ui.controllers;
+    var trackers = [],
+        UI       = wakkle.ui.controllers;
 
     var that = this;
 
@@ -38,17 +35,17 @@ export var Controller = function( element ) {
     this.init = function() {
 
         if ( UI && hasWebcam() ) {
-            trackers.push( CONST.head_move );
+            trackers.push( button.head_move );
         }
         if ( UI && hasMouse() ) {
-            trackers.push( CONST.mouse_move );
-            trackers.push( CONST.mouse_drag );
+            trackers.push( button.mouse_move );
+            trackers.push( button.mouse_drag );
         }
         if ( UI && hasTouch() ) {
-            trackers.push( CONST.touch_drag );
+            trackers.push( button.touch_drag );
         }
         if ( UI && hasDeviceOrientation() ) {
-            trackers.push( CONST.device_orientation );
+            trackers.push( button.device_orientation );
         }
 
         if ( UI )           this.UI.init();
@@ -73,7 +70,7 @@ export var Controller = function( element ) {
         return active;
     }
 
-    this.icons = icons;
+    this.icons = button.icons;
 
     this.UI = {
 
@@ -88,7 +85,7 @@ export var Controller = function( element ) {
                 tracker = trackers[i];
 
                 li                  = document.createElement('li');
-                li.className        = CONST.class_prefix + 'controller-button ' + tracker.name;
+                li.className        = button.pref + 'controller-button ' + tracker.name;
                 li.style.width      = '2em';
                 li.style.height     = '2em';
                 li.style.cursor     = 'pointer';
@@ -100,20 +97,20 @@ export var Controller = function( element ) {
                     that.setActive( this.dataset.tracker );
                 }, false);
 
-                ul.className = CONST.class_prefix +'controller-buttons ';
+                ul.className = button.pref +'controller-buttons ';
                 ul.appendChild( li );
 
             }
 
             ul.style.position = 'absolute';
-            element.ui.wrapper.appendChild( ul )
+            wakkle.ui.wrapper.appendChild( ul )
 
         },
         set: function( tracker ) {
 
             if ( !UI ) return;
 
-            var controllerButtons = element.ui.wrapper.querySelectorAll('.' + CONST.class_prefix + 'controller-button');
+            var controllerButtons = wakkle.ui.wrapper.querySelectorAll('.' + button.pref + 'controller-button');
 
             controllerButtons.forEach( (item, index) => { 
                 item.classList.remove('active');
@@ -125,7 +122,7 @@ export var Controller = function( element ) {
                 
             });
     
-            var item = element.ui.wrapper.querySelector('[data-tracker=' + tracker + ']');
+            var item = wakkle.ui.wrapper.querySelector('[data-tracker=' + tracker + ']');
             var icon = item.querySelector('use');
             var href = icon.getAttribute('xlink:href').replace('-off','');
     
@@ -153,7 +150,7 @@ export var Controller = function( element ) {
     }
 
     function mouseHandler(e) {
-        var rect = element.wrapper.getBoundingClientRect();
+        var rect = wakkle.wrapper.getBoundingClientRect();
         if (!mouseoverElement(e,rect) ) return;
 
         q = ( e.pageX - rect.left ) / rect.width
@@ -171,7 +168,7 @@ export var Controller = function( element ) {
     }
 
     function dragHandler(e) {
-        var rect = element.wrapper.getBoundingClientRect();
+        var rect = wakkle.wrapper.getBoundingClientRect();
         if ( !mousedown || !mouseoverElement(e,rect) ) return;
 
         e.preventDefault();
@@ -306,14 +303,14 @@ export var Controller = function( element ) {
     function unsetDeviceorientation() { window.removeEventListener('device_orientation', deviceOrientationHandler, false) }
 
     function setMousedrag() {
-        element.wrapper.classList.add('grabbable');
+        wakkle.wrapper.classList.add('grabbable');
         document.addEventListener('mousedown', dragStart);
         document.addEventListener('mouseup', dragEnd);
         document.addEventListener('mousemove', dragHandler);
     }
 
     function unsetMousedrag(status) {
-        element.wrapper.classList.remove('grabbable');
+        wakkle.wrapper.classList.remove('grabbable');
         document.removeEventListener('mousedown', dragStart);
         document.removeEventListener('mouseup', dragEnd);
         document.removeEventListener('mousemove', dragHandler);
@@ -349,7 +346,7 @@ export var Controller = function( element ) {
 
 
     if ( hasWebcam() ) {
-        loadScript( CONST.head_move.lib, initHeadtrackr );
+        loadScript( button.head_move.lib, initHeadtrackr );
     }
 
     function initHeadtrackr() {
@@ -358,13 +355,13 @@ export var Controller = function( element ) {
         videoInput.id = 'inputVideo';
         videoInput.autoplay = true;
         videoInput.style.display = 'none';
-        element.wrapper.appendChild(videoInput);
+        wakkle.wrapper.appendChild(videoInput);
 
         canvasInput = document.createElement('canvas');
         canvasInput.id = 'inputCanvas';
         canvasInput.style.visibility = 'hidden';
         canvasInput.style.position = 'absolute';
-        element.wrapper.appendChild(canvasInput);
+        wakkle.wrapper.appendChild(canvasInput);
 
         debugCanvas = document.createElement('canvas');
         debugCanvas.id = 'debugCanvas';
@@ -374,7 +371,7 @@ export var Controller = function( element ) {
         debugCanvas.style.zIndex = '9';
         debugCanvas.style.display = this.debug ? 'block' : 'none';
         debugCanvas.style.transform = 'scaleX(-1)';
-        element.wrapper.appendChild(debugCanvas);
+        wakkle.wrapper.appendChild(debugCanvas);
 
         htracker = new headtrackr.Tracker({
             ui: true,
@@ -401,7 +398,6 @@ export var Controller = function( element ) {
 
     function unsetHeadtrackr() {
         if (!hasWebcam() || !htracker) return;
-        console.log('unset Headtrackr')
         document.removeEventListener('facetrackingEvent', facetrackHandler);
         htracker.stop();
         htracker.stopStream();
@@ -443,20 +439,6 @@ export var Controller = function( element ) {
     }
 
 }
-
-function windowWidth() {
-    return "innerWidth" in window ? window.innerWidth : document.documentElement.offsetWidth;
-}
-
-function windowHeight() {
-    return "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-}
-var onresize = function(e) {
-    WIDTH = windowWidth(),
-    HEIGHT = windowHeight();
-}
-window.addEventListener("resize", onresize); 
-
 
 function round(value, exp) {
     if (typeof exp === 'undefined' || +exp === 0)

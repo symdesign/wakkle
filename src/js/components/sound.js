@@ -1,8 +1,7 @@
 
-import * as CONST from './const';
-import {icons}    from './UI/icons';
+import * as button from './UI';
 
-export var Sound = function( element ) {
+export var Sound = function( wakkle ) {
 
     this.initialized    = false;
     this.q              = 0.5;
@@ -23,11 +22,11 @@ export var Sound = function( element ) {
 
     this.init = function() {
 
-        if ( !element.sound ) return;
+        if ( !wakkle.sound ) return;
 
-        audio.src       = element.sound.Source;
-        audio.autoplay  = element.sound.Autoplay || true;
-        audio.loop      = element.sound.Loop || true;
+        audio.src       = wakkle.sound.Source;
+        audio.autoplay  = wakkle.sound.Autoplay || true;
+        audio.loop      = wakkle.sound.Loop || true;
         audio.volume    = volume = 0; // let's make a nice fade-in instead
         audio.controls  = false;
 
@@ -64,7 +63,7 @@ export var Sound = function( element ) {
         playing ? play() : pause();
     }
 
-    this.icons = icons;
+    this.icons = button.icons;
 
     this.UI = {
         init: function() { 
@@ -72,18 +71,18 @@ export var Sound = function( element ) {
             var soundButton = document.createElement('div');
 
             soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) )
-            soundButton.className = CONST.class_prefix + 'sound-button ';
+            soundButton.className = button.pref + 'sound-button ';
             soundButton.style.position = 'absolute';
             soundButton.style.cursor = 'pointer';
             soundButton.addEventListener( 'click', function() {
                 that.toggle()
             });
 
-            element.ui.wrapper.appendChild( soundButton );
+            wakkle.ui.wrapper.appendChild( soundButton );
 
         },
         set: function( playing ) {
-            var soundButton = element.wrapper.querySelector('.' + CONST.class_prefix + 'sound-button');
+            var soundButton = wakkle.wrapper.querySelector('.' + button.pref + 'sound-button');
             soundButton.innerHTML = '';
             soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) );
         }
@@ -91,8 +90,8 @@ export var Sound = function( element ) {
 
     this.update = function() {
         var x = -1 * (that.q - 0.5) * 2, // values between 1 and -1
-        y = 0,
-        z = 0.5;
+            y = 0,
+            z = 0.5;
         
         panner.setPosition(x,y,z);
     }

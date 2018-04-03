@@ -1,8 +1,5 @@
 
-export const file_extension     = 'wakkle';         // your-image.wakkle
-export const tagname            = 'wakkle-image';   // <wakkle-image> Note: the tagname needs to contain a dash
-export const class_prefix       = 'wakkle-';        // .wakkle-sound-button, etc.
-export const meta_key           = 'WAKKLE-dataset'; 
+export const pref = 'wakkle-';        // .wakkle-sound-button, etc.
 
 export const head_move = {
     name: 'head_move',
