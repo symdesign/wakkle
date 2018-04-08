@@ -12,9 +12,14 @@
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         body {
             background-color: #222;
             font-family: 'Montserrat', sans-serif;
+            overflow: hidden !important;
         }
         wakkle-image {
             width: 70% !important;
@@ -116,7 +121,7 @@
     <script>
         wakkle.init({
             ui: true
-        });
+        }); 
     </script>
 
 </body>

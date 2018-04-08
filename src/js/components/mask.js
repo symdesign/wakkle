@@ -1,6 +1,7 @@
 
 import {generateUUID}   from './collector/generateUUID';
 import {pad}            from './collector/numberPadding';
+import {prefix}         from './../utils/vendorPrefix'
 
 export var Mask = function( wakkle ) {
 
@@ -13,6 +14,8 @@ export var Mask = function( wakkle ) {
         masked      = [];
 
     this.init = function() {
+
+        console.log(prefix)
         for ( var i = 0; i < wakkle.markup.length; i++ ) {
 
             markup = wakkle.markup[i];
@@ -81,9 +84,9 @@ export var Mask = function( wakkle ) {
     }
 
     this.update = function() {
-        
+
         for ( var i = 0; i < masked.length; i++ ) {
-            masked[i].style.clipPath = 'url(#' + masked[i].id + '--' + pad( Math.round( ( wakkle.sequence.length - 1 ) * that.q ), wakkle.sequence.padding ) + ')'
+            masked[i].style[ prefix.clipPath ] = 'url(#' + masked[i].id + '--' + pad( Math.round( ( wakkle.sequence.length - 1 ) * that.q ), wakkle.sequence.padding ) + ')'
         }
     }
 

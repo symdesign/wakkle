@@ -20,7 +20,8 @@ export var Markup = function( wakkle ) {
         rotation;
 
     var q,
-        axes;
+        DDD,
+        dimensions = [];
 
     var markups = wakkle.markup;
 
@@ -50,9 +51,28 @@ export var Markup = function( wakkle ) {
 
                 scaleFontSize( markup );
 
-                // TODO: update axes with correct z value relative to width
+            }
+
+            for ( var i = 0; i < dimensions.length; i++ ) {
+
+                var DDD = dimensions[i];
+                    
+                position = {
+                    x: DDD.getAttribute( 'x' ) || false,
+                    y: DDD.getAttribute( 'y' ) || false,
+                    z: DDD.getAttribute( 'z' ) || false,
+                };
+                
+                rotation = {
+                    x: DDD.getAttribute( 'rotation-x' ) || false,
+                    y: DDD.getAttribute( 'rotation-y' ) || false,
+                    z: DDD.getAttribute( 'rotation-z' ) || false,
+                };
+
+                DDD.style.transform = getCSSTransform( position.x, position.y, position.z, rotation.x, rotation.y, rotation.z );
 
             }
+
 
         });
 
@@ -79,7 +99,7 @@ export var Markup = function( wakkle ) {
 
     this.insert = function( attr ) {
 
-        var markup    = document.createElement('wakkle-markup'); // = where the css perspective is applied to
+        var markup      = document.createElement('wakkle-markup'); // = where the css perspective is applied to
         var markupChild = document.createElement('div');    // = where attributes are assigned to 
 
         markupChild.id       = attr.id || '';
@@ -96,9 +116,6 @@ export var Markup = function( wakkle ) {
         markupChild.setAttribute('rotation-x', attr.rotation.x || 0);
         markupChild.setAttribute('rotation-y', attr.rotation.y || 0);
         markupChild.setAttribute('rotation-z', attr.rotation.z || 0); 
-
-        markupChild.setAttribute('width', attr.width || 0),
-        markupChild.setAttribute('height', attr.height || 0); 
 
         // Add markup to DOM and wakkle.markup HTMLCollection
         markup.appendChild( markupChild );
@@ -142,6 +159,7 @@ export var Markup = function( wakkle ) {
         for ( var i = 0; i < markupChildren.length; i++ ) {
 
             markupChild = markupChildren[i];
+            markupChild.style.transformStyle = 'preserve-3d';
 
             q.appendChild( markupChild )
 
@@ -158,32 +176,15 @@ export var Markup = function( wakkle ) {
                 z: markupChild.getAttribute( 'rotation-z' ) || false,
             };
 
-            markupChild.removeAttribute('x');
-            markupChild.removeAttribute('y');
-            markupChild.removeAttribute('z');
-            markupChild.removeAttribute('rotation-x');
-            markupChild.removeAttribute('rotation-y');
-            markupChild.removeAttribute('rotation-z');
-
-            var transform = ''
-            //+ 50 + (  1 * parseFloat( wakkle.meta.OriginY ) / 2 ) 
-
-            transform += position.x ? ' translateX(' + (  1 * parseFloat( position.x ) + parseFloat( wakkle.meta.OriginX ) ) + '%)' : '';
-            transform += position.y ? ' translateY(' + ( -1 * parseFloat( position.y ) + parseFloat( wakkle.meta.OriginY ) )+ '%)' : '';
-            transform += position.z ? ' translateZ(' + (  1 * parseFloat( position.z ) / 100 * getCSSPerspective( wakkle.meta.FOV, wakkle.width, wakkle.height ).replace('px','') / 2 ) + 'px)' : '';
-
-            transform += rotation.x ? ' rotateX(' + parseFloat( rotation.x ) + 'deg)' : '';
-            transform += rotation.y ? ' rotateY(' + parseFloat( rotation.y ) + 'deg)' : '';
-            transform += rotation.z ? ' rotateZ(' + parseFloat( rotation.z ) + 'deg)' : '';
-
-            markupChild.style.transformStyle = 'preserve-3d';
+            var transform = getCSSTransform( position.x, position.y, position.z, rotation.x, rotation.y, rotation.z )
 
             if ( transform ) {
 
-                axes = document.createElement('div'); // = where the transformation attributes are applied to
+                DDD = document.createElement('div'); // = where the transformation attributes are applied to
+                dimensions.push( DDD )
                 
-                axes.className = 'axes';
-                Object.assign( axes.style, {
+                DDD.className = '3D';
+                Object.assign( DDD.style, {
                     'position':         'absolute',
                     'width':            '50%',
                     'height':           ( 50 * wakkle.width / wakkle.height ) + '%',
@@ -195,15 +196,27 @@ export var Markup = function( wakkle ) {
                     'transform' :       transform
                 });
 
-                markupChild.parentNode.appendChild( axes )
-                axes.appendChild( markupChild );
-                //wrap( axes, markupChild )
+                DDD.setAttribute( 'x', position.x );
+                DDD.setAttribute( 'y', position.y );
+                DDD.setAttribute( 'z', position.z );
+                DDD.setAttribute( 'rotation-x', rotation.x );
+                DDD.setAttribute( 'rotation-y', rotation.y );
+                DDD.setAttribute( 'rotation-z', rotation.z );
+
+                markupChild.removeAttribute('x');
+                markupChild.removeAttribute('y');
+                markupChild.removeAttribute('z');
+                markupChild.removeAttribute('rotation-x');
+                markupChild.removeAttribute('rotation-y');
+                markupChild.removeAttribute('rotation-z');
+
+                markupChild.parentNode.appendChild( DDD )
+                DDD.appendChild( markupChild );
+                //wrap( DDD, markupChild )
 
             }
 
         }
-
-
 
         markup.appendChild( q );
 
@@ -212,6 +225,20 @@ export var Markup = function( wakkle ) {
     function getCSSPerspective( fov, width, height) {
         if ( !fov || !width || !height ) return 0;
         return Math.pow( width/2*width/2 + height/2*height/2, 0.5 ) / Math.tan( (fov/2) * Math.PI / 180 ) + 'px';
+    }
+
+    function getCSSTransform( x, y, z, rotationX, rotationY, rotationZ) {
+        var transform = ''
+
+            transform += x ? ' translateX(' + (  1 * parseFloat( x ) + parseFloat( wakkle.meta.OriginX ) ) + '%)' : '';
+            transform += y ? ' translateY(' + ( -1 * parseFloat( y ) + parseFloat( wakkle.meta.OriginY ) )+ '%)' : '';
+            transform += z ? ' translateZ(' + (  1 * parseFloat( z ) / 100 * getCSSPerspective( wakkle.meta.FOV, wakkle.width, wakkle.height ).replace('px','') / 2 ) + 'px)' : '';
+
+            transform += rotationX ? ' rotateX(' + parseFloat( rotationX ) + 'deg)' : '';
+            transform += rotationY ? ' rotateY(' + parseFloat( rotationY ) + 'deg)' : '';
+            transform += rotationZ ? ' rotateZ(' + parseFloat( rotationZ ) + 'deg)' : '';
+
+        return transform;
     }
 
     function bindFontSizes( markup ) {

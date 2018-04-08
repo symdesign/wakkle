@@ -22,6 +22,6 @@ module.exports = merge(common, {
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
-        stats: 'errors-only'
+        stats: 'errors-only',
     },
 });

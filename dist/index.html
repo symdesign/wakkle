@@ -12,9 +12,14 @@
     <link rel="stylesheet" href="./css/wakkle.css">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
         body {
             background-color: #222;
             font-family: 'Montserrat', sans-serif;
+            overflow: hidden !important;
         }
         wakkle-image {
             width: 70% !important;
@@ -111,12 +116,12 @@
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     
-	<script src="./js/wakkle.min.js"></script>
+	<script src="./js/wakkle.js"></script>
     
     <script>
         wakkle.init({
             ui: true
-        });
+        }); 
     </script>
 
 </body>
