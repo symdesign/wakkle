@@ -12,12 +12,11 @@ export var Sound = function( wakkle ) {
         audio   = new Audio(),
         context = new AudioContext(),
         panner  = context.createPanner(),
-        level;
+        volume  = context.createGain(),
+        source  = context.createMediaElementSource( audio );
 
-    var playing = false,
-        fadeIn,
-        fadeOut,
-        volume,
+    var fadeInterval,
+        current,
         target;
 
     this.init = function() {
@@ -25,42 +24,28 @@ export var Sound = function( wakkle ) {
         if ( !wakkle.sound ) return;
 
         audio.src       = wakkle.sound.Source;
-        audio.autoplay  = wakkle.sound.Autoplay || true;
+        audio.autoplay  = wakkle.sound.Autoplay || false;
         audio.loop      = wakkle.sound.Loop || true;
-        audio.volume    = volume = 0; // let's make a nice fade-in instead
-        audio.controls  = false;
 
         panner.setPosition(0, 0, 1);
         panner.panningModel = 'equalpower';
-        panner.connect( context.destination );
 
-        context.createMediaElementSource(audio).connect( panner );
+        volume.gain.value = current = 0;
 
-        document.addEventListener( 'visibilitychange', visibilityHandler );
+        // Source -> Panner -> Volume -> Destination / Output
+        source.connect( panner );
+        panner.connect( volume );
+        volume.connect( context.destination );
 
-        this.play();
+        document.addEventListener( 'visibilitychange', volumeHandler );
+
+        var promise = audio.play();
+        if (promise !== undefined) promise.then( () => { audio.play() } ).catch( e => { /**/ } )
+
+        this.UI.init()
+        
         this.initialized = true;
 
-        setTimeout(() => {
-            if ( audio.currentTime == 0 ) this.pause();
-            this.UI.init();
-        },1000)
-    }
-
-    this.play = function() {
-        playing = true;
-        play();
-    }
-
-    this.pause = function() {
-        playing = false;
-        pause();
-    }
-
-    this.toggle = function() {
-        playing = !playing;
-        that.UI.set( playing );
-        playing ? play() : pause();
     }
 
     this.icons = button.icons;
@@ -70,21 +55,18 @@ export var Sound = function( wakkle ) {
 
             var soundButton = document.createElement('div');
 
-            soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) )
+            soundButton.appendChild( that.icons.use( '#icon-sound' + ( audio.paused ? '-off' : '') ) )
             soundButton.className = button.pref + 'sound-button ';
             soundButton.style.position = 'absolute';
             soundButton.style.cursor = 'pointer';
-            soundButton.addEventListener( 'click', function() {
-                that.toggle()
-            });
+            soundButton.addEventListener( 'click', toggle );
 
             wakkle.ui.wrapper.appendChild( soundButton );
 
         },
         set: function( playing ) {
-            var soundButton = wakkle.wrapper.querySelector('.' + button.pref + 'sound-button');
-            soundButton.innerHTML = '';
-            soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) );
+            var soundButton = wakkle.wrapper.querySelector('.' + button.pref + 'sound-button use');
+            soundButton.setAttribute('xlink:href', '#icon-sound' + ( playing ? '' : '-off') )
         }
     }
 
@@ -96,61 +78,43 @@ export var Sound = function( wakkle ) {
         panner.setPosition(x,y,z);
     }
 
+    function toggle() {
 
-    function play() {
+        if ( audio.paused ) audio.play()
 
-        audio.play();
+        if ( volume.gain.value > 0 ) target = 0
+        if ( volume.gain.value < 1 ) target = 1
 
-        if ( volume < 0 ) volume = 0;
-        if ( volume > 1 ) volume = 1;
+        volumeTo( target )
+        that.UI.set( target );
 
-        fadeIn = setInterval(function() { 
-        // Note: we can't use requestAnimationFrame because fade wouldn't work when document hidden
-
-            target = 1;
-            volume += 0.1;
-            audio.volume = volume >= target ? target : volume;
-    
-            if ( fadeOut ) {
-                clearInterval( fadeOut );
-                fadeOut = false;
-            }
-            if ( audio.volume == target ) {
-                clearInterval( fadeIn );
-                fadeIn = false;
-            }
-    
-        }, 100)
-    }
-    
-    function pause() {
-
-        audio.play();
-
-        if ( volume < 0 ) volume = 0;
-        if ( volume > 1 ) volume = 1;
-
-        fadeOut = setInterval(function() {
-
-            target = 0
-            volume -= 0.1;
-            audio.volume = volume <= target ? target : volume;
-    
-            if ( fadeIn ) {
-                clearInterval( fadeIn );
-                fadeIn = false;
-            }
-            if ( audio.volume == target ) {
-                clearInterval( fadeOut );
-                fadeOut = false;
-            }
-            
-        }, 100)
     }
 
-    function visibilityHandler() {
-        if ( document.visibilityState == 'hidden' && playing ) pause();
-        if ( document.visibilityState == 'visible' && playing ) play();
+    function volumeTo( target ) {
+
+        if ( current < 0 ) current = 0;
+        if ( current > 1 ) current = 1;
+        if ( fadeInterval ) clearInterval( fadeInterval );
+
+        fadeInterval = setInterval(function() { 
+            // Note: we can't use requestAnimationFrame because fade wouldn't work when document hidden
+
+            if ( volume.gain.value > target ) current -= 0.1
+            if ( volume.gain.value < target ) current += 0.1
+            if ( volume.gain.value == target ) clearInterval( fadeInterval )
+
+            if ( current >= target || current <= target ) current = target;
+
+            volume.gain.value = current;
+        
+        }, 100)
+
+    }
+
+    function volumeHandler() {
+        // TODO: visibilityState within viewport
+        if ( document.visibilityState == 'hidden' ) volumeTo( 0 )
+        if ( document.visibilityState == 'visible' ) volumeTo( 1 )
     }
 
 }
