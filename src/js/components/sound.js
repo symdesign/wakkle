@@ -15,10 +15,6 @@ export var Sound = function( wakkle ) {
         volume  = context.createGain(),
         source  = context.createMediaElementSource( audio );
 
-    var fadeInterval,
-        current,
-        target;
-
     this.init = function() {
 
         if ( !wakkle.sound ) return;
@@ -85,29 +81,8 @@ export var Sound = function( wakkle ) {
         if ( volume.gain.value > 0 ) target = 0
         if ( volume.gain.value < 1 ) target = 1
 
-        volumeTo( target )
+        volume.setTargetAtTime( target, audio.currentTime, 0.1 )
         that.UI.set( target );
-
-    }
-
-    function volumeTo( target ) {
-
-        if ( current < 0 ) current = 0;
-        if ( current > 1 ) current = 1;
-        if ( fadeInterval ) clearInterval( fadeInterval );
-
-        fadeInterval = setInterval(function() { 
-            // Note: we can't use requestAnimationFrame because fade wouldn't work when document hidden
-
-            if ( volume.gain.value > target ) current -= 0.1
-            if ( volume.gain.value < target ) current += 0.1
-            if ( volume.gain.value == target ) clearInterval( fadeInterval )
-
-            if ( current >= target || current <= target ) current = target;
-
-            volume.gain.value = current;
-        
-        }, 100)
 
     }
 
