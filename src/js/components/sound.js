@@ -13,7 +13,8 @@ export var Sound = function( wakkle ) {
         context = new AudioContext(),
         panner  = context.createPanner(),
         volume  = context.createGain(),
-        source  = context.createMediaElementSource( audio );
+        source  = context.createMediaElementSource( audio ),
+        target;
 
     this.init = function() {
 
@@ -25,8 +26,6 @@ export var Sound = function( wakkle ) {
 
         panner.setPosition(0, 0, 1);
         panner.panningModel = 'equalpower';
-
-        volume.gain.value = current = 0;
 
         // Source -> Panner -> Volume -> Destination / Output
         source.connect( panner );
@@ -88,8 +87,8 @@ export var Sound = function( wakkle ) {
 
     function volumeHandler() {
         // TODO: visibilityState within viewport
-        if ( document.visibilityState == 'hidden' ) volumeTo( 0 )
-        if ( document.visibilityState == 'visible' ) volumeTo( 1 )
+        if ( document.visibilityState == 'hidden' ) volume.setTargetAtTime( 0, audio.currentTime, 0.1 )
+        if ( document.visibilityState == 'visible' ) volume.setTargetAtTime( 1, audio.currentTime, 0.1 )
     }
 
 }
