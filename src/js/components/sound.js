@@ -74,21 +74,21 @@ export var Sound = function( wakkle ) {
     }
 
     function toggle() {
-
+        
         if ( audio.paused ) audio.play()
 
-        if ( volume.gain.value > 0 ) target = 0
-        if ( volume.gain.value < 1 ) target = 1
+        if ( Math.round( volume.gain.value ) > 0 ) target = 0
+        if ( Math.round( volume.gain.value ) < 1 ) target = 1
 
-        volume.setTargetAtTime( target, audio.currentTime, 0.1 )
+        volume.gain.setTargetAtTime( target, audio.currentTime + 1, 0.5 )
         that.UI.set( target );
 
     }
 
     function volumeHandler() {
         // TODO: visibilityState within viewport
-        if ( document.visibilityState == 'hidden' ) volume.setTargetAtTime( 0, audio.currentTime, 0.1 )
-        if ( document.visibilityState == 'visible' ) volume.setTargetAtTime( 1, audio.currentTime, 0.1 )
+        if ( document.visibilityState == 'hidden' ) volume.gain.setTargetAtTime( 0, audio.currentTime, 0.1 )
+        if ( document.visibilityState == 'visible' ) volume.gain.setTargetAtTime( 1, audio.currentTime, 0.1 )
     }
 
 }
