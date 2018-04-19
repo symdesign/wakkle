@@ -58,15 +58,15 @@ export var Markup = function( wakkle ) {
                 var DDD = dimensions[i];
                     
                 position = {
-                    x: DDD.getAttribute( 'x' ) || false,
-                    y: DDD.getAttribute( 'y' ) || false,
-                    z: DDD.getAttribute( 'z' ) || false,
+                    x: DDD.getAttribute( 'x' ) || 0,
+                    y: DDD.getAttribute( 'y' ) || 0,
+                    z: DDD.getAttribute( 'z' ) || 0,
                 };
                 
                 rotation = {
-                    x: DDD.getAttribute( 'rotation-x' ) || false,
-                    y: DDD.getAttribute( 'rotation-y' ) || false,
-                    z: DDD.getAttribute( 'rotation-z' ) || false,
+                    x: DDD.getAttribute( 'rotation-x' ) || 0,
+                    y: DDD.getAttribute( 'rotation-y' ) || 0,
+                    z: DDD.getAttribute( 'rotation-z' ) || 0,
                 };
 
                 DDD.style.transform = getCSSTransform( position.x, position.y, position.z, rotation.x, rotation.y, rotation.z );
@@ -85,10 +85,6 @@ export var Markup = function( wakkle ) {
         for ( var i = 0; i < markups.length; i++ ) {
 
             var q = markups[i].querySelector('.q');
-
-            // Math.round(q * wakkle.sequence.length) * arc / wakkle.sequence.length 
-
-            // stepped version:
             q.style.transform = 'rotateY(' + ( Math.round( that.q * (wakkle.sequence.length-1) ) * arc/wakkle.sequence.length + arcShift ) + 'deg)';
 
             // (too) smooth version:
@@ -165,15 +161,15 @@ export var Markup = function( wakkle ) {
 
             // Parse transformation attributes
             position = {
-                x: markupChild.getAttribute( 'x' ) || false,
-                y: markupChild.getAttribute( 'y' ) || false,
-                z: markupChild.getAttribute( 'z' ) || false,
+                x: markupChild.getAttribute( 'x' ) || 0,
+                y: markupChild.getAttribute( 'y' ) || 0,
+                z: markupChild.getAttribute( 'z' ) || 0,
             };
             
             rotation = {
-                x: markupChild.getAttribute( 'rotation-x' ) || false,
-                y: markupChild.getAttribute( 'rotation-y' ) || false,
-                z: markupChild.getAttribute( 'rotation-z' ) || false,
+                x: markupChild.getAttribute( 'rotation-x' ) || 0,
+                y: markupChild.getAttribute( 'rotation-y' ) || 0,
+                z: markupChild.getAttribute( 'rotation-z' ) || 0,
             };
 
             var transform = getCSSTransform( position.x, position.y, position.z, rotation.x, rotation.y, rotation.z )
@@ -261,7 +257,7 @@ export var Markup = function( wakkle ) {
         for ( var i = 0; i < markupAllChildren.length; i++ ) {
 
             markupAllChildren[i].style.fontSize = markupAllChildren[i].getAttribute('data-naturalFontSize') * ( wakkle.clientWidth / wakkle.naturalWidth ) + 'px';
-
+            markupAllChildren[i].style.backfaceVisibility = 'hidden'
         }
     }
 

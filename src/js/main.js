@@ -1,5 +1,4 @@
 
-import './../scss/style.scss';
 import 'document-register-element'; // Polyfill for custom tagnames
 
 import {Collector}  from './components/collector';

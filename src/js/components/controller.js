@@ -37,7 +37,7 @@ export var Controller = function( wakkle ) {
         if ( UI && hasWebcam() ) {
             trackers.push( button.head_move );
         }
-        if ( UI && hasMouse() ) {
+        if ( UI && hasMouse() && !hasTouch()) {
             trackers.push( button.mouse_move );
             trackers.push( button.mouse_drag );
         }
@@ -45,14 +45,12 @@ export var Controller = function( wakkle ) {
             trackers.push( button.touch_drag );
         }
         if ( UI && hasDeviceOrientation() ) {
-            trackers.push( button.device_orientation );
-        }
-        if ( UI && hasDeviceOrientation() ) {
+            // trackers.push( button.device_orientation );
             trackers.push( button.device_orientation_drag );
         }
 
-        if ( UI )           this.UI.init();
-        if ( hasMouse() )   this.setActive('mouse_move');
+        if ( UI ) this.UI.init();
+        if ( hasMouse() && !hasTouch()  ) this.setActive('mouse_move');
         if ( hasDeviceOrientation() ) this.setActive('device_orientation_drag');
 
         this.initialized = true;
@@ -156,6 +154,7 @@ export var Controller = function( wakkle ) {
     }
 
     function mouseHandler(e) {
+
         var rect = wakkle.wrapper.getBoundingClientRect();
         if (!pointerOverElement(e,rect) ) return;
 
@@ -248,7 +247,6 @@ export var Controller = function( wakkle ) {
     }
 
     function head_moveHandler(e) {
-        console.log('head_move event')
         camFov = Math.floor(htracker.getFOV()) / 2
         q = (e.x / camFov + 0.5) - 1
         q = q * 0.1
@@ -258,7 +256,6 @@ export var Controller = function( wakkle ) {
     }
 
     function facetrackHandler(e) {
-        console.log('facetrack event')
         camFov = Math.floor(htracker.getFOV()) / 2
         q = (e.x / camFov + 0.5) - 1
         q = q * 0.1
@@ -312,14 +309,14 @@ export var Controller = function( wakkle ) {
 
     function setMousedrag() {
         wakkle.wrapper.classList.add('grabbable');
-        document.addEventListener('pointerDown', dragStart);
+        document.addEventListener('mousedown', dragStart);
         document.addEventListener('mouseup', dragEnd);
         document.addEventListener('mousemove', dragHandler);
     }
 
     function unsetMousedrag(status) {
         wakkle.wrapper.classList.remove('grabbable');
-        document.removeEventListener('pointerDown', dragStart);
+        document.removeEventListener('mousedown', dragStart);
         document.removeEventListener('mouseup', dragEnd);
         document.removeEventListener('mousemove', dragHandler);
     }

@@ -20,9 +20,10 @@ export var Sound = function( wakkle ) {
 
         if ( !wakkle.sound ) return;
 
-        audio.src       = wakkle.sound.Source;
-        audio.autoplay  = wakkle.sound.Autoplay || false;
-        audio.loop      = wakkle.sound.Loop || true;
+        audio.src           = wakkle.sound.Source;
+        audio.autoplay      = wakkle.sound.Autoplay || false;
+        audio.loop          = wakkle.sound.Loop || true;
+        audio.crossOrigin   = "anonymous";
 
         panner.setPosition(0, 0, 1);
         panner.panningModel = 'equalpower';
