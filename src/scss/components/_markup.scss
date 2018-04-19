@@ -3,6 +3,11 @@ $color:     'red';
 $stroke:    '1px';
 $size:      '10px';
 
+wakkle-markup,
+wakkle-markup * {
+    backface-visibility: hidden;
+}
+
 .grid {
     position: relative;
     &:after {
