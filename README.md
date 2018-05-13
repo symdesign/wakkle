@@ -5,7 +5,7 @@
 
 ## Introduction
 
-Project <a href='http://wakkle.co'>wakkle</a> is a rethink of how we can read, create and communicate information online. 
+Project [wakkle](https://medium.com/p/944c1ada9c5b/) is a rethink of how we can read, create and communicate information online. 
 
 `wakkle.js` is the accompanying Javascript library that lets you display high fidel —and— emotional photography inside the web-browser.
 
