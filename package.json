@@ -26,6 +26,7 @@
     "copy-webpack-plugin": "^4.3.1",
     "css-loader": "^0.28.7",
     "csso-webpack-plugin": "^1.0.0-beta.12",
+    "document-register-element": "^1.8.1",
     "element-resize-detector": "^1.1.13",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
@@ -47,6 +48,7 @@
     "unminified-webpack-plugin": "^2.0.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.2",
     "webpack-sass-loader": "^2.2.1"
   },
   "repository": {
