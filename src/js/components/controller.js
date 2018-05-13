@@ -20,10 +20,10 @@ export var Controller = function( wakkle ) {
 
     var active,
         history,
-        mouseDownX,
-        mouseDownY,
-        mousedown,
-        mouseMoveX,
+        pointerDownX,
+        pointerDownY,
+        pointerDown,
+        pointerMoveX,
         dX      = 0,
         easing  = 0.05,
         q       = 0.5;
@@ -37,7 +37,7 @@ export var Controller = function( wakkle ) {
         if ( UI && hasWebcam() ) {
             trackers.push( button.head_move );
         }
-        if ( UI && hasMouse() ) {
+        if ( UI && hasMouse() && !hasTouch()) {
             trackers.push( button.mouse_move );
             trackers.push( button.mouse_drag );
         }
@@ -45,19 +45,20 @@ export var Controller = function( wakkle ) {
             trackers.push( button.touch_drag );
         }
         if ( UI && hasDeviceOrientation() ) {
-            trackers.push( button.device_orientation );
+            // trackers.push( button.device_orientation );
+            trackers.push( button.device_orientation_drag );
         }
 
-        if ( UI )           this.UI.init();
-        if ( hasMouse() )   this.setActive('mouse_move');
-        if ( hasDeviceOrientation() ) this.setActive('device_orientation');
+        if ( UI ) this.UI.init();
+        if ( hasMouse() && !hasTouch()  ) this.setActive('mouse_move');
+        if ( hasDeviceOrientation() ) this.setActive('device_orientation_drag');
 
         this.initialized = true;
 
         update();
     }
 
-    this.control = function( obj ) {
+    this.connect = function( obj ) {
         components.push( obj );
     }
 
@@ -137,6 +138,7 @@ export var Controller = function( wakkle ) {
         // TODO: performance optimisation -> delay in dependence of distance between last and current mouse position 
         // look up: ease to value in certain speed
         // Introduction to Easing in JavaScript https://www.kirupa.com/html5/introduction_to_easing_in_javascript.htm
+        // TODO: visibilityState within viewport
         for (var i = 0; i < components.length; i++) {
             var component = components[i]
             that.q += (q - that.q) * easing; 
@@ -145,41 +147,45 @@ export var Controller = function( wakkle ) {
         }
     }
 
-    function mouseoverElement(e, rect) {
-        return e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+    function pointerOverElement(e, rect) {
+        var pageX = e.pageX || e.changedTouches[0].pageX,
+            pageY = e.pageY || e.changedTouches[0].pageY;
+        return pageX >= rect.left && pageX <= rect.right && pageY >= rect.top && pageY <= rect.bottom;
     }
 
     function mouseHandler(e) {
+
         var rect = wakkle.wrapper.getBoundingClientRect();
-        if (!mouseoverElement(e,rect) ) return;
+        if (!pointerOverElement(e,rect) ) return;
 
         q = ( e.pageX - rect.left ) / rect.width
         update();
     }
 
     function dragStart(e) {
-        mousedown  = 1;
-        mouseDownX = e.pageX || e.changedTouches[0].pageX;
+        pointerDown  = 1;
+        pointerDownX = e.pageX || e.changedTouches[0].pageX;
     }
 
     function dragEnd(e) {
-        mousedown = 0;
-        mouseMoveX = 0;
+        pointerDown = 0;
+        pointerMoveX = 0;
     }
 
     function dragHandler(e) {
+
         var rect = wakkle.wrapper.getBoundingClientRect();
-        if ( !mousedown || !mouseoverElement(e,rect) ) return;
+        if ( !pointerDown || !pointerOverElement(e,rect) ) return;
 
         e.preventDefault();
 
         var pageX = e.pageX || e.changedTouches[0].pageX;
 
-        var _dX = pageX - (mouseMoveX || mouseDownX);
+        var _dX = pageX - (pointerMoveX || pointerDownX);
 
-        mouseMoveX = pageX;
+        pointerMoveX = pageX;
         if ((dX > 0 && _dX < 0) || (dX < 0 && _dX > 0)) {
-            mouseDownX = mouseMoveX;
+            pointerDownX = pointerMoveX;
         }
 
         dX = _dX;
@@ -197,7 +203,7 @@ export var Controller = function( wakkle ) {
 
     function deviceOrientationHandler(e) {
 
-        if (mousedown) return;
+        if (pointerDown) return;
         
         var orientation,
             angle;
@@ -217,9 +223,10 @@ export var Controller = function( wakkle ) {
         angle = orientation == 'portrait' ? e.gamma : e.beta;
         angle = (angle > 45 ? 45 : angle);
 
-        q = (angle + 45) * (1 / 90);
+        q = 1 - (angle + 45) * (1 / 90);
         q = q < 0 ? 0 : q;
         q = q > 1 ? 1 : q;
+
         update();
     }
 
@@ -240,7 +247,6 @@ export var Controller = function( wakkle ) {
     }
 
     function head_moveHandler(e) {
-        console.log('head_move event')
         camFov = Math.floor(htracker.getFOV()) / 2
         q = (e.x / camFov + 0.5) - 1
         q = q * 0.1
@@ -250,7 +256,6 @@ export var Controller = function( wakkle ) {
     }
 
     function facetrackHandler(e) {
-        console.log('facetrack event')
         camFov = Math.floor(htracker.getFOV()) / 2
         q = (e.x / camFov + 0.5) - 1
         q = q * 0.1
@@ -298,9 +303,9 @@ export var Controller = function( wakkle ) {
 
     function unsetMousemove() { document.removeEventListener('mousemove', mouseHandler, false) }
 
-    function setDeviceorientation() { window.addEventListener('device_orientation', deviceOrientationHandler, false) }
+    function setDeviceorientation() { window.addEventListener('deviceorientation', deviceOrientationHandler, false) }
 
-    function unsetDeviceorientation() { window.removeEventListener('device_orientation', deviceOrientationHandler, false) }
+    function unsetDeviceorientation() { window.removeEventListener('deviceorientation', deviceOrientationHandler, false) }
 
     function setMousedrag() {
         wakkle.wrapper.classList.add('grabbable');

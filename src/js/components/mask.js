@@ -1,4 +1,3 @@
-
 import {generateUUID}   from './collector/generateUUID';
 import {pad}            from './collector/numberPadding';
 
@@ -23,6 +22,7 @@ export var Mask = function( wakkle ) {
                 
                 var xhr = new XMLHttpRequest();
 
+                console.log( 'waiting to insert ' + wakkle.markup[i].getAttribute('mask'))
                 xhr.url = wakkle.markup[i].getAttribute('mask');
                 xhr.open('GET', xhr.url, true);
                 xhr.send();
@@ -31,15 +31,15 @@ export var Mask = function( wakkle ) {
 
                     if ( xhr.status >= 200 && xhr.status < 400 ) {
 
-                        var container       = document.createElement('div');
-                        container.innerHTML = xhr.responseText;
+                        var tmp       = document.createElement('div');
+                        tmp.innerHTML = xhr.responseText;
 
-                        wakkle.wrapper.appendChild( container );
+                        wakkle.wrapper.appendChild( tmp );
                         // https://stackoverflow.com/a/22277907
 
-                        var svg         = container.getElementsByTagName('svg')[0],
+                        var svg         = tmp.getElementsByTagName('svg')[0],
                             viewBox     = svg.getAttribute('viewBox').replace(/^\s+|\s+$/gm,'').split(' '),
-                            clipPaths   = container.getElementsByTagName('clipPath'),
+                            clipPaths   = tmp.getElementsByTagName('clipPath'),
                             clipPath,
                             markup      = wakkle.wrapper.querySelector('[mask="' + xhr.url + '"]'),
                             id          = markup.id || generateUUID();
@@ -74,6 +74,8 @@ export var Mask = function( wakkle ) {
 
                         svg.innerHTML = svg.innerHTML
 
+                        console.log('mask inserted')
+
                     }
                 }
             }
@@ -83,7 +85,10 @@ export var Mask = function( wakkle ) {
     this.update = function() {
         
         for ( var i = 0; i < masked.length; i++ ) {
-            masked[i].style.clipPath = 'url(#' + masked[i].id + '--' + pad( Math.round( ( wakkle.sequence.length - 1 ) * that.q ), wakkle.sequence.padding ) + ')'
+            
+            masked[i].style.clipPath        = 'url(#' + masked[i].id + '--' + pad( Math.round( ( wakkle.sequence.length - 1 ) * that.q ), wakkle.sequence.padding ) + ')'
+            masked[i].style.WebkitClipPath = 'url(#' + masked[i].id + '--' + pad( Math.round( ( wakkle.sequence.length - 1 ) * that.q ), wakkle.sequence.padding ) + ')'
+            
         }
     }
 

@@ -61,7 +61,7 @@ var wakkle =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,13 +69,15 @@ var wakkle =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return pref; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return head_move; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return mouse_move; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return mouse_drag; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return touch_drag; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return device_orientation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return icons; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return pref; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return head_move; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return mouse_move; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return mouse_drag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return touch_drag; });
+/* unused harmony export device_orientation */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return device_orientation_drag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return icons; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UI; });
 
 var pref = 'wakkle-'; // .wakkle-sound-button, etc.
 
@@ -115,11 +117,18 @@ var device_orientation = {
     }
 };
 
+var device_orientation_drag = {
+    name: 'device_orientation_drag',
+    icon: {
+        selector: '#icon-device-orientation'
+    }
+};
+
 var icons = {
 
     init: function () {
         var wrapper = document.createElement('div'),
-            svg = __webpack_require__(10);
+            svg = __webpack_require__(7);
 
         wrapper.style.display = 'none';
         wrapper.innerHTML = svg;
@@ -155,6 +164,18 @@ var icons = {
 };
 
 icons.init();
+
+var UI = function (wakkle) {
+
+    this.init = function () {
+
+        if (wakkle.ui) {
+            wakkle.ui.wrapper = document.createElement('div');
+            wakkle.ui.wrapper.className = pref + 'ui';
+            wakkle.wrapper.appendChild(wakkle.ui.wrapper);
+        }
+    };
+};
 
 /***/ }),
 /* 1 */
@@ -201,25 +222,19 @@ var generateUUID = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return version; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_document_register_element__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_document_register_element___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_document_register_element__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_const__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_collector__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_controller__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_image__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_mask__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sound__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_markup__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_vector__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_minimap__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_fullscreen__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_grid__ = __webpack_require__(24);
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return version; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return init; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_document_register_element__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_document_register_element___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_document_register_element__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_collector__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_UI__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_controller__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_image__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_mask__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_sound__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_markup__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_minimap__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_fullscreen__ = __webpack_require__(19);
 
  // Polyfill for custom tagnames
 
@@ -234,12 +249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
-
-//import {isElementVisible}   from './utils/isElementVisible';
-
-var version = '1.0';
+var version = '1.0 beta';
 
 var init = function (options) {
 
@@ -266,25 +276,11 @@ var init = function (options) {
             fade: true
         },
 
-        grid: typeof options.grid === 'boolean' ? {
-            xy: options.grid,
-            yz: options.grid,
-            xz: options.grid
-        } : typeof options.grid === 'object' ? {
-            xy: options.gird.xy,
-            yz: options.grid.yz,
-            xz: options.grid.xz
-        } : {
-            xy: false,
-            yz: false,
-            xz: false
-        },
-
         bindFontSize: default_(options.bindFontSize, true)
 
     };
 
-    var collector = new __WEBPACK_IMPORTED_MODULE_3__components_collector__["a" /* Collector */]();
+    var collector = new __WEBPACK_IMPORTED_MODULE_1__components_collector__["a" /* Collector */]();
     collector.init();
 
     var wakkles = collector.collect(),
@@ -298,63 +294,41 @@ var init = function (options) {
         vector = [],
         minimap = [],
         fullscreen = [],
-        ui,
-        grid = new __WEBPACK_IMPORTED_MODULE_12__components_grid__["a" /* Grid */]({
-        xy: settings.grid.xy,
-        yz: settings.grid.yz,
-        xz: settings.grid.xz
-    });
+        ui = [];
 
     for (var i = 0; i < wakkles.length; i++) {
 
         wakkle = wakkles[i];
         wakkle.ui = settings.ui;
 
-        if (wakkle.ui) {
-            wakkle.ui.wrapper = document.createElement('div');
-            wakkle.ui.wrapper.className = __WEBPACK_IMPORTED_MODULE_2__components_const__["a" /* pref */] + 'ui';
-            wakkle.wrapper.appendChild(wakkle.ui.wrapper);
-        }
+        ui[i] = new __WEBPACK_IMPORTED_MODULE_2__components_UI__["a" /* UI */](wakkle);
+        ui[i].init();
 
-        //if ( !isElementVisible( wakkle ) ) { // Needs to be fixed
-
-        controller[i] = new __WEBPACK_IMPORTED_MODULE_4__components_controller__["a" /* Controller */](wakkle);
+        controller[i] = new __WEBPACK_IMPORTED_MODULE_3__components_controller__["a" /* Controller */](wakkle);
         controller[i].init();
 
-        image[i] = new __WEBPACK_IMPORTED_MODULE_5__components_image__["a" /* Sequence */](wakkle);
+        image[i] = new __WEBPACK_IMPORTED_MODULE_4__components_image__["a" /* Sequence */](wakkle);
         image[i].init();
-        controller[i].control(image[i]);
+        controller[i].connect(image[i]);
 
-        mask[i] = new __WEBPACK_IMPORTED_MODULE_6__components_mask__["a" /* Mask */](wakkle);
+        mask[i] = new __WEBPACK_IMPORTED_MODULE_5__components_mask__["a" /* Mask */](wakkle);
         mask[i].init();
-        controller[i].control(mask[i]);
+        controller[i].connect(mask[i]);
 
-        sound[i] = new __WEBPACK_IMPORTED_MODULE_7__components_sound__["a" /* Sound */](wakkle);
+        sound[i] = new __WEBPACK_IMPORTED_MODULE_6__components_sound__["a" /* Sound */](wakkle);
         !sound[i == 0 ? 0 : i - 1].initialized && sound[i].init();
-        controller[i].control(sound[i]);
+        controller[i].connect(sound[i]);
 
-        markup[i] = new __WEBPACK_IMPORTED_MODULE_8__components_markup__["a" /* Markup */](wakkle);
+        markup[i] = new __WEBPACK_IMPORTED_MODULE_7__components_markup__["a" /* Markup */](wakkle);
         markup[i].init();
-        if (settings.grid.xy) markup[i].insert(grid.xy);
-        if (settings.grid.yz) markup[i].insert(grid.yz);
-        if (settings.grid.xz) markup[i].insert(grid.xz);
-        controller[i].control(markup[i]);
+        controller[i].connect(markup[i]);
 
-        vector[i] = new __WEBPACK_IMPORTED_MODULE_9__components_vector__["a" /* Vector */](wakkle);
-        vector[i].init();
-        controller[i].control(vector[i]);
-
-        minimap[i] = new __WEBPACK_IMPORTED_MODULE_10__components_minimap__["a" /* Minimap */](wakkle);
+        minimap[i] = new __WEBPACK_IMPORTED_MODULE_8__components_minimap__["a" /* Minimap */](wakkle);
         minimap[i].init();
-        controller[i].control(minimap[i]);
+        controller[i].connect(minimap[i]);
 
-        fullscreen[i] = new __WEBPACK_IMPORTED_MODULE_11__components_fullscreen__["a" /* Fullscreen */](wakkle);
+        fullscreen[i] = new __WEBPACK_IMPORTED_MODULE_9__components_fullscreen__["a" /* Fullscreen */](wakkle);
         fullscreen[i].init();
-
-        // TODO: implement global control switch + control switch UI
-        // TODO: watch() or listen() if wakkle is in viewport
-
-        //}
     }
 
     function default_(overwrite, default_) {
@@ -366,67 +340,11 @@ var init = function (options) {
 /* 5 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
 /*! (C) Andrea Giammarchi - @WebReflection - Mit Style License */
 (function(e,t){"use strict";function Ht(){var e=wt.splice(0,wt.length);Et=0;while(e.length)e.shift().call(null,e.shift())}function Bt(e,t){for(var n=0,r=e.length;n<r;n++)Jt(e[n],t)}function jt(e){for(var t=0,n=e.length,r;t<n;t++)r=e[t],Pt(r,A[It(r)])}function Ft(e){return function(t){ut(t)&&(Jt(t,e),O.length&&Bt(t.querySelectorAll(O),e))}}function It(e){var t=ht.call(e,"is"),n=e.nodeName.toUpperCase(),r=_.call(L,t?N+t.toUpperCase():T+n);return t&&-1<r&&!qt(n,t)?-1:r}function qt(e,t){return-1<O.indexOf(e+'[is="'+t+'"]')}function Rt(e){var t=e.currentTarget,n=e.attrChange,r=e.attrName,i=e.target,s=e[y]||2,o=e[w]||3;kt&&(!i||i===t)&&t[h]&&r!=="style"&&(e.prevValue!==e.newValue||e.newValue===""&&(n===s||n===o))&&t[h](r,n===s?null:e.prevValue,n===o?null:e.newValue)}function Ut(e){var t=Ft(e);return function(e){wt.push(t,e.target),Et&&clearTimeout(Et),Et=setTimeout(Ht,1)}}function zt(e){Ct&&(Ct=!1,e.currentTarget.removeEventListener(S,zt)),O.length&&Bt((e.target||n).querySelectorAll(O),e.detail===l?l:a),st&&Vt()}function Wt(e,t){var n=this;vt.call(n,e,t),Lt.call(n,{target:n})}function Xt(e,t){nt(e,t),Mt?Mt.observe(e,yt):(Nt&&(e.setAttribute=Wt,e[o]=Ot(e),e[u](x,Lt)),e[u](E,Rt)),e[m]&&kt&&(e.created=!0,e[m](),e.created=!1)}function Vt(){for(var e,t=0,n=at.length;t<n;t++)e=at[t],M.contains(e)||(n--,at.splice(t--,1),Jt(e,l))}function $t(e){throw new Error("A "+e+" type is already registered")}function Jt(e,t){var n,r=It(e),i;-1<r&&(Dt(e,A[r]),r=0,t===a&&!e[a]?(e[l]=!1,e[a]=!0,i="connected",r=1,st&&_.call(at,e)<0&&at.push(e)):t===l&&!e[l]&&(e[a]=!1,e[l]=!0,i="disconnected",r=1),r&&(n=e[t+f]||e[i+f])&&n.call(e))}function Kt(){}function Qt(e,t,r){var i=r&&r[c]||"",o=t.prototype,u=tt(o),a=t.observedAttributes||j,f={prototype:u};ot(u,m,{value:function(){if(Q)Q=!1;else if(!this[W]){this[W]=!0,new t(this),o[m]&&o[m].call(this);var e=G[Z.get(t)];(!V||e.create.length>1)&&Zt(this)}}}),ot(u,h,{value:function(e){-1<_.call(a,e)&&o[h].apply(this,arguments)}}),o[d]&&ot(u,p,{value:o[d]}),o[v]&&ot(u,g,{value:o[v]}),i&&(f[c]=i),e=e.toUpperCase(),G[e]={constructor:t,create:i?[i,et(e)]:[e]},Z.set(t,e),n[s](e.toLowerCase(),f),en(e),Y[e].r()}function Gt(e){var t=G[e.toUpperCase()];return t&&t.constructor}function Yt(e){return typeof e=="string"?e:e&&e.is||""}function Zt(e){var t=e[h],n=t?e.attributes:j,r=n.length,i;while(r--)i=n[r],t.call(e,i.name||i.nodeName,null,i.value||i.nodeValue)}function en(e){return e=e.toUpperCase(),e in Y||(Y[e]={},Y[e].p=new K(function(t){Y[e].r=t})),Y[e].p}function tn(){X&&delete e.customElements,B(e,"customElements",{configurable:!0,value:new Kt}),B(e,"CustomElementRegistry",{configurable:!0,value:Kt});for(var t=function(t){var r=e[t];if(r){e[t]=function(t){var i,s;return t||(t=this),t[W]||(Q=!0,i=G[Z.get(t.constructor)],s=V&&i.create.length===1,t=s?Reflect.construct(r,j,i.constructor):n.createElement.apply(n,i.create),t[W]=!0,Q=!1,s||Zt(t)),t},e[t].prototype=r.prototype;try{r.prototype.constructor=e[t]}catch(i){z=!0,B(r,W,{value:e[t]})}}},r=i.get(/^HTML[A-Z]*[a-z]/),o=r.length;o--;t(r[o]));n.createElement=function(e,t){var n=Yt(t);return n?gt.call(this,e,et(n)):gt.call(this,e)},St||(Tt=!0,n[s](""))}var n=e.document,r=e.Object,i=function(e){var t=/^[A-Z]+[a-z]/,n=function(e){var t=[],n;for(n in s)e.test(n)&&t.push(n);return t},i=function(e,t){t=t.toLowerCase(),t in s||(s[e]=(s[e]||[]).concat(t),s[t]=s[t.toUpperCase()]=e)},s=(r.create||r)(null),o={},u,a,f,l;for(a in e)for(l in e[a]){f=e[a][l],s[l]=f;for(u=0;u<f.length;u++)s[f[u].toLowerCase()]=s[f[u].toUpperCase()]=l}return o.get=function(r){return typeof r=="string"?s[r]||(t.test(r)?[]:""):n(r)},o.set=function(n,r){return t.test(n)?i(n,r):i(r,n),o},o}({collections:{HTMLAllCollection:["all"],HTMLCollection:["forms"],HTMLFormControlsCollection:["elements"],HTMLOptionsCollection:["options"]},elements:{Element:["element"],HTMLAnchorElement:["a"],HTMLAppletElement:["applet"],HTMLAreaElement:["area"],HTMLAttachmentElement:["attachment"],HTMLAudioElement:["audio"],HTMLBRElement:["br"],HTMLBaseElement:["base"],HTMLBodyElement:["body"],HTMLButtonElement:["button"],HTMLCanvasElement:["canvas"],HTMLContentElement:["content"],HTMLDListElement:["dl"],HTMLDataElement:["data"],HTMLDataListElement:["datalist"],HTMLDetailsElement:["details"],HTMLDialogElement:["dialog"],HTMLDirectoryElement:["dir"],HTMLDivElement:["div"],HTMLDocument:["document"],HTMLElement:["element","abbr","address","article","aside","b","bdi","bdo","cite","code","command","dd","dfn","dt","em","figcaption","figure","footer","header","i","kbd","mark","nav","noscript","rp","rt","ruby","s","samp","section","small","strong","sub","summary","sup","u","var","wbr"],HTMLEmbedElement:["embed"],HTMLFieldSetElement:["fieldset"],HTMLFontElement:["font"],HTMLFormElement:["form"],HTMLFrameElement:["frame"],HTMLFrameSetElement:["frameset"],HTMLHRElement:["hr"],HTMLHeadElement:["head"],HTMLHeadingElement:["h1","h2","h3","h4","h5","h6"],HTMLHtmlElement:["html"],HTMLIFrameElement:["iframe"],HTMLImageElement:["img"],HTMLInputElement:["input"],HTMLKeygenElement:["keygen"],HTMLLIElement:["li"],HTMLLabelElement:["label"],HTMLLegendElement:["legend"],HTMLLinkElement:["link"],HTMLMapElement:["map"],HTMLMarqueeElement:["marquee"],HTMLMediaElement:["media"],HTMLMenuElement:["menu"],HTMLMenuItemElement:["menuitem"],HTMLMetaElement:["meta"],HTMLMeterElement:["meter"],HTMLModElement:["del","ins"],HTMLOListElement:["ol"],HTMLObjectElement:["object"],HTMLOptGroupElement:["optgroup"],HTMLOptionElement:["option"],HTMLOutputElement:["output"],HTMLParagraphElement:["p"],HTMLParamElement:["param"],HTMLPictureElement:["picture"],HTMLPreElement:["pre"],HTMLProgressElement:["progress"],HTMLQuoteElement:["blockquote","q","quote"],HTMLScriptElement:["script"],HTMLSelectElement:["select"],HTMLShadowElement:["shadow"],HTMLSlotElement:["slot"],HTMLSourceElement:["source"],HTMLSpanElement:["span"],HTMLStyleElement:["style"],HTMLTableCaptionElement:["caption"],HTMLTableCellElement:["td","th"],HTMLTableColElement:["col","colgroup"],HTMLTableElement:["table"],HTMLTableRowElement:["tr"],HTMLTableSectionElement:["thead","tbody","tfoot"],HTMLTemplateElement:["template"],HTMLTextAreaElement:["textarea"],HTMLTimeElement:["time"],HTMLTitleElement:["title"],HTMLTrackElement:["track"],HTMLUListElement:["ul"],HTMLUnknownElement:["unknown","vhgroupv","vkeygen"],HTMLVideoElement:["video"]},nodes:{Attr:["node"],Audio:["audio"],CDATASection:["node"],CharacterData:["node"],Comment:["#comment"],Document:["#document"],DocumentFragment:["#document-fragment"],DocumentType:["node"],HTMLDocument:["#document"],Image:["img"],Option:["option"],ProcessingInstruction:["node"],ShadowRoot:["#shadow-root"],Text:["#text"],XMLDocument:["xml"]}});typeof t!="object"&&(t={type:t||"auto"});var s="registerElement",o="__"+s+(e.Math.random()*1e5>>0),u="addEventListener",a="attached",f="Callback",l="detached",c="extends",h="attributeChanged"+f,p=a+f,d="connected"+f,v="disconnected"+f,m="created"+f,g=l+f,y="ADDITION",b="MODIFICATION",w="REMOVAL",E="DOMAttrModified",S="DOMContentLoaded",x="DOMSubtreeModified",T="<",N="=",C=/^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/,k=["ANNOTATION-XML","COLOR-PROFILE","FONT-FACE","FONT-FACE-SRC","FONT-FACE-URI","FONT-FACE-FORMAT","FONT-FACE-NAME","MISSING-GLYPH"],L=[],A=[],O="",M=n.documentElement,_=L.indexOf||function(e){for(var t=this.length;t--&&this[t]!==e;);return t},D=r.prototype,P=D.hasOwnProperty,H=D.isPrototypeOf,B=r.defineProperty,j=[],F=r.getOwnPropertyDescriptor,I=r.getOwnPropertyNames,q=r.getPrototypeOf,R=r.setPrototypeOf,U=!!r.__proto__,z=!1,W="__dreCEv1",X=e.customElements,V=!/^force/.test(t.type)&&!!(X&&X.define&&X.get&&X.whenDefined),$=r.create||r,J=e.Map||function(){var t=[],n=[],r;return{get:function(e){return n[_.call(t,e)]},set:function(e,i){r=_.call(t,e),r<0?n[t.push(e)-1]=i:n[r]=i}}},K=e.Promise||function(e){function i(e){n=!0;while(t.length)t.shift()(e)}var t=[],n=!1,r={"catch":function(){return r},then:function(e){return t.push(e),n&&setTimeout(i,1),r}};return e(i),r},Q=!1,G=$(null),Y=$(null),Z=new J,et=function(e){return e.toLowerCase()},tt=r.create||function sn(e){return e?(sn.prototype=e,new sn):this},nt=R||(U?function(e,t){return e.__proto__=t,e}:I&&F?function(){function e(e,t){for(var n,r=I(t),i=0,s=r.length;i<s;i++)n=r[i],P.call(e,n)||B(e,n,F(t,n))}return function(t,n){do e(t,n);while((n=q(n))&&!H.call(n,t));return t}}():function(e,t){for(var n in t)e[n]=t[n];return e}),rt=e.MutationObserver||e.WebKitMutationObserver,it=(e.HTMLElement||e.Element||e.Node).prototype,st=!H.call(it,M),ot=st?function(e,t,n){return e[t]=n.value,e}:B,ut=st?function(e){return e.nodeType===1}:function(e){return H.call(it,e)},at=st&&[],ft=it.attachShadow,lt=it.cloneNode,ct=it.dispatchEvent,ht=it.getAttribute,pt=it.hasAttribute,dt=it.removeAttribute,vt=it.setAttribute,mt=n.createElement,gt=mt,yt=rt&&{attributes:!0,characterData:!0,attributeOldValue:!0},bt=rt||function(e){Nt=!1,M.removeEventListener(E,bt)},wt,Et=0,St=s in n&&!/^force-all/.test(t.type),xt=!0,Tt=!1,Nt=!0,Ct=!0,kt=!0,Lt,At,Ot,Mt,_t,Dt,Pt;St||(R||U?(Dt=function(e,t){H.call(t,e)||Xt(e,t)},Pt=Xt):(Dt=function(e,t){e[o]||(e[o]=r(!0),Xt(e,t))},Pt=Dt),st?(Nt=!1,function(){var e=F(it,u),t=e.value,n=function(e){var t=new CustomEvent(E,{bubbles:!0});t.attrName=e,t.prevValue=ht.call(this,e),t.newValue=null,t[w]=t.attrChange=2,dt.call(this,e),ct.call(this,t)},r=function(e,t){var n=pt.call(this,e),r=n&&ht.call(this,e),i=new CustomEvent(E,{bubbles:!0});vt.call(this,e,t),i.attrName=e,i.prevValue=n?r:null,i.newValue=t,n?i[b]=i.attrChange=1:i[y]=i.attrChange=0,ct.call(this,i)},i=function(e){var t=e.currentTarget,n=t[o],r=e.propertyName,i;n.hasOwnProperty(r)&&(n=n[r],i=new CustomEvent(E,{bubbles:!0}),i.attrName=n.name,i.prevValue=n.value||null,i.newValue=n.value=t[r]||null,i.prevValue==null?i[y]=i.attrChange=0:i[b]=i.attrChange=1,ct.call(t,i))};e.value=function(e,s,u){e===E&&this[h]&&this.setAttribute!==r&&(this[o]={className:{name:"class",value:this.className}},this.setAttribute=r,this.removeAttribute=n,t.call(this,"propertychange",i)),t.call(this,e,s,u)},B(it,u,e)}()):rt||(M[u](E,bt),M.setAttribute(o,1),M.removeAttribute(o),Nt&&(Lt=function(e){var t=this,n,r,i;if(t===e.target){n=t[o],t[o]=r=Ot(t);for(i in r){if(!(i in n))return At(0,t,i,n[i],r[i],y);if(r[i]!==n[i])return At(1,t,i,n[i],r[i],b)}for(i in n)if(!(i in r))return At(2,t,i,n[i],r[i],w)}},At=function(e,t,n,r,i,s){var o={attrChange:e,currentTarget:t,attrName:n,prevValue:r,newValue:i};o[s]=e,Rt(o)},Ot=function(e){for(var t,n,r={},i=e.attributes,s=0,o=i.length;s<o;s++)t=i[s],n=t.name,n!=="setAttribute"&&(r[n]=t.value);return r})),n[s]=function(t,r){p=t.toUpperCase(),xt&&(xt=!1,rt?(Mt=function(e,t){function n(e,t){for(var n=0,r=e.length;n<r;t(e[n++]));}return new rt(function(r){for(var i,s,o,u=0,a=r.length;u<a;u++)i=r[u],i.type==="childList"?(n(i.addedNodes,e),n(i.removedNodes,t)):(s=i.target,kt&&s[h]&&i.attributeName!=="style"&&(o=ht.call(s,i.attributeName),o!==i.oldValue&&s[h](i.attributeName,i.oldValue,o)))})}(Ft(a),Ft(l)),_t=function(e){return Mt.observe(e,{childList:!0,subtree:!0}),e},_t(n),ft&&(it.attachShadow=function(){return _t(ft.apply(this,arguments))})):(wt=[],n[u]("DOMNodeInserted",Ut(a)),n[u]("DOMNodeRemoved",Ut(l))),n[u](S,zt),n[u]("readystatechange",zt),it.cloneNode=function(e){var t=lt.call(this,!!e),n=It(t);return-1<n&&Pt(t,A[n]),e&&O.length&&jt(t.querySelectorAll(O)),t});if(Tt)return Tt=!1;-2<_.call(L,N+p)+_.call(L,T+p)&&$t(t);if(!C.test(p)||-1<_.call(k,p))throw new Error("The type "+t+" is invalid");var i=function(){return o?n.createElement(f,p):n.createElement(f)},s=r||D,o=P.call(s,c),f=o?r[c].toUpperCase():p,p,d;return o&&-1<_.call(L,T+f)&&$t(f),d=L.push((o?N:T)+p)-1,O=O.concat(O.length?",":"",o?f+'[is="'+t.toLowerCase()+'"]':f),i.prototype=A[d]=P.call(s,"prototype")?s.prototype:tt(it),O.length&&Bt(n.querySelectorAll(O),a),i},n.createElement=gt=function(e,t){var r=Yt(t),i=r?mt.call(n,e,et(r)):mt.call(n,e),s=""+e,o=_.call(L,(r?N:T)+(r||s).toUpperCase()),u=-1<o;return r&&(i.setAttribute("is",r=r.toLowerCase()),u&&(u=qt(s.toUpperCase(),r))),kt=!n.createElement.innerHTMLHelper,u&&Pt(i,A[o]),i}),Kt.prototype={constructor:Kt,define:V?function(e,t,n){if(n)Qt(e,t,n);else{var r=e.toUpperCase();G[r]={constructor:t,create:[r]},Z.set(t,r),X.define(e,t)}}:Qt,get:V?function(e){return X.get(e)||Gt(e)}:Gt,whenDefined:V?function(e){return K.race([X.whenDefined(e),en(e)])}:en};if(!X||/^force/.test(t.type))tn();else if(!t.noBuiltIn)try{(function(t,r,i){r[c]="a",t.prototype=tt(HTMLAnchorElement.prototype),t.prototype.constructor=t,e.customElements.define(i,t,r);if(ht.call(n.createElement("a",{is:i}),"is")!==i||V&&ht.call(new t,"is")!==i)throw r})(function on(){return Reflect.construct(HTMLAnchorElement,[],on)},{},"document-register-element-a")}catch(nn){tn()}if(!t.noBuiltIn)try{mt.call(n,"a","a")}catch(rn){et=function(e){return{is:e.toLowerCase()}}}})(window);
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pref; });
-/* unused harmony export head_move */
-/* unused harmony export mouse_move */
-/* unused harmony export mouse_drag */
-/* unused harmony export touch_drag */
-/* unused harmony export device_orientation */
-
-var pref = 'wakkle-'; // .wakkle-sound-button, etc.
-
-var head_move = {
-    name: 'head_move',
-    icon: {
-        selector: '#icon-head-move'
-    },
-    lib: 'js/headtrackr.min.js'
-};
-
-var mouse_move = {
-    name: 'mouse_move',
-    icon: {
-        selector: '#icon-mouse-move'
-    }
-};
-
-var mouse_drag = {
-    name: 'mouse_drag',
-    icon: {
-        selector: '#icon-mouse-drag'
-    }
-};
-
-var touch_drag = {
-    name: 'touch_drag',
-    icon: {
-        selector: '#icon-touch-drag'
-    }
-};
-
-var device_orientation = {
-    name: 'device_orientation',
-    icon: {
-        selector: '#icon-device-orientation'
-    }
-};
-
-/***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -657,13 +575,19 @@ function getCSSValue(property, element) {
 }
 
 /***/ }),
-/* 9 */
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none;\"><symbol id=\"icon-minimap\" viewBox=\"0 0 128 128\"><path d=\"M64,119 C68.418278,119 72,115.418278 72,111 C72,106.581722 68.418278,103 64,103 C59.581722,103 56,106.581722 56,111 C56,115.418278 59.581722,119 64,119 Z M78.938273,109.629971 C98.1338706,103.349696 112,85.2941521 112,64 C112,37.490332 90.509668,16 64,16 C37.490332,16 16,37.490332 16,64 C16,85.2941521 29.8661294,103.349696 49.061727,109.629971 C49.020873,110.081177 49,110.538151 49,111 C49,113.250695 49.4956988,115.385613 50.3838779,117.301537 C26.5941039,111.242637 9,89.6759799 9,64 C9,33.6243388 33.6243388,9 64,9 C94.3756612,9 119,33.6243388 119,64 C119,89.6759799 101.405896,111.242637 77.6161221,117.301537 C78.5043012,115.385613 79,113.250695 79,111 C79,110.538151 78.979127,110.081177 78.938273,109.629971 Z M76.7803962,103.143494 C74.1399332,98.8573181 69.4036478,96 64,96 C58.5364566,96 53.755152,98.9210119 51.1325752,103.286547 L33.2838959,92.942773 C39.5772353,82.1855522 50.9652037,75 63.968806,75 C76.8890191,75 88.2142533,82.0936892 94.5320152,92.7362639 L76.7803962,103.143494 Z\"></path></symbol><symbol id=\"icon-minimap-center\" viewBox=\"0 0 128 128\"><polygon points=\"62 55 62 48 69 48 69 55 76 55 65 70 54 55\"></polygon></symbol><symbol id=\"icon-fullscreen-on\" viewBox=\"0 0 128 128\"><path d=\"M23,16.5 L105,16.5 C108.589851,16.5 111.5,19.4101491 111.5,23 L111.5,105 C111.5,108.589851 108.589851,111.5 105,111.5 L23,111.5 C19.4101491,111.5 16.5,108.589851 16.5,105 L16.5,23 C16.5,19.4101491 19.4101491,16.5 23,16.5 Z M35.0502525,40.2928932 L29.3933983,45.9497475 L47.7781746,48.7781746 L44.9497475,30.3933983 L40,35.3431458 L35.0502525,30.3933983 L30.1005051,35.3431458 L35.0502525,40.2928932 Z M92.9497475,40.2928932 L97.8994949,35.3431458 L92.9497475,30.3933983 L88,35.3431458 L83.0502525,30.3933983 L80.2218254,48.7781746 L98.6066017,45.9497475 L92.9497475,40.2928932 Z M35.0502525,88.7071068 L30.1005051,93.6568542 L35.0502525,98.6066017 L40,93.6568542 L44.9497475,98.6066017 L47.7781746,80.2218254 L29.3933983,83.0502525 L35.0502525,88.7071068 Z M97.8994949,93.6568542 L92.9497475,88.7071068 L98.6066017,83.0502525 L80.2218254,80.2218254 L83.0502525,98.6066017 L88,93.6568542 L92.9497475,98.6066017 L97.8994949,93.6568542 Z\"></path></symbol><symbol id=\"icon-fullscreen-off\" viewBox=\"0 0 128 128\"><path d=\"M32.9497475,26.7071068 L37.8994949,31.6568542 L32.9497475,36.6066017 L28,31.6568542 L23.0502525,36.6066017 L20.2218254,18.2218254 L38.6066017,21.0502525 L32.9497475,26.7071068 Z M95.0502525,26.7071068 L89.3933983,21.0502525 L107.778175,18.2218254 L104.949747,36.6066017 L100,31.6568542 L95.0502525,36.6066017 L90.1005051,31.6568542 L95.0502525,26.7071068 Z M32.9497475,101.292893 L38.6066017,106.949747 L20.2218254,109.778175 L23.0502525,91.3933983 L28,96.3431458 L32.9497475,91.3933983 L37.8994949,96.3431458 L32.9497475,101.292893 Z M90.1005051,96.3431458 L95.0502525,91.3933983 L100,96.3431458 L104.949747,91.3933983 L107.778175,109.778175 L89.3933983,106.949747 L95.0502525,101.292893 L90.1005051,96.3431458 Z M47,40.5 L81,40.5 C84.5898509,40.5 87.5,43.4101491 87.5,47 L87.5,81 C87.5,84.5898509 84.5898509,87.5 81,87.5 L47,87.5 C43.4101491,87.5 40.5,84.5898509 40.5,81 L40.5,47 C40.5,43.4101491 43.4101491,40.5 47,40.5 Z\"></path></symbol><symbol id=\"icon-sound\" viewBox=\"0 0 128 128\"><path d=\"M42.1276596,46.6498376 L64.2204123,32.705555 C65.3713245,31.9791337 66.8932039,32.3232516 67.6196252,33.4741638 C67.8681172,33.8678645 68,34.3239033 68,34.7894659 L68,93.2111298 C68,94.5721172 66.8967017,95.6754155 65.5357143,95.6754155 C65.0701517,95.6754155 64.6141129,95.5435328 64.2204123,95.2950407 L42.1276596,81.3507581 L32.4642857,81.3507581 C31.1032983,81.3507581 30,80.2474598 30,78.8864724 L30,49.1141233 C30,47.7531358 31.1032983,46.6498376 32.4642857,46.6498376 L42.1276596,46.6498376 Z M74.5,79.5 L74.5,72.5 C79.4705627,72.5 83.5,68.4705627 83.5,63.5 C83.5,58.5294373 79.4705627,54.5 74.5,54.5 L74.5,47.5 C83.336556,47.5 90.5,54.663444 90.5,63.5 C90.5,72.336556 83.336556,79.5 74.5,79.5 Z M74.25,91 L74.25,84 C85.5718374,84 94.75,74.8218374 94.75,63.5 C94.75,52.1781626 85.5718374,43 74.25,43 L74.25,36 C89.4378306,36 101.75,48.3121694 101.75,63.5 C101.75,78.6878306 89.4378306,91 74.25,91 Z\"></path></symbol><symbol id=\"icon-sound-off\" viewBox=\"0 0 128 128\"><path d=\"M42.1276596,46.6498376 L64.2204123,32.705555 C65.3713245,31.9791337 66.8932039,32.3232516 67.6196252,33.4741638 C67.8681172,33.8678645 68,34.3239033 68,34.7894659 L68,93.2111298 C68,94.5721172 66.8967017,95.6754155 65.5357143,95.6754155 C65.0701517,95.6754155 64.6141129,95.5435328 64.2204123,95.2950407 L42.1276596,81.3507581 L32.4642857,81.3507581 C31.1032983,81.3507581 30,80.2474598 30,78.8864724 L30,49.1141233 C30,47.7531358 31.1032983,46.6498376 32.4642857,46.6498376 L42.1276596,46.6498376 Z M93.7939452,64.8441978 L102.829936,73.8801885 L97.8801885,78.8299359 L88.8441978,69.7939452 L79.8082071,78.8299359 L74.8584596,73.8801885 L83.8944503,64.8441978 L74.8584596,55.8082071 L79.8082071,50.8584596 L88.8441978,59.8944503 L97.8801885,50.8584596 L102.829936,55.8082071 L93.7939452,64.8441978 Z\"></path></symbol><symbol id=\"icon-head-move\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M97.8184019,84.5518468 C99.7627119,85.6864569 100.911622,87.8683995 101,90.1376197 L101,96.6834473 C101,98.5162791 99.4975787,100 97.6416465,100 L31.3583535,100 C29.5024213,100 28,98.5162791 28,96.6834473 L28,90.1376197 C28,87.8683995 29.1489104,85.6864569 31.0932203,84.5518468 C34.4515738,82.5444596 40.2845036,79.4024624 47.1779661,77.0459644 C52.4806295,85.5119015 60.2578692,86.821067 64.5883777,86.821067 C68.8305085,86.821067 76.6077482,85.5119015 81.9987893,77.1332421 C88.7154964,79.4897401 94.4600484,82.5444596 97.8184019,84.5518468 Z M64.5883777,34 C73.779661,34 81.2033898,41.5931601 81.2033898,50.9318741 C81.2033898,60.2705882 79.6125908,79.8207934 64.5883777,79.8207934 C49.5641646,79.8207934 47.9733656,60.3578659 47.9733656,50.9318741 C47.9733656,41.5931601 55.3970944,34 64.5883777,34 Z\"></path></symbol><symbol id=\"icon-head-move-off\" viewBox=\"0 0 128 128\"><path d=\"M48.0321681,54.0117193 C48.0315053,53.9946954 48.0308489,53.9776881 48.030199,53.9606976 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L49.0075598,45.0385634 C51.3539626,38.598022 57.4360007,34 64.5883777,34 C73.779661,34 81.2033898,41.5931601 81.2033898,50.9318741 C81.2033898,56.6476481 80.6074653,66.1887185 76.7003557,72.7313593 L81.6417849,77.6727885 C81.7618826,77.4962848 81.8809065,77.3164536 81.9987893,77.1332421 C88.7154964,79.4897401 94.4600484,82.5444596 97.8184019,84.5518468 C99.7627119,85.6864569 100.911622,87.8683995 101,90.1376197 L101,96.6834473 C101,96.7951854 100.994416,96.9056259 100.983508,97.0145118 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L94.0695015,100 L94.0223633,100 L76.8226322,82.8009867 C76.8317105,82.7941229 76.8407881,82.7872485 76.8498643,82.7803628 L71.9009856,77.8314841 C71.8911561,77.8376779 71.8813164,77.8438591 71.8714666,77.8500276 L48.0321683,54.0117241 Z M49.5627717,65.4417134 L63.9297438,79.808086 C55.4720557,79.4785757 51.445917,72.7895263 49.5627717,65.4417134 Z M70.1876221,86.0657032 L84.1225004,100 L31.3583535,100 C29.5024213,100 28,98.5162791 28,96.6834473 L28,90.1376197 C28,87.8683995 29.1489104,85.6864569 31.0932203,84.5518468 C34.4515738,82.5444596 40.2845036,79.4024624 47.1779661,77.0459644 C52.4806295,85.5119015 60.2578692,86.821067 64.5883777,86.821067 C66.0966298,86.821067 68.0517532,86.6555761 70.1876221,86.0657032 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol><symbol id=\"icon-touch-drag\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M69.9621104,41 C69.9872171,40.6699584 70,40.336472 70,40 C70,32.8202983 64.1797017,27 57,27 C49.8202983,27 44,32.8202983 44,40 C44,40.336472 44.0127829,40.6699584 44.0378896,41 L44,41 L44,56.4935277 C39.1274959,52.6478094 36,46.6891376 36,40 C36,28.4020203 45.4020203,19 57,19 C68.5979797,19 78,28.4020203 78,40 C78,46.6891376 74.8725041,52.6478094 70,56.4935277 L70,41 L69.9621104,41 Z M67.4731547,59.838568 C72.4657245,59.838568 81.3112267,63.9016571 84.0522381,65.1740497 C86.7932495,66.4464422 88.4693079,67.7651397 89.3061282,70.7492444 C90.1641333,73.8087525 90.2181704,76.9246778 89.5140005,81.4868684 C88.8397289,85.8552662 87.5399773,90.3324995 85.8345008,94.1628423 C84.0411418,98.1904517 82.176069,100.934534 80.071127,102.541102 L55.3563842,102.541102 C48.9980168,95.2004977 43.2817655,85.0041384 37.8828997,72.0768932 C37.0323926,69.8867179 36.8184493,68.3567515 37.146203,67.1630432 C37.3587217,66.3924205 38.9767188,62.6139658 43.1096634,63.6593236 C43.9100166,63.8617593 44.9921488,64.3615988 46.0166435,66.2170448 C46.7113512,67.4752186 49.0648117,71.4601689 50.2590044,73.4092291 C50.8067348,74.3031884 51.8774381,74.0032372 51.8774381,73.154561 L51.8774381,41.6787565 C51.8774381,38.8901771 54.2009475,36.5681818 56.9913022,36.5681818 C59.7816569,36.5681818 62.1051663,38.8901771 62.1051663,41.6787565 L62.1051663,61.7308962 C63.7805457,60.469344 65.5698752,59.838568 67.4731547,59.838568 Z\"></path></symbol><symbol id=\"icon-touch-drag-off\" viewBox=\"0 0 128 128\"><path d=\"M36.1019046,42.0819584 C36.1001047,42.0636704 36.0983283,42.0453756 36.0965754,42.0270739 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L37.1365273,33.1675309 C39.9715481,24.923791 47.7939863,19 57,19 C68.5979797,19 78,28.4020203 78,40 C78,46.6891376 74.8725041,52.6478094 70,56.4935277 L70,41 L69.9621104,41 C69.9872171,40.6699584 70,40.336472 70,40 C70,32.8202983 64.1797017,27 57,27 C49.8202983,27 44,32.8202983 44,40 C44,40.0103495 44.0000121,40.0206961 44.0000363,40.0310399 L51.8774381,47.9084417 L51.8774381,41.6787565 C51.8774381,38.8901771 54.2009475,36.5681818 56.9913022,36.5681818 C59.7816569,36.5681818 62.1051663,38.8901771 62.1051663,41.6787565 L62.1051663,58.1361699 L64.3958414,60.426845 C65.3861883,60.0346603 66.4119594,59.838568 67.4731547,59.838568 C72.4657245,59.838568 81.3112267,63.9016571 84.0522381,65.1740497 C86.7932495,66.4464422 88.4693079,67.7651397 89.3061282,70.7492444 C90.1641333,73.8087525 90.2181704,76.9246778 89.5140005,81.4868684 C89.3389802,82.6207712 89.1218173,83.7620069 88.8663552,84.8973588 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L86.5437453,92.4742439 C86.5392611,92.4855779 86.5347704,92.4969039 86.5302762,92.5082256 L51.8774381,57.8568335 L51.8774381,57.8079367 L44,49.9304985 L44,49.9797241 L36.1018778,42.0819315 Z M51.8774381,67.7562833 L83.1960026,99.0735409 C82.2038122,100.55335 81.1701652,101.702276 80.071127,102.541102 L55.3563842,102.541102 C48.9980168,95.2004977 43.2817655,85.0041384 37.8828997,72.0768932 C37.0323926,69.8867179 36.8184493,68.3567515 37.146203,67.1630432 C37.3587217,66.3924205 38.9767188,62.6139658 43.1096634,63.6593236 C43.9100166,63.8617593 44.9921488,64.3615988 46.0166435,66.2170448 C46.7113512,67.4752186 49.0648117,71.4601689 50.2590044,73.4092291 C50.8067348,74.3031884 51.8774381,74.0032372 51.8774381,73.154561 L51.8774381,67.7562833 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol><symbol id=\"icon-mouse-drag\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M68.4731547,51.2723125 C73.4657245,51.2723125 82.3112267,55.337795 85.0522381,56.6109371 C87.7932495,57.8840791 89.4693079,59.2035534 90.3061282,62.1894158 C91.1641333,65.2507261 91.2181704,70.3684867 90.5140005,74.9333647 C89.8397289,79.3043356 88.5399773,83.7842062 86.8345008,87.6168052 C85.0411418,91.6467871 83.176069,94.3924861 81.071127,96 L56.3563842,96 C49.9980168,88.6550718 44.2817655,78.4527065 38.8828997,65.5178466 C38.0323926,63.3263812 37.8184493,61.7955136 38.146203,60.6011021 C38.3587217,59.8300255 39.9767188,56.0493452 44.1096634,57.0953188 C44.9100166,57.2978737 45.9921488,57.7980076 47.0166435,59.6545465 C47.7113512,60.9134615 50.0648117,64.9007591 51.2590044,66.8509673 C51.8067348,67.7454532 52.8774381,67.4453253 52.8774381,66.5961492 L52.8774381,53.1135851 C52.8774381,50.323363 55.0008843,48 58.9913022,48 C62.9817202,48 64.5,51.2723125 68.4731547,51.2723125 Z\"></path></symbol><symbol id=\"icon-mouse-drag-off\" viewBox=\"0 0 128 128\"><path d=\"M52.8774381,58.8567918 L52.8774381,58.8079367 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L53.9682086,49.9992122 C54.9748711,48.7888303 56.6661487,48 58.9913022,48 C62.9817202,48 64.5,51.2723125 68.4731547,51.2723125 C73.4657245,51.2723125 82.3112267,55.337795 85.0522381,56.6109371 C87.7932495,57.8840791 89.4693079,59.2035534 90.3061282,62.1894158 C91.1641333,65.2507261 91.2181704,70.3684867 90.5140005,74.9333647 C90.0310923,78.0638208 89.2273557,81.2501351 88.1835194,84.2145221 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L85.1145339,91.0450325 C85.1087592,91.0551054 85.1029833,91.0651664 85.0972061,91.0752153 L52.8774381,58.8567918 Z M41.2753142,57.1546018 L80.1223335,96 L56.3563842,96 C49.9980168,88.6550718 44.2817655,78.4527065 38.8828997,65.5178466 C38.0323926,63.3263812 37.8184493,61.7955136 38.146203,60.6011021 C38.3009729,60.0395541 39.2011659,57.8818035 41.2753142,57.1546018 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol><symbol id=\"icon-device-orientation\" viewBox=\"0 0 128 128\"><path d=\"M101,84 L94,84 L94,77 L101,77 L101,69 L116,80 L101,91 L101,84 Z M27,43 L34,43 L34,50 L27,50 L27,57 L12,46 L27,35 L27,43 Z M66.8407542,33.7409949 L87.860469,45.8767329 C90.2519321,47.2574448 91.0713079,50.3153968 89.690596,52.7068599 L66.2608489,93.2883724 C64.880137,95.6798355 61.822185,96.4992113 59.4307218,95.1184994 L38.411007,82.9827614 C36.0195439,81.6020495 35.2001681,78.5440975 36.58088,76.1526344 L60.0106272,35.5711219 C61.391339,33.1796588 64.4492911,32.360283 66.8407542,33.7409949 Z\"></path></symbol><symbol id=\"icon-device-orientation-off\" viewBox=\"0 0 128 128\"><path d=\"M48.8764909,54.8560116 L48.8944343,54.8249328 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L52.5179009,48.5489045 L60.0106272,35.5711219 C61.391339,33.1796588 64.4492911,32.360283 66.8407542,33.7409949 L87.860469,45.8767329 C90.2519321,47.2574448 91.0713079,50.3153968 89.690596,52.7068599 L77.6063626,73.6373662 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L73.982896,79.9133945 L73.9653358,79.9438095 L48.8764909,54.8560116 Z M45.2529855,61.1321071 L70.3418304,86.2199051 L66.2608489,93.2883724 C64.880137,95.6798355 61.822185,96.4992113 59.4307218,95.1184994 L38.411007,82.9827614 C36.0195439,81.6020495 35.2001681,78.5440975 36.58088,76.1526344 L45.2529855,61.1321071 Z M27.1201217,43 L34,49.8795912 L34,50 L27,50 L27,57 L12,46 L22.453804,38.333877 L27,42.8798833 L27,43 L27.1201217,43 Z M101,84 L94,84 L94,77 L101,77 L101,69 L116,80 L101,91 L101,84 Z\"></path></symbol><symbol id=\"icon-mouse-move\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M75.8857143,78.9539995 L81.4581429,92.5337243 C82.2561429,94.4945781 81.8625714,96.823769 80.2692857,98.4135772 C78.1494286,100.528808 74.7131429,100.528808 72.5932857,98.4135772 C72.064,97.8881551 71.6704286,97.2814821 71.3962857,96.6125168 L65.9052857,83.2223773 L52,89.1672309 L52,35 L90,72.9170616 L75.8857143,78.9539995 Z\"></path></symbol><symbol id=\"icon-mouse-move-off\" viewBox=\"0 0 128 128\"><path d=\"M77.9108548,83.8891638 L52,57.9793903 L52,57.9304985 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L52,48.0310036 L52,35 L90,72.9170616 L80.8147551,76.8457587 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L77.8775825,83.8080811 L77.9108548,83.8891638 Z M81.2335075,97.1111276 C80.9858155,97.5794927 80.6644496,98.0192758 80.2692857,98.4135772 C78.1494286,100.528808 74.7131429,100.528808 72.5932857,98.4135772 C72.064,97.8881551 71.6704286,97.2814821 71.3962857,96.6125168 L65.9052857,83.2223773 L52,89.1672309 L52,67.8788401 L81.2335075,97.1111276 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol></svg>"
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Controller; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UI__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controller_loadScript_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controller_loadScript_js__ = __webpack_require__(9);
 
 
 
@@ -682,10 +606,10 @@ var Controller = function (wakkle) {
 
     var active,
         history,
-        mouseDownX,
-        mouseDownY,
-        mousedown,
-        mouseMoveX,
+        pointerDownX,
+        pointerDownY,
+        pointerDown,
+        pointerMoveX,
         dX = 0,
         easing = 0.05,
         q = 0.5;
@@ -697,29 +621,30 @@ var Controller = function (wakkle) {
     this.init = function () {
 
         if (UI && hasWebcam()) {
-            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["b" /* head_move */]);
+            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["c" /* head_move */]);
         }
-        if (UI && hasMouse()) {
-            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["e" /* mouse_move */]);
-            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["d" /* mouse_drag */]);
+        if (UI && hasMouse() && !hasTouch()) {
+            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["f" /* mouse_move */]);
+            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["e" /* mouse_drag */]);
         }
         if (UI && hasTouch()) {
-            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["g" /* touch_drag */]);
+            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["h" /* touch_drag */]);
         }
         if (UI && hasDeviceOrientation()) {
-            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["a" /* device_orientation */]);
+            // trackers.push( button.device_orientation );
+            trackers.push(__WEBPACK_IMPORTED_MODULE_0__UI__["b" /* device_orientation_drag */]);
         }
 
         if (UI) this.UI.init();
-        if (hasMouse()) this.setActive('mouse_move');
-        if (hasDeviceOrientation()) this.setActive('device_orientation');
+        if (hasMouse() && !hasTouch()) this.setActive('mouse_move');
+        if (hasDeviceOrientation()) this.setActive('device_orientation_drag');
 
         this.initialized = true;
 
         update();
     };
 
-    this.control = function (obj) {
+    this.connect = function (obj) {
         components.push(obj);
     };
 
@@ -732,7 +657,7 @@ var Controller = function (wakkle) {
         return active;
     };
 
-    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["c" /* icons */];
+    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["d" /* icons */];
 
     this.UI = {
 
@@ -747,7 +672,7 @@ var Controller = function (wakkle) {
                 tracker = trackers[i];
 
                 li = document.createElement('li');
-                li.className = __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'controller-button ' + tracker.name;
+                li.className = __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'controller-button ' + tracker.name;
                 li.style.width = '2em';
                 li.style.height = '2em';
                 li.style.cursor = 'pointer';
@@ -759,7 +684,7 @@ var Controller = function (wakkle) {
                     that.setActive(this.dataset.tracker);
                 }, false);
 
-                ul.className = __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'controller-buttons ';
+                ul.className = __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'controller-buttons ';
                 ul.appendChild(li);
             }
 
@@ -770,7 +695,7 @@ var Controller = function (wakkle) {
 
             if (!UI) return;
 
-            var controllerButtons = wakkle.ui.wrapper.querySelectorAll('.' + __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'controller-button');
+            var controllerButtons = wakkle.ui.wrapper.querySelectorAll('.' + __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'controller-button');
 
             controllerButtons.forEach(function (item, index) {
                 item.classList.remove('active');
@@ -794,6 +719,7 @@ var Controller = function (wakkle) {
         // TODO: performance optimisation -> delay in dependence of distance between last and current mouse position 
         // look up: ease to value in certain speed
         // Introduction to Easing in JavaScript https://www.kirupa.com/html5/introduction_to_easing_in_javascript.htm
+        // TODO: visibilityState within viewport
         for (var i = 0; i < components.length; i++) {
             var component = components[i];
             that.q += (q - that.q) * easing;
@@ -802,41 +728,45 @@ var Controller = function (wakkle) {
         }
     }
 
-    function mouseoverElement(e, rect) {
-        return e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+    function pointerOverElement(e, rect) {
+        var pageX = e.pageX || e.changedTouches[0].pageX,
+            pageY = e.pageY || e.changedTouches[0].pageY;
+        return pageX >= rect.left && pageX <= rect.right && pageY >= rect.top && pageY <= rect.bottom;
     }
 
     function mouseHandler(e) {
+
         var rect = wakkle.wrapper.getBoundingClientRect();
-        if (!mouseoverElement(e, rect)) return;
+        if (!pointerOverElement(e, rect)) return;
 
         q = (e.pageX - rect.left) / rect.width;
         update();
     }
 
     function dragStart(e) {
-        mousedown = 1;
-        mouseDownX = e.pageX || e.changedTouches[0].pageX;
+        pointerDown = 1;
+        pointerDownX = e.pageX || e.changedTouches[0].pageX;
     }
 
     function dragEnd(e) {
-        mousedown = 0;
-        mouseMoveX = 0;
+        pointerDown = 0;
+        pointerMoveX = 0;
     }
 
     function dragHandler(e) {
+
         var rect = wakkle.wrapper.getBoundingClientRect();
-        if (!mousedown || !mouseoverElement(e, rect)) return;
+        if (!pointerDown || !pointerOverElement(e, rect)) return;
 
         e.preventDefault();
 
         var pageX = e.pageX || e.changedTouches[0].pageX;
 
-        var _dX = pageX - (mouseMoveX || mouseDownX);
+        var _dX = pageX - (pointerMoveX || pointerDownX);
 
-        mouseMoveX = pageX;
+        pointerMoveX = pageX;
         if (dX > 0 && _dX < 0 || dX < 0 && _dX > 0) {
-            mouseDownX = mouseMoveX;
+            pointerDownX = pointerMoveX;
         }
 
         dX = _dX;
@@ -854,7 +784,7 @@ var Controller = function (wakkle) {
 
     function deviceOrientationHandler(e) {
 
-        if (mousedown) return;
+        if (pointerDown) return;
 
         var orientation, angle;
 
@@ -873,9 +803,10 @@ var Controller = function (wakkle) {
         angle = orientation == 'portrait' ? e.gamma : e.beta;
         angle = angle > 45 ? 45 : angle;
 
-        q = (angle + 45) * (1 / 90);
+        q = 1 - (angle + 45) * (1 / 90);
         q = q < 0 ? 0 : q;
         q = q > 1 ? 1 : q;
+
         update();
     }
 
@@ -900,7 +831,6 @@ var Controller = function (wakkle) {
     }
 
     function head_moveHandler(e) {
-        console.log('head_move event');
         camFov = Math.floor(htracker.getFOV()) / 2;
         q = e.x / camFov + 0.5 - 1;
         q = q * 0.1;
@@ -910,7 +840,6 @@ var Controller = function (wakkle) {
     }
 
     function facetrackHandler(e) {
-        console.log('facetrack event');
         camFov = Math.floor(htracker.getFOV()) / 2;
         q = e.x / camFov + 0.5 - 1;
         q = q * 0.1;
@@ -963,11 +892,11 @@ var Controller = function (wakkle) {
     }
 
     function setDeviceorientation() {
-        window.addEventListener('device_orientation', deviceOrientationHandler, false);
+        window.addEventListener('deviceorientation', deviceOrientationHandler, false);
     }
 
     function unsetDeviceorientation() {
-        window.removeEventListener('device_orientation', deviceOrientationHandler, false);
+        window.removeEventListener('deviceorientation', deviceOrientationHandler, false);
     }
 
     function setMousedrag() {
@@ -1011,7 +940,7 @@ var Controller = function (wakkle) {
     }
 
     if (hasWebcam()) {
-        Object(__WEBPACK_IMPORTED_MODULE_1__controller_loadScript_js__["a" /* loadScript */])(__WEBPACK_IMPORTED_MODULE_0__UI__["b" /* head_move */].lib, initHeadtrackr);
+        Object(__WEBPACK_IMPORTED_MODULE_1__controller_loadScript_js__["a" /* loadScript */])(__WEBPACK_IMPORTED_MODULE_0__UI__["c" /* head_move */].lib, initHeadtrackr);
     }
 
     function initHeadtrackr() {
@@ -1123,13 +1052,7 @@ function round(value, exp) {
 }
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none;\"><symbol id=\"icon-minimap\" viewBox=\"0 0 128 128\"><path d=\"M64,119 C68.418278,119 72,115.418278 72,111 C72,106.581722 68.418278,103 64,103 C59.581722,103 56,106.581722 56,111 C56,115.418278 59.581722,119 64,119 Z M78.938273,109.629971 C98.1338706,103.349696 112,85.2941521 112,64 C112,37.490332 90.509668,16 64,16 C37.490332,16 16,37.490332 16,64 C16,85.2941521 29.8661294,103.349696 49.061727,109.629971 C49.020873,110.081177 49,110.538151 49,111 C49,113.250695 49.4956988,115.385613 50.3838779,117.301537 C26.5941039,111.242637 9,89.6759799 9,64 C9,33.6243388 33.6243388,9 64,9 C94.3756612,9 119,33.6243388 119,64 C119,89.6759799 101.405896,111.242637 77.6161221,117.301537 C78.5043012,115.385613 79,113.250695 79,111 C79,110.538151 78.979127,110.081177 78.938273,109.629971 Z M76.7803962,103.143494 C74.1399332,98.8573181 69.4036478,96 64,96 C58.5364566,96 53.755152,98.9210119 51.1325752,103.286547 L33.2838959,92.942773 C39.5772353,82.1855522 50.9652037,75 63.968806,75 C76.8890191,75 88.2142533,82.0936892 94.5320152,92.7362639 L76.7803962,103.143494 Z\"></path></symbol><symbol id=\"icon-minimap-center\" viewBox=\"0 0 128 128\"><polygon points=\"62 55 62 48 69 48 69 55 76 55 65 70 54 55\"></polygon></symbol><symbol id=\"icon-fullscreen-on\" viewBox=\"0 0 128 128\"><path d=\"M23,16.5 L105,16.5 C108.589851,16.5 111.5,19.4101491 111.5,23 L111.5,105 C111.5,108.589851 108.589851,111.5 105,111.5 L23,111.5 C19.4101491,111.5 16.5,108.589851 16.5,105 L16.5,23 C16.5,19.4101491 19.4101491,16.5 23,16.5 Z M35.0502525,40.2928932 L29.3933983,45.9497475 L47.7781746,48.7781746 L44.9497475,30.3933983 L40,35.3431458 L35.0502525,30.3933983 L30.1005051,35.3431458 L35.0502525,40.2928932 Z M92.9497475,40.2928932 L97.8994949,35.3431458 L92.9497475,30.3933983 L88,35.3431458 L83.0502525,30.3933983 L80.2218254,48.7781746 L98.6066017,45.9497475 L92.9497475,40.2928932 Z M35.0502525,88.7071068 L30.1005051,93.6568542 L35.0502525,98.6066017 L40,93.6568542 L44.9497475,98.6066017 L47.7781746,80.2218254 L29.3933983,83.0502525 L35.0502525,88.7071068 Z M97.8994949,93.6568542 L92.9497475,88.7071068 L98.6066017,83.0502525 L80.2218254,80.2218254 L83.0502525,98.6066017 L88,93.6568542 L92.9497475,98.6066017 L97.8994949,93.6568542 Z\"></path></symbol><symbol id=\"icon-fullscreen-off\" viewBox=\"0 0 128 128\"><path d=\"M32.9497475,26.7071068 L37.8994949,31.6568542 L32.9497475,36.6066017 L28,31.6568542 L23.0502525,36.6066017 L20.2218254,18.2218254 L38.6066017,21.0502525 L32.9497475,26.7071068 Z M95.0502525,26.7071068 L89.3933983,21.0502525 L107.778175,18.2218254 L104.949747,36.6066017 L100,31.6568542 L95.0502525,36.6066017 L90.1005051,31.6568542 L95.0502525,26.7071068 Z M32.9497475,101.292893 L38.6066017,106.949747 L20.2218254,109.778175 L23.0502525,91.3933983 L28,96.3431458 L32.9497475,91.3933983 L37.8994949,96.3431458 L32.9497475,101.292893 Z M90.1005051,96.3431458 L95.0502525,91.3933983 L100,96.3431458 L104.949747,91.3933983 L107.778175,109.778175 L89.3933983,106.949747 L95.0502525,101.292893 L90.1005051,96.3431458 Z M47,40.5 L81,40.5 C84.5898509,40.5 87.5,43.4101491 87.5,47 L87.5,81 C87.5,84.5898509 84.5898509,87.5 81,87.5 L47,87.5 C43.4101491,87.5 40.5,84.5898509 40.5,81 L40.5,47 C40.5,43.4101491 43.4101491,40.5 47,40.5 Z\"></path></symbol><symbol id=\"icon-sound-on\" viewBox=\"0 0 128 128\"><path d=\"M42.1276596,46.6498376 L64.2204123,32.705555 C65.3713245,31.9791337 66.8932039,32.3232516 67.6196252,33.4741638 C67.8681172,33.8678645 68,34.3239033 68,34.7894659 L68,93.2111298 C68,94.5721172 66.8967017,95.6754155 65.5357143,95.6754155 C65.0701517,95.6754155 64.6141129,95.5435328 64.2204123,95.2950407 L42.1276596,81.3507581 L32.4642857,81.3507581 C31.1032983,81.3507581 30,80.2474598 30,78.8864724 L30,49.1141233 C30,47.7531358 31.1032983,46.6498376 32.4642857,46.6498376 L42.1276596,46.6498376 Z M74.5,79.5 L74.5,72.5 C79.4705627,72.5 83.5,68.4705627 83.5,63.5 C83.5,58.5294373 79.4705627,54.5 74.5,54.5 L74.5,47.5 C83.336556,47.5 90.5,54.663444 90.5,63.5 C90.5,72.336556 83.336556,79.5 74.5,79.5 Z M74.25,91 L74.25,84 C85.5718374,84 94.75,74.8218374 94.75,63.5 C94.75,52.1781626 85.5718374,43 74.25,43 L74.25,36 C89.4378306,36 101.75,48.3121694 101.75,63.5 C101.75,78.6878306 89.4378306,91 74.25,91 Z\"></path></symbol><symbol id=\"icon-sound-off\" viewBox=\"0 0 128 128\"><path d=\"M42.1276596,46.6498376 L64.2204123,32.705555 C65.3713245,31.9791337 66.8932039,32.3232516 67.6196252,33.4741638 C67.8681172,33.8678645 68,34.3239033 68,34.7894659 L68,93.2111298 C68,94.5721172 66.8967017,95.6754155 65.5357143,95.6754155 C65.0701517,95.6754155 64.6141129,95.5435328 64.2204123,95.2950407 L42.1276596,81.3507581 L32.4642857,81.3507581 C31.1032983,81.3507581 30,80.2474598 30,78.8864724 L30,49.1141233 C30,47.7531358 31.1032983,46.6498376 32.4642857,46.6498376 L42.1276596,46.6498376 Z M93.7939452,64.8441978 L102.829936,73.8801885 L97.8801885,78.8299359 L88.8441978,69.7939452 L79.8082071,78.8299359 L74.8584596,73.8801885 L83.8944503,64.8441978 L74.8584596,55.8082071 L79.8082071,50.8584596 L88.8441978,59.8944503 L97.8801885,50.8584596 L102.829936,55.8082071 L93.7939452,64.8441978 Z\"></path></symbol><symbol id=\"icon-head-move\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M97.8184019,84.5518468 C99.7627119,85.6864569 100.911622,87.8683995 101,90.1376197 L101,96.6834473 C101,98.5162791 99.4975787,100 97.6416465,100 L31.3583535,100 C29.5024213,100 28,98.5162791 28,96.6834473 L28,90.1376197 C28,87.8683995 29.1489104,85.6864569 31.0932203,84.5518468 C34.4515738,82.5444596 40.2845036,79.4024624 47.1779661,77.0459644 C52.4806295,85.5119015 60.2578692,86.821067 64.5883777,86.821067 C68.8305085,86.821067 76.6077482,85.5119015 81.9987893,77.1332421 C88.7154964,79.4897401 94.4600484,82.5444596 97.8184019,84.5518468 Z M64.5883777,34 C73.779661,34 81.2033898,41.5931601 81.2033898,50.9318741 C81.2033898,60.2705882 79.6125908,79.8207934 64.5883777,79.8207934 C49.5641646,79.8207934 47.9733656,60.3578659 47.9733656,50.9318741 C47.9733656,41.5931601 55.3970944,34 64.5883777,34 Z\"></path></symbol><symbol id=\"icon-head-move-off\" viewBox=\"0 0 128 128\"><path d=\"M48.0321681,54.0117193 C48.0315053,53.9946954 48.0308489,53.9776881 48.030199,53.9606976 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L49.0075598,45.0385634 C51.3539626,38.598022 57.4360007,34 64.5883777,34 C73.779661,34 81.2033898,41.5931601 81.2033898,50.9318741 C81.2033898,56.6476481 80.6074653,66.1887185 76.7003557,72.7313593 L81.6417849,77.6727885 C81.7618826,77.4962848 81.8809065,77.3164536 81.9987893,77.1332421 C88.7154964,79.4897401 94.4600484,82.5444596 97.8184019,84.5518468 C99.7627119,85.6864569 100.911622,87.8683995 101,90.1376197 L101,96.6834473 C101,96.7951854 100.994416,96.9056259 100.983508,97.0145118 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L94.0695015,100 L94.0223633,100 L76.8226322,82.8009867 C76.8317105,82.7941229 76.8407881,82.7872485 76.8498643,82.7803628 L71.9009856,77.8314841 C71.8911561,77.8376779 71.8813164,77.8438591 71.8714666,77.8500276 L48.0321683,54.0117241 Z M49.5627717,65.4417134 L63.9297438,79.808086 C55.4720557,79.4785757 51.445917,72.7895263 49.5627717,65.4417134 Z M70.1876221,86.0657032 L84.1225004,100 L31.3583535,100 C29.5024213,100 28,98.5162791 28,96.6834473 L28,90.1376197 C28,87.8683995 29.1489104,85.6864569 31.0932203,84.5518468 C34.4515738,82.5444596 40.2845036,79.4024624 47.1779661,77.0459644 C52.4806295,85.5119015 60.2578692,86.821067 64.5883777,86.821067 C66.0966298,86.821067 68.0517532,86.6555761 70.1876221,86.0657032 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol><symbol id=\"icon-touch-drag\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M69.9621104,41 C69.9872171,40.6699584 70,40.336472 70,40 C70,32.8202983 64.1797017,27 57,27 C49.8202983,27 44,32.8202983 44,40 C44,40.336472 44.0127829,40.6699584 44.0378896,41 L44,41 L44,56.4935277 C39.1274959,52.6478094 36,46.6891376 36,40 C36,28.4020203 45.4020203,19 57,19 C68.5979797,19 78,28.4020203 78,40 C78,46.6891376 74.8725041,52.6478094 70,56.4935277 L70,41 L69.9621104,41 Z M67.4731547,59.838568 C72.4657245,59.838568 81.3112267,63.9016571 84.0522381,65.1740497 C86.7932495,66.4464422 88.4693079,67.7651397 89.3061282,70.7492444 C90.1641333,73.8087525 90.2181704,76.9246778 89.5140005,81.4868684 C88.8397289,85.8552662 87.5399773,90.3324995 85.8345008,94.1628423 C84.0411418,98.1904517 82.176069,100.934534 80.071127,102.541102 L55.3563842,102.541102 C48.9980168,95.2004977 43.2817655,85.0041384 37.8828997,72.0768932 C37.0323926,69.8867179 36.8184493,68.3567515 37.146203,67.1630432 C37.3587217,66.3924205 38.9767188,62.6139658 43.1096634,63.6593236 C43.9100166,63.8617593 44.9921488,64.3615988 46.0166435,66.2170448 C46.7113512,67.4752186 49.0648117,71.4601689 50.2590044,73.4092291 C50.8067348,74.3031884 51.8774381,74.0032372 51.8774381,73.154561 L51.8774381,41.6787565 C51.8774381,38.8901771 54.2009475,36.5681818 56.9913022,36.5681818 C59.7816569,36.5681818 62.1051663,38.8901771 62.1051663,41.6787565 L62.1051663,61.7308962 C63.7805457,60.469344 65.5698752,59.838568 67.4731547,59.838568 Z\"></path></symbol><symbol id=\"icon-touch-drag-off\" viewBox=\"0 0 128 128\"><path d=\"M36.1019046,42.0819584 C36.1001047,42.0636704 36.0983283,42.0453756 36.0965754,42.0270739 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L37.1365273,33.1675309 C39.9715481,24.923791 47.7939863,19 57,19 C68.5979797,19 78,28.4020203 78,40 C78,46.6891376 74.8725041,52.6478094 70,56.4935277 L70,41 L69.9621104,41 C69.9872171,40.6699584 70,40.336472 70,40 C70,32.8202983 64.1797017,27 57,27 C49.8202983,27 44,32.8202983 44,40 C44,40.0103495 44.0000121,40.0206961 44.0000363,40.0310399 L51.8774381,47.9084417 L51.8774381,41.6787565 C51.8774381,38.8901771 54.2009475,36.5681818 56.9913022,36.5681818 C59.7816569,36.5681818 62.1051663,38.8901771 62.1051663,41.6787565 L62.1051663,58.1361699 L64.3958414,60.426845 C65.3861883,60.0346603 66.4119594,59.838568 67.4731547,59.838568 C72.4657245,59.838568 81.3112267,63.9016571 84.0522381,65.1740497 C86.7932495,66.4464422 88.4693079,67.7651397 89.3061282,70.7492444 C90.1641333,73.8087525 90.2181704,76.9246778 89.5140005,81.4868684 C89.3389802,82.6207712 89.1218173,83.7620069 88.8663552,84.8973588 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L86.5437453,92.4742439 C86.5392611,92.4855779 86.5347704,92.4969039 86.5302762,92.5082256 L51.8774381,57.8568335 L51.8774381,57.8079367 L44,49.9304985 L44,49.9797241 L36.1018778,42.0819315 Z M51.8774381,67.7562833 L83.1960026,99.0735409 C82.2038122,100.55335 81.1701652,101.702276 80.071127,102.541102 L55.3563842,102.541102 C48.9980168,95.2004977 43.2817655,85.0041384 37.8828997,72.0768932 C37.0323926,69.8867179 36.8184493,68.3567515 37.146203,67.1630432 C37.3587217,66.3924205 38.9767188,62.6139658 43.1096634,63.6593236 C43.9100166,63.8617593 44.9921488,64.3615988 46.0166435,66.2170448 C46.7113512,67.4752186 49.0648117,71.4601689 50.2590044,73.4092291 C50.8067348,74.3031884 51.8774381,74.0032372 51.8774381,73.154561 L51.8774381,67.7562833 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol><symbol id=\"icon-mouse-drag\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M68.4731547,51.2723125 C73.4657245,51.2723125 82.3112267,55.337795 85.0522381,56.6109371 C87.7932495,57.8840791 89.4693079,59.2035534 90.3061282,62.1894158 C91.1641333,65.2507261 91.2181704,70.3684867 90.5140005,74.9333647 C89.8397289,79.3043356 88.5399773,83.7842062 86.8345008,87.6168052 C85.0411418,91.6467871 83.176069,94.3924861 81.071127,96 L56.3563842,96 C49.9980168,88.6550718 44.2817655,78.4527065 38.8828997,65.5178466 C38.0323926,63.3263812 37.8184493,61.7955136 38.146203,60.6011021 C38.3587217,59.8300255 39.9767188,56.0493452 44.1096634,57.0953188 C44.9100166,57.2978737 45.9921488,57.7980076 47.0166435,59.6545465 C47.7113512,60.9134615 50.0648117,64.9007591 51.2590044,66.8509673 C51.8067348,67.7454532 52.8774381,67.4453253 52.8774381,66.5961492 L52.8774381,53.1135851 C52.8774381,50.323363 55.0008843,48 58.9913022,48 C62.9817202,48 64.5,51.2723125 68.4731547,51.2723125 Z\"></path></symbol><symbol id=\"icon-mouse-drag-off\" viewBox=\"0 0 128 128\"><path d=\"M52.8774381,58.8567918 L52.8774381,58.8079367 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L53.9682086,49.9992122 C54.9748711,48.7888303 56.6661487,48 58.9913022,48 C62.9817202,48 64.5,51.2723125 68.4731547,51.2723125 C73.4657245,51.2723125 82.3112267,55.337795 85.0522381,56.6109371 C87.7932495,57.8840791 89.4693079,59.2035534 90.3061282,62.1894158 C91.1641333,65.2507261 91.2181704,70.3684867 90.5140005,74.9333647 C90.0310923,78.0638208 89.2273557,81.2501351 88.1835194,84.2145221 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L85.1145339,91.0450325 C85.1087592,91.0551054 85.1029833,91.0651664 85.0972061,91.0752153 L52.8774381,58.8567918 Z M41.2753142,57.1546018 L80.1223335,96 L56.3563842,96 C49.9980168,88.6550718 44.2817655,78.4527065 38.8828997,65.5178466 C38.0323926,63.3263812 37.8184493,61.7955136 38.146203,60.6011021 C38.3009729,60.0395541 39.2011659,57.8818035 41.2753142,57.1546018 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol><symbol id=\"icon-device-orientation\" viewBox=\"0 0 128 128\"><path d=\"M101,84 L94,84 L94,77 L101,77 L101,69 L116,80 L101,91 L101,84 Z M27,43 L34,43 L34,50 L27,50 L27,57 L12,46 L27,35 L27,43 Z M66.8407542,33.7409949 L87.860469,45.8767329 C90.2519321,47.2574448 91.0713079,50.3153968 89.690596,52.7068599 L66.2608489,93.2883724 C64.880137,95.6798355 61.822185,96.4992113 59.4307218,95.1184994 L38.411007,82.9827614 C36.0195439,81.6020495 35.2001681,78.5440975 36.58088,76.1526344 L60.0106272,35.5711219 C61.391339,33.1796588 64.4492911,32.360283 66.8407542,33.7409949 Z\"></path></symbol><symbol id=\"icon-device-orientation-off\" viewBox=\"0 0 128 128\"><path d=\"M48.8764909,54.8560116 L48.8944343,54.8249328 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L52.5179009,48.5489045 L60.0106272,35.5711219 C61.391339,33.1796588 64.4492911,32.360283 66.8407542,33.7409949 L87.860469,45.8767329 C90.2519321,47.2574448 91.0713079,50.3153968 89.690596,52.7068599 L77.6063626,73.6373662 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L73.982896,79.9133945 L73.9653358,79.9438095 L48.8764909,54.8560116 Z M45.2529855,61.1321071 L70.3418304,86.2199051 L66.2608489,93.2883724 C64.880137,95.6798355 61.822185,96.4992113 59.4307218,95.1184994 L38.411007,82.9827614 C36.0195439,81.6020495 35.2001681,78.5440975 36.58088,76.1526344 L45.2529855,61.1321071 Z M27.1201217,43 L34,49.8795912 L34,50 L27,50 L27,57 L12,46 L22.453804,38.333877 L27,42.8798833 L27,43 L27.1201217,43 Z M101,84 L94,84 L94,77 L101,77 L101,69 L116,80 L101,91 L101,84 Z\"></path></symbol><symbol id=\"icon-mouse-move\" viewBox=\"0 0 128 128\"><path d=\"M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z M75.8857143,78.9539995 L81.4581429,92.5337243 C82.2561429,94.4945781 81.8625714,96.823769 80.2692857,98.4135772 C78.1494286,100.528808 74.7131429,100.528808 72.5932857,98.4135772 C72.064,97.8881551 71.6704286,97.2814821 71.3962857,96.6125168 L65.9052857,83.2223773 L52,89.1672309 L52,35 L90,72.9170616 L75.8857143,78.9539995 Z\"></path></symbol><symbol id=\"icon-mouse-move-off\" viewBox=\"0 0 128 128\"><path d=\"M77.9108548,83.8891638 L52,57.9793903 L52,57.9304985 L18.4450028,24.3755014 C17.0781678,23.0086663 17.0781678,20.7925889 18.4450028,19.4257539 C19.8118378,18.0589189 22.0279153,18.0589189 23.3947503,19.4257539 L52,48.0310036 L52,35 L90,72.9170616 L80.8147551,76.8457587 L108.39475,104.425754 C109.761585,105.792589 109.761585,108.008666 108.39475,109.375501 C107.027915,110.742336 104.811838,110.742336 103.445003,109.375501 L77.8775825,83.8080811 L77.9108548,83.8891638 Z M81.2335075,97.1111276 C80.9858155,97.5794927 80.6644496,98.0192758 80.2692857,98.4135772 C78.1494286,100.528808 74.7131429,100.528808 72.5932857,98.4135772 C72.064,97.8881551 71.6704286,97.2814821 71.3962857,96.6125168 L65.9052857,83.2223773 L52,89.1672309 L52,67.8788401 L81.2335075,97.1111276 Z M101,62 L94,62 L94,55 L101,55 L101,47 L116,58 L101,69 L101,62 Z M27,55 L34,55 L34,62 L27,62 L27,69 L12,58 L27,47 L27,55 Z\"></path></symbol></svg>"
-
-/***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1165,15 +1088,15 @@ function loadScript(url, callback) {
 }
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sequence; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collector_numberPadding__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image_removeFromArray__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_sortArrayMiddleToOut__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__image_imagePreload__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__image_removeFromArray__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__image_sortArrayMiddleToOut__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__image_imagePreload__ = __webpack_require__(13);
 
 
 
@@ -1318,7 +1241,7 @@ var Sequence = function (wakkle) {
 };
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1338,7 +1261,7 @@ function removeFromArray(arr) {
 }
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1358,7 +1281,7 @@ function sortArrayMiddleToOut(array) {
 }
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1479,7 +1402,7 @@ function checkProgress(src, image) {
     return this;
 }
 
-if (typeof define === 'function' && __webpack_require__(16)) {
+if (typeof define === 'function' && __webpack_require__(14)) {
     // we have an AMD loader.
     define(function () {
         return imagePreload;
@@ -1490,7 +1413,7 @@ if (typeof define === 'function' && __webpack_require__(16)) {
 //}).call(this);
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -1499,14 +1422,13 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mask; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collector_generateUUID__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__collector_numberPadding__ = __webpack_require__(1);
-
 
 
 
@@ -1531,6 +1453,7 @@ var Mask = function (wakkle) {
 
                 var xhr = new XMLHttpRequest();
 
+                console.log('waiting to insert ' + wakkle.markup[i].getAttribute('mask'));
                 xhr.url = wakkle.markup[i].getAttribute('mask');
                 xhr.open('GET', xhr.url, true);
                 xhr.send();
@@ -1539,15 +1462,15 @@ var Mask = function (wakkle) {
 
                     if (xhr.status >= 200 && xhr.status < 400) {
 
-                        var container = document.createElement('div');
-                        container.innerHTML = xhr.responseText;
+                        var tmp = document.createElement('div');
+                        tmp.innerHTML = xhr.responseText;
 
-                        wakkle.wrapper.appendChild(container);
+                        wakkle.wrapper.appendChild(tmp);
                         // https://stackoverflow.com/a/22277907
 
-                        var svg = container.getElementsByTagName('svg')[0],
+                        var svg = tmp.getElementsByTagName('svg')[0],
                             viewBox = svg.getAttribute('viewBox').replace(/^\s+|\s+$/gm, '').split(' '),
-                            clipPaths = container.getElementsByTagName('clipPath'),
+                            clipPaths = tmp.getElementsByTagName('clipPath'),
                             clipPath,
                             markup = wakkle.wrapper.querySelector('[mask="' + xhr.url + '"]'),
                             id = markup.id || Object(__WEBPACK_IMPORTED_MODULE_0__collector_generateUUID__["a" /* generateUUID */])();
@@ -1580,6 +1503,8 @@ var Mask = function (wakkle) {
                         wakkle.wrapper.appendChild(svg);
 
                         svg.innerHTML = svg.innerHTML;
+
+                        console.log('mask inserted');
                     }
                 };
             }
@@ -1589,13 +1514,15 @@ var Mask = function (wakkle) {
     this.update = function () {
 
         for (var i = 0; i < masked.length; i++) {
+
             masked[i].style.clipPath = 'url(#' + masked[i].id + '--' + Object(__WEBPACK_IMPORTED_MODULE_1__collector_numberPadding__["a" /* pad */])(Math.round((wakkle.sequence.length - 1) * that.q), wakkle.sequence.padding) + ')';
+            masked[i].style.WebkitClipPath = 'url(#' + masked[i].id + '--' + Object(__WEBPACK_IMPORTED_MODULE_1__collector_numberPadding__["a" /* pad */])(Math.round((wakkle.sequence.length - 1) * that.q), wakkle.sequence.padding) + ')';
         }
     };
 };
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1615,79 +1542,57 @@ var Sound = function (wakkle) {
         audio = new Audio(),
         context = new AudioContext(),
         panner = context.createPanner(),
-        level;
-
-    var playing = false,
-        fadeIn,
-        fadeOut,
-        volume,
+        volume = context.createGain(),
+        source = context.createMediaElementSource(audio),
         target;
 
     this.init = function () {
-        var _this = this;
 
         if (!wakkle.sound) return;
 
         audio.src = wakkle.sound.Source;
-        audio.autoplay = wakkle.sound.Autoplay || true;
+        audio.autoplay = wakkle.sound.Autoplay || false;
         audio.loop = wakkle.sound.Loop || true;
-        audio.volume = volume = 0; // let's make a nice fade-in instead
-        audio.controls = false;
+        audio.crossOrigin = "anonymous";
 
         panner.setPosition(0, 0, 1);
         panner.panningModel = 'equalpower';
-        panner.connect(context.destination);
 
-        context.createMediaElementSource(audio).connect(panner);
+        // Source -> Panner -> Volume -> Destination / Output
+        source.connect(panner);
+        panner.connect(volume);
+        volume.connect(context.destination);
 
-        document.addEventListener('visibilitychange', visibilityHandler);
+        document.addEventListener('visibilitychange', volumeHandler);
 
-        this.play();
+        var promise = audio.play();
+        if (promise !== undefined) promise.then(function () {
+            audio.play();
+        }).catch(function (e) {/**/});
+
+        this.UI.init();
+
         this.initialized = true;
-
-        setTimeout(function () {
-            if (audio.currentTime == 0) _this.pause();
-            _this.UI.init();
-        }, 1000);
     };
 
-    this.play = function () {
-        playing = true;
-        play();
-    };
-
-    this.pause = function () {
-        playing = false;
-        pause();
-    };
-
-    this.toggle = function () {
-        playing = !playing;
-        that.UI.set(playing);
-        playing ? play() : pause();
-    };
-
-    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["c" /* icons */];
+    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["d" /* icons */];
 
     this.UI = {
         init: function () {
 
             var soundButton = document.createElement('div');
 
-            soundButton.appendChild(that.icons.use('#icon-sound-' + (playing ? 'on' : 'off ')));
-            soundButton.className = __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'sound-button ';
+            soundButton.appendChild(that.icons.use('#icon-sound' + (audio.paused ? '-off' : '')));
+            soundButton.className = __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'sound-button ';
             soundButton.style.position = 'absolute';
             soundButton.style.cursor = 'pointer';
-            soundButton.addEventListener('click', function () {
-                that.toggle();
-            });
+            soundButton.addEventListener('click', toggle);
 
             wakkle.ui.wrapper.appendChild(soundButton);
         },
         set: function (playing) {
-            var soundButton = wakkle.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'sound-button');
-            soundButton.innerHTML = '';
-            soundButton.appendChild(that.icons.use('#icon-sound-' + (playing ? 'on' : 'off ')));
+            var soundButton = wakkle.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'sound-button use');
+            soundButton.setAttribute('xlink:href', '#icon-sound' + (playing ? '' : '-off'));
         }
     };
 
@@ -1700,63 +1605,26 @@ var Sound = function (wakkle) {
         panner.setPosition(x, y, z);
     };
 
-    function play() {
+    function toggle() {
 
-        audio.play();
+        if (audio.paused) audio.play();
 
-        if (volume < 0) volume = 0;
-        if (volume > 1) volume = 1;
+        if (Math.round(volume.gain.value) > 0) target = 0;
+        if (Math.round(volume.gain.value) < 1) target = 1;
 
-        fadeIn = setInterval(function () {
-            // Note: we can't use requestAnimationFrame because fade wouldn't work when document hidden
-
-            target = 1;
-            volume += 0.1;
-            audio.volume = volume >= target ? target : volume;
-
-            if (fadeOut) {
-                clearInterval(fadeOut);
-                fadeOut = false;
-            }
-            if (audio.volume == target) {
-                clearInterval(fadeIn);
-                fadeIn = false;
-            }
-        }, 100);
+        volume.gain.setTargetAtTime(target, audio.currentTime + 1, 0.5);
+        that.UI.set(target);
     }
 
-    function pause() {
-
-        audio.play();
-
-        if (volume < 0) volume = 0;
-        if (volume > 1) volume = 1;
-
-        fadeOut = setInterval(function () {
-
-            target = 0;
-            volume -= 0.1;
-            audio.volume = volume <= target ? target : volume;
-
-            if (fadeIn) {
-                clearInterval(fadeIn);
-                fadeIn = false;
-            }
-            if (audio.volume == target) {
-                clearInterval(fadeOut);
-                fadeOut = false;
-            }
-        }, 100);
-    }
-
-    function visibilityHandler() {
-        if (document.visibilityState == 'hidden' && playing) pause();
-        if (document.visibilityState == 'visible' && playing) play();
+    function volumeHandler() {
+        // TODO: visibilityState within viewport
+        if (document.visibilityState == 'hidden') volume.gain.setTargetAtTime(0, audio.currentTime, 0.1);
+        if (document.visibilityState == 'visible') volume.gain.setTargetAtTime(1, audio.currentTime, 0.1);
     }
 };
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1778,7 +1646,9 @@ var Markup = function (wakkle) {
 
     var markups, markup, markupAllChildren, markupChildren, markupChild, position, rotation;
 
-    var q, axes;
+    var q,
+        DDD,
+        dimensions = [];
 
     var markups = wakkle.markup;
 
@@ -1806,8 +1676,25 @@ var Markup = function (wakkle) {
                 markup.style.perspective = getCSSPerspective(wakkle.meta.FOV, width, height);
 
                 scaleFontSize(markup);
+            }
 
-                // TODO: update axes with correct z value relative to width
+            for (var i = 0; i < dimensions.length; i++) {
+
+                var DDD = dimensions[i];
+
+                position = {
+                    x: DDD.getAttribute('x') || 0,
+                    y: DDD.getAttribute('y') || 0,
+                    z: DDD.getAttribute('z') || 0
+                };
+
+                rotation = {
+                    x: DDD.getAttribute('rotation-x') || 0,
+                    y: DDD.getAttribute('rotation-y') || 0,
+                    z: DDD.getAttribute('rotation-z') || 0
+                };
+
+                DDD.style.transform = getCSSTransform(position.x, position.y, position.z, rotation.x, rotation.y, rotation.z);
             }
         });
 
@@ -1819,10 +1706,6 @@ var Markup = function (wakkle) {
         for (var i = 0; i < markups.length; i++) {
 
             var q = markups[i].querySelector('.q');
-
-            // Math.round(q * wakkle.sequence.length) * arc / wakkle.sequence.length 
-
-            // stepped version:
             q.style.transform = 'rotateY(' + (Math.round(that.q * (wakkle.sequence.length - 1)) * arc / wakkle.sequence.length + arcShift) + 'deg)';
 
             // (too) smooth version:
@@ -1849,8 +1732,6 @@ var Markup = function (wakkle) {
         markupChild.setAttribute('rotation-x', attr.rotation.x || 0);
         markupChild.setAttribute('rotation-y', attr.rotation.y || 0);
         markupChild.setAttribute('rotation-z', attr.rotation.z || 0);
-
-        markupChild.setAttribute('width', attr.width || 0), markupChild.setAttribute('height', attr.height || 0);
 
         // Add markup to DOM and wakkle.markup HTMLCollection
         markup.appendChild(markupChild);
@@ -1893,48 +1774,32 @@ var Markup = function (wakkle) {
         for (var i = 0; i < markupChildren.length; i++) {
 
             markupChild = markupChildren[i];
+            markupChild.style.transformStyle = 'preserve-3d';
 
             q.appendChild(markupChild);
 
             // Parse transformation attributes
             position = {
-                x: markupChild.getAttribute('x') || false,
-                y: markupChild.getAttribute('y') || false,
-                z: markupChild.getAttribute('z') || false
+                x: markupChild.getAttribute('x') || 0,
+                y: markupChild.getAttribute('y') || 0,
+                z: markupChild.getAttribute('z') || 0
             };
 
             rotation = {
-                x: markupChild.getAttribute('rotation-x') || false,
-                y: markupChild.getAttribute('rotation-y') || false,
-                z: markupChild.getAttribute('rotation-z') || false
+                x: markupChild.getAttribute('rotation-x') || 0,
+                y: markupChild.getAttribute('rotation-y') || 0,
+                z: markupChild.getAttribute('rotation-z') || 0
             };
 
-            markupChild.removeAttribute('x');
-            markupChild.removeAttribute('y');
-            markupChild.removeAttribute('z');
-            markupChild.removeAttribute('rotation-x');
-            markupChild.removeAttribute('rotation-y');
-            markupChild.removeAttribute('rotation-z');
-
-            var transform = '';
-            //+ 50 + (  1 * parseFloat( wakkle.meta.OriginY ) / 2 ) 
-
-            transform += position.x ? ' translateX(' + (1 * parseFloat(position.x) + parseFloat(wakkle.meta.OriginX)) + '%)' : '';
-            transform += position.y ? ' translateY(' + (-1 * parseFloat(position.y) + parseFloat(wakkle.meta.OriginY)) + '%)' : '';
-            transform += position.z ? ' translateZ(' + 1 * parseFloat(position.z) / 100 * getCSSPerspective(wakkle.meta.FOV, wakkle.width, wakkle.height).replace('px', '') / 2 + 'px)' : '';
-
-            transform += rotation.x ? ' rotateX(' + parseFloat(rotation.x) + 'deg)' : '';
-            transform += rotation.y ? ' rotateY(' + parseFloat(rotation.y) + 'deg)' : '';
-            transform += rotation.z ? ' rotateZ(' + parseFloat(rotation.z) + 'deg)' : '';
-
-            markupChild.style.transformStyle = 'preserve-3d';
+            var transform = getCSSTransform(position.x, position.y, position.z, rotation.x, rotation.y, rotation.z);
 
             if (transform) {
 
-                axes = document.createElement('div'); // = where the transformation attributes are applied to
+                DDD = document.createElement('div'); // = where the transformation attributes are applied to
+                dimensions.push(DDD);
 
-                axes.className = 'axes';
-                Object.assign(axes.style, {
+                DDD.className = '3D';
+                Object.assign(DDD.style, {
                     'position': 'absolute',
                     'width': '50%',
                     'height': 50 * wakkle.width / wakkle.height + '%',
@@ -1946,9 +1811,23 @@ var Markup = function (wakkle) {
                     'transform': transform
                 });
 
-                markupChild.parentNode.appendChild(axes);
-                axes.appendChild(markupChild);
-                //wrap( axes, markupChild )
+                DDD.setAttribute('x', position.x);
+                DDD.setAttribute('y', position.y);
+                DDD.setAttribute('z', position.z);
+                DDD.setAttribute('rotation-x', rotation.x);
+                DDD.setAttribute('rotation-y', rotation.y);
+                DDD.setAttribute('rotation-z', rotation.z);
+
+                markupChild.removeAttribute('x');
+                markupChild.removeAttribute('y');
+                markupChild.removeAttribute('z');
+                markupChild.removeAttribute('rotation-x');
+                markupChild.removeAttribute('rotation-y');
+                markupChild.removeAttribute('rotation-z');
+
+                markupChild.parentNode.appendChild(DDD);
+                DDD.appendChild(markupChild);
+                //wrap( DDD, markupChild )
             }
         }
 
@@ -1958,6 +1837,20 @@ var Markup = function (wakkle) {
     function getCSSPerspective(fov, width, height) {
         if (!fov || !width || !height) return 0;
         return Math.pow(width / 2 * width / 2 + height / 2 * height / 2, 0.5) / Math.tan(fov / 2 * Math.PI / 180) + 'px';
+    }
+
+    function getCSSTransform(x, y, z, rotationX, rotationY, rotationZ) {
+        var transform = '';
+
+        transform += x ? ' translateX(' + (1 * parseFloat(x) + parseFloat(wakkle.meta.OriginX)) + '%)' : '';
+        transform += y ? ' translateY(' + (-1 * parseFloat(y) + parseFloat(wakkle.meta.OriginY)) + '%)' : '';
+        transform += z ? ' translateZ(' + 1 * parseFloat(z) / 100 * getCSSPerspective(wakkle.meta.FOV, wakkle.width, wakkle.height).replace('px', '') / 2 + 'px)' : '';
+
+        transform += rotationX ? ' rotateX(' + parseFloat(rotationX) + 'deg)' : '';
+        transform += rotationY ? ' rotateY(' + parseFloat(rotationY) + 'deg)' : '';
+        transform += rotationZ ? ' rotateZ(' + parseFloat(rotationZ) + 'deg)' : '';
+
+        return transform;
     }
 
     function bindFontSizes(markup) {
@@ -1979,6 +1872,7 @@ var Markup = function (wakkle) {
         for (var i = 0; i < markupAllChildren.length; i++) {
 
             markupAllChildren[i].style.fontSize = markupAllChildren[i].getAttribute('data-naturalFontSize') * (wakkle.clientWidth / wakkle.naturalWidth) + 'px';
+            markupAllChildren[i].style.backfaceVisibility = 'hidden';
         }
     }
 
@@ -1989,20 +1883,7 @@ var Markup = function (wakkle) {
 };
 
 /***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Vector; });
-
-var Vector = function () {
-    this.q = 0.5;
-    this.init = function () {};
-    this.update = function () {};
-};
-
-/***/ }),
-/* 21 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2015,7 +1896,7 @@ var Minimap = function (wakkle) {
 
     this.initialized = false;
     this.q = 0.5;
-    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["c" /* icons */];
+    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["d" /* icons */];
 
     var that = this,
         minimap,
@@ -2033,7 +1914,7 @@ var Minimap = function (wakkle) {
         minimap = document.createElement('div');
 
         minimap.style.position = 'absolute';
-        minimap.className = __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'minimap ';
+        minimap.className = __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'minimap ';
         minimap.appendChild(iconMinimap);
         minimap.appendChild(iconMinimapCenter);
 
@@ -2049,13 +1930,13 @@ var Minimap = function (wakkle) {
 };
 
 /***/ }),
-/* 22 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Fullscreen; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UI__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_screenfull__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_screenfull__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_screenfull___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_screenfull__);
 
 
@@ -2066,7 +1947,7 @@ var Fullscreen = function (wakkle) {
     var that = this,
         fullscreen = false;
 
-    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["c" /* icons */];
+    this.icons = __WEBPACK_IMPORTED_MODULE_0__UI__["d" /* icons */];
 
     this.init = function () {
 
@@ -2075,7 +1956,7 @@ var Fullscreen = function (wakkle) {
         var fullscreenButton = document.createElement('div');
 
         fullscreenButton.appendChild(that.icons.use('#icon-fullscreen-off'));
-        fullscreenButton.className = __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'fullscreen-button ';
+        fullscreenButton.className = __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'fullscreen-button ';
         fullscreenButton.style.position = 'absolute';
         fullscreenButton.style.cursor = 'pointer';
         fullscreenButton.addEventListener('click', function () {
@@ -2093,7 +1974,7 @@ var Fullscreen = function (wakkle) {
 
     this.toggleUI = function () {
 
-        var fullscreenButton = wakkle.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_0__UI__["f" /* pref */] + 'fullscreen-button');
+        var fullscreenButton = wakkle.wrapper.querySelector('.' + __WEBPACK_IMPORTED_MODULE_0__UI__["g" /* pref */] + 'fullscreen-button');
         fullscreenButton.innerHTML = '';
         fullscreenButton.appendChild(that.icons.use('#icon-fullscreen-' + (fullscreen ? 'on' : 'off ')));
 
@@ -2106,7 +1987,7 @@ var Fullscreen = function (wakkle) {
 };
 
 /***/ }),
-/* 23 */
+/* 20 */
 /***/ (function(module, exports) {
 
 /*!
@@ -2280,80 +2161,25 @@ var Fullscreen = function (wakkle) {
 
 
 /***/ }),
-/* 24 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Grid; });
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_wakkle_scss__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_wakkle_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_wakkle_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(4);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return __WEBPACK_IMPORTED_MODULE_1__main__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return __WEBPACK_IMPORTED_MODULE_1__main__["a"]; });
 
-var Grid = function (enable) {
 
-    this.xy = {};
-    this.yz = {};
-    this.xz = {};
 
-    var width = 50,
-        height = 50,
-        stroke = 'red',
-        strokeWidth = '1px';
 
-    if (enable.xy) {
-        this.xy = {
-            className: 'grid grid-xy',
-            width: width,
-            height: height,
-            position: {
-                x: 0,
-                y: height,
-                z: 0
-            },
-            rotation: {
-                x: 0,
-                y: 0,
-                z: 0
-            }
-        };
-    }
-    if (enable.yz) {
-        this.yz = {
-            className: 'grid grid-yz',
-            width: 50,
-            height: 50,
-            position: {
-                x: 0,
-                y: height,
-                z: 0
-            },
-            rotation: {
-                x: 0,
-                y: 90,
-                z: 0
-            }
-        };
-    }
-    if (enable.xz) {
-        this.xz = {
-            className: 'grid grid-xz',
-            width: 50,
-            height: 50,
-            position: {
-                x: 0,
-                y: 0,
-                z: 0
-            },
-            rotation: {
-                x: 90,
-                y: 0,
-                z: 0
-            }
-        };
-    }
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
 
-    var style = document.createElement('style');
-    style.innerHTML = '.grid {' + 'width: 100%;' + 'height: 100%;' + 'background-size:  10px 10px;' + 'background-image: linear-gradient(  0deg, ' + stroke + ' ' + strokeWidth + ', transparent ' + strokeWidth + ', transparent ),' + '                  linear-gradient( 90deg, ' + stroke + ' ' + strokeWidth + ', transparent ' + strokeWidth + ', transparent );' + '}';
-
-    document.head.appendChild(style);
-};
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

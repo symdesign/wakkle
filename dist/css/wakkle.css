@@ -15,9 +15,15 @@ wakkle-image,
   .wakkle-image > canvas,
   .wakkle-image > object,
   .wakkle-image > svg {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -36,21 +42,26 @@ wakkle-image,
   cursor: move;
   /* fallback if grab cursor is unsupported */
   cursor: grab;
-  cursor: -moz-grab;
   cursor: -webkit-grab; }
 
 /* (Optional) Apply a "closed-hand" cursor during drag operation. */
 .grabbable:active {
   cursor: grabbing;
-  cursor: -moz-grabbing;
   cursor: -webkit-grabbing; }
 
 .dialog-container,
 #headtrackerMessageDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
   position: fixed;
   top: 0;
   right: 0;
@@ -106,11 +117,34 @@ img,
 wakkle-image {
   width: 100%;
   height: auto;
-  backface-visibility: visible; }
+  -webkit-backface-visibility: visible;
+          backface-visibility: visible; }
 
 .wakkle-sound-button {
   bottom: 0;
   left: 0; }
+
+wakkle-markup,
+wakkle-markup * {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden; }
+
+.grid {
+  position: relative; }
+  .grid:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: "10px" "10px";
+    background-image: linear-gradient(0deg, "red" "1px", transparent "1px", transparent), linear-gradient(90deg, "red" "1px", transparent "1px", transparent); }
+  .grid.xz:after, .grid.zx:after {
+    -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg); }
+  .grid.yz:after, .grid.zy:after {
+    -webkit-transform: rotateY(90deg);
+            transform: rotateY(90deg); }
 
 .wakkle-minimap {
   top: 0;
@@ -130,7 +164,9 @@ wakkle-image {
   width: 100%;
   height: 100%;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   box-sizing: border-box; }
 
 wakkle-image.fullscreen {

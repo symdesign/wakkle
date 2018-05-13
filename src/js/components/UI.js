@@ -37,6 +37,13 @@ export const device_orientation = {
     },
 }
 
+export const device_orientation_drag = {
+    name: 'device_orientation_drag',
+    icon: {
+        selector: '#icon-device-orientation',
+    },
+}
+
 export var icons = {
 
     init: function() {
@@ -79,4 +86,16 @@ export var icons = {
 
 icons.init()
 
+export var UI = function( wakkle ) {
+    
+    this.init = function() {
 
+        if ( wakkle.ui ) {
+            wakkle.ui.wrapper           = document.createElement('div');
+            wakkle.ui.wrapper.className = pref + 'ui';
+            wakkle.wrapper.appendChild( wakkle.ui.wrapper )
+        }
+
+    }
+
+}

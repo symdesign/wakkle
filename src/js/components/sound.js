@@ -12,55 +12,36 @@ export var Sound = function( wakkle ) {
         audio   = new Audio(),
         context = new AudioContext(),
         panner  = context.createPanner(),
-        level;
-
-    var playing = false,
-        fadeIn,
-        fadeOut,
-        volume,
+        volume  = context.createGain(),
+        source  = context.createMediaElementSource( audio ),
         target;
 
     this.init = function() {
 
         if ( !wakkle.sound ) return;
 
-        audio.src       = wakkle.sound.Source;
-        audio.autoplay  = wakkle.sound.Autoplay || true;
-        audio.loop      = wakkle.sound.Loop || true;
-        audio.volume    = volume = 0; // let's make a nice fade-in instead
-        audio.controls  = false;
+        audio.src           = wakkle.sound.Source;
+        audio.autoplay      = wakkle.sound.Autoplay || false;
+        audio.loop          = wakkle.sound.Loop || true;
+        audio.crossOrigin   = "anonymous";
 
         panner.setPosition(0, 0, 1);
         panner.panningModel = 'equalpower';
-        panner.connect( context.destination );
 
-        context.createMediaElementSource(audio).connect( panner );
+        // Source -> Panner -> Volume -> Destination / Output
+        source.connect( panner );
+        panner.connect( volume );
+        volume.connect( context.destination );
 
-        document.addEventListener( 'visibilitychange', visibilityHandler );
+        document.addEventListener( 'visibilitychange', volumeHandler );
 
-        this.play();
+        var promise = audio.play();
+        if (promise !== undefined) promise.then( () => { audio.play() } ).catch( e => { /**/ } )
+
+        this.UI.init()
+        
         this.initialized = true;
 
-        setTimeout(() => {
-            if ( audio.currentTime == 0 ) this.pause();
-            this.UI.init();
-        },1000)
-    }
-
-    this.play = function() {
-        playing = true;
-        play();
-    }
-
-    this.pause = function() {
-        playing = false;
-        pause();
-    }
-
-    this.toggle = function() {
-        playing = !playing;
-        that.UI.set( playing );
-        playing ? play() : pause();
     }
 
     this.icons = button.icons;
@@ -70,21 +51,18 @@ export var Sound = function( wakkle ) {
 
             var soundButton = document.createElement('div');
 
-            soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) )
+            soundButton.appendChild( that.icons.use( '#icon-sound' + ( audio.paused ? '-off' : '') ) )
             soundButton.className = button.pref + 'sound-button ';
             soundButton.style.position = 'absolute';
             soundButton.style.cursor = 'pointer';
-            soundButton.addEventListener( 'click', function() {
-                that.toggle()
-            });
+            soundButton.addEventListener( 'click', toggle );
 
             wakkle.ui.wrapper.appendChild( soundButton );
 
         },
         set: function( playing ) {
-            var soundButton = wakkle.wrapper.querySelector('.' + button.pref + 'sound-button');
-            soundButton.innerHTML = '';
-            soundButton.appendChild( that.icons.use( '#icon-sound-' + ( playing ? 'on' : 'off ') ) );
+            var soundButton = wakkle.wrapper.querySelector('.' + button.pref + 'sound-button use');
+            soundButton.setAttribute('xlink:href', '#icon-sound' + ( playing ? '' : '-off') )
         }
     }
 
@@ -96,61 +74,22 @@ export var Sound = function( wakkle ) {
         panner.setPosition(x,y,z);
     }
 
+    function toggle() {
+        
+        if ( audio.paused ) audio.play()
 
-    function play() {
+        if ( Math.round( volume.gain.value ) > 0 ) target = 0
+        if ( Math.round( volume.gain.value ) < 1 ) target = 1
 
-        audio.play();
+        volume.gain.setTargetAtTime( target, audio.currentTime + 1, 0.5 )
+        that.UI.set( target );
 
-        if ( volume < 0 ) volume = 0;
-        if ( volume > 1 ) volume = 1;
-
-        fadeIn = setInterval(function() { 
-        // Note: we can't use requestAnimationFrame because fade wouldn't work when document hidden
-
-            target = 1;
-            volume += 0.1;
-            audio.volume = volume >= target ? target : volume;
-    
-            if ( fadeOut ) {
-                clearInterval( fadeOut );
-                fadeOut = false;
-            }
-            if ( audio.volume == target ) {
-                clearInterval( fadeIn );
-                fadeIn = false;
-            }
-    
-        }, 100)
-    }
-    
-    function pause() {
-
-        audio.play();
-
-        if ( volume < 0 ) volume = 0;
-        if ( volume > 1 ) volume = 1;
-
-        fadeOut = setInterval(function() {
-
-            target = 0
-            volume -= 0.1;
-            audio.volume = volume <= target ? target : volume;
-    
-            if ( fadeIn ) {
-                clearInterval( fadeIn );
-                fadeIn = false;
-            }
-            if ( audio.volume == target ) {
-                clearInterval( fadeOut );
-                fadeOut = false;
-            }
-            
-        }, 100)
     }
 
-    function visibilityHandler() {
-        if ( document.visibilityState == 'hidden' && playing ) pause();
-        if ( document.visibilityState == 'visible' && playing ) play();
+    function volumeHandler() {
+        // TODO: visibilityState within viewport
+        if ( document.visibilityState == 'hidden' ) volume.gain.setTargetAtTime( 0, audio.currentTime, 0.1 )
+        if ( document.visibilityState == 'visible' ) volume.gain.setTargetAtTime( 1, audio.currentTime, 0.1 )
     }
 
 }

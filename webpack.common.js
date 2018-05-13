@@ -11,8 +11,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        'wakkle': './src/js/app.js',
-        'wakkle.min': './src/js/app.js'
+        'wakkle':       './src/js/wakkle.js',
+        'wakkle.min':   './src/js/wakkle.min.js',
     },
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -49,8 +49,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Example',
             template: './src/index.ejs',
-            chunks: ['wakkle'],
-            css: ['wakkle.css'],
+            chunks: ['wakkle','example'],
             hash: false,
             inject : false
         }),
@@ -60,6 +59,11 @@ module.exports = {
             {
                 context: path.resolve(__dirname, './src/'),
                 from: 'images/*/*', 
+                to: path.resolve(__dirname, './dist/')
+            },
+            {
+                context: path.resolve(__dirname, './src/'),
+                from: '.htaccess', 
                 to: path.resolve(__dirname, './dist/')
             },
             {
