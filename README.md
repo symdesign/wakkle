@@ -319,4 +319,20 @@ git clone https://github.com/symdesign/wakkle.git
 npm install
 ```
 
-**If you like the project, please spread the word!**
+## You like the project?
+
+Help to keep it running. 
+
+I would appreciate if you spread the word with any photographer, developer or marketer you know. 
+
+Also, donations at any amount are more than welcome.
+
+<a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8H56NFPMCNSH6E">
+<!-- Donate Button » -->
+<img width="160" height="45" src="https://raw.githubusercontent.com/symdesign/sketch-auto-translate/master/Assets/donate-button.svg?sanitize=true" alt="Donate">
+<!-- « Donate Button -->
+<br>
+<!-- Powered by » -->
+<img width="160" height="auto" src="https://github.com/symdesign/sketch-auto-translate/raw/master/Assets/cc-badge-powevered.png"/ >
+<!-- « Powered by -->
+</a>
