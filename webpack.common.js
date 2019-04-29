@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const path = require('path');
+const path = require('path')
 const glob = require('glob');
 
 // HTML Templates
@@ -15,8 +15,8 @@ module.exports = {
         'wakkle.min':   './src/js/wakkle.min.js',
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: './js/[name].js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/[name].js',
         library: 'wakkle'
     },
     module: {
@@ -67,10 +67,15 @@ module.exports = {
                 to: path.resolve(__dirname, './dist/')
             },
             {
+                from: './src/js/vendor/*',
+                to: './js/[1].min.js',
+                test: /(\w+)(?:\.\w+)*\.js$/,    
+            },
+            /*{
                 context: path.resolve(__dirname, './src/'),
                 from: 'js/vendor/headtrackr.min.js', 
                 to: path.resolve(__dirname, './dist/js/')
-            },
+            },*/
         ]),
     ],
 }

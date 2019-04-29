@@ -1,5 +1,5 @@
 {
-  "name": "wakkl",
+  "name": "wakkle",
   "version": "1.0.0",
   "description": "A JavaScript library for multi-sensory three-dimensional photographs.",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --open 'google chrome' --config webpack.dev.js",
+    "start": "webpack-dev-server --progress --colors --open --config webpack.dev.js",
     "build": "npm run clean && webpack --config webpack.prod.js --watch",
     "clean": "rimraf ./dist/*"
   },
@@ -53,12 +53,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/symdesign/wakkl.git"
+    "url": "git+https://github.com/symdesign/wakkle.git"
   },
   "author": "Friedrich Schultheiss",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/symdesign/wakkl/issues"
+    "url": "https://github.com/symdesign/wakkle/issues"
   },
   "homepage": "https://github.com/symdesign/wakkle#readme"
 }

@@ -176,7 +176,8 @@ headtrackr.Tracker = function(params) {
 					if (video.mozCaptureStream) {
 					  video.mozSrcObject = stream;
 					} else {
-					  video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+            video.srcObject = stream; // Bugfix 24/01/2019
+					  //video.src = (window.URL && window.URL.createObjectURL(stream)) || stream; 
 					}
 					video.play();
 				}).bind(this), function() {
@@ -406,7 +407,7 @@ headtrackr.Tracker = function(params) {
 	
 	this.stopStream = function() {
 		if (this.stream !== undefined) {
-			this.stream.stop();
+			this.stream.getVideoTracks()[0].stop();
 		}
 	}
 	
@@ -1598,8 +1599,7 @@ headtrackr.Ui = function() {
 	var d = document.createElement('div'),
         d2 = document.createElement('div'),
         p = document.createElement('p');
-	d.setAttribute('id', 'headtrackerMessageDiv');
-	
+
 	d.style.left = "20%";
 	d.style.right = "20%";
 	d.style.top = "30%";
@@ -1617,7 +1617,7 @@ headtrackr.Ui = function() {
 	d2.style.backgroundColor = "#444";
 	d2.style.opacity = "0.5";
 	
-	p.setAttribute('id', 'headtrackerMessage');
+	p.setAttribute('class', 'dialog-container');
 	d2.appendChild(p);
 	d.appendChild(d2);
 	document.body.appendChild(d);
@@ -1636,6 +1636,7 @@ headtrackr.Ui = function() {
     "found" : "Face found! Move your head!"
   };
   
+  
   var override = false;
   
 	// function to call messages (and to fade them out after a time)
@@ -1643,14 +1644,14 @@ headtrackr.Ui = function() {
     if (event.status in statusMessages) {
       window.clearTimeout(timeout);
 		  if (!override) {
-		    var messagep = document.getElementById('headtrackerMessage');
+		    var messagep = document.querySelector('.dialog-container');
 		    messagep.innerHTML = statusMessages[event.status];
-		    timeout = window.setTimeout(function() {messagep.innerHTML = ''; }, 3000);
+		    timeout = window.setTimeout(function() {messagep.remove() }, 3000);
 		  }
 		} else if (event.status in supportMessages) {
 		  override = true;
 		  window.clearTimeout(timeout);
-		  var messagep = document.getElementById('headtrackerMessage');
+		  var messagep = document.querySelector('.dialog-container');
 		  messagep.innerHTML = supportMessages[event.status];
 		  window.setTimeout(function() {messagep.innerHTML = 'added fallback video for demo'; }, 2000);
 		  window.setTimeout(function() {messagep.innerHTML = '';override = false;}, 4000);

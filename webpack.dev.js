@@ -1,4 +1,3 @@
-
 const webpack = require('webpack');
 const path = require('path');
 const glob = require('glob');
@@ -21,6 +20,7 @@ module.exports = merge(common, {
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
+        inline: false,
         stats: 'errors-only',
     },
 });
