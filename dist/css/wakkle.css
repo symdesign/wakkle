@@ -15,15 +15,12 @@ wakkle-image,
   .wakkle-image > canvas,
   .wakkle-image > object,
   .wakkle-image > svg {
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -51,15 +48,12 @@ wakkle-image,
 
 .dialog-container,
 #headtrackerMessageDiv {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
   position: fixed;
@@ -140,11 +134,9 @@ wakkle-markup * {
     background-size: "10px" "10px";
     background-image: linear-gradient(0deg, "red" "1px", transparent "1px", transparent), linear-gradient(90deg, "red" "1px", transparent "1px", transparent); }
   .grid.xz:after, .grid.zx:after {
-    -webkit-transform: rotateX(90deg);
-            transform: rotateX(90deg); }
+    transform: rotateX(90deg); }
   .grid.yz:after, .grid.zy:after {
-    -webkit-transform: rotateY(90deg);
-            transform: rotateY(90deg); }
+    transform: rotateY(90deg); }
 
 .wakkle-minimap {
   top: 0;
@@ -164,9 +156,8 @@ wakkle-markup * {
   width: 100%;
   height: 100%;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
   box-sizing: border-box; }
 
 wakkle-image.fullscreen {
@@ -179,7 +170,7 @@ wakkle-image.fullscreen {
   right: 0;
   bottom: 0;
   left: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%) no-repeat center top, linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center bottom;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%) no-repeat center top, linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center bottom;
   background-size: 100% 60px, 100% 60px; }
   .wakkle-ui > * {
     margin: 0;

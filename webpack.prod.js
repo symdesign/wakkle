@@ -6,12 +6,13 @@ const glob = require('glob');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
+const UglifyJS = require('uglify-js');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CssoWebpackPlugin = require('csso-webpack-plugin').default;
+
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const autoprefixer = require('autoprefixer');
-
 
 module.exports = merge(common, {
     module: {
@@ -53,6 +54,16 @@ module.exports = merge(common, {
         new UglifyJsPlugin({
             include: /\.min\.js$/,
         }),
+
+        // Use this for #24 'Convert components to plugins'
+        new CopyWebpackPlugin([{
+            from: './src/js/vendor/*',
+            to: './js/[1].min.js',
+            test: /(\w+)(?:\.\w+)*\.js$/,
+            transform: function (content, path) {
+                return UglifyJS.minify(content.toString()).code;
+            },    
+        }]),
         
     ],
 });

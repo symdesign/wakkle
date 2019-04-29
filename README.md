@@ -336,3 +336,4 @@ Also, donations at any amount are more than welcome.
 <img width="160" height="auto" src="https://github.com/symdesign/sketch-auto-translate/raw/master/Assets/cc-badge-powevered.png"/ >
 <!-- « Powered by -->
 </a>
+ 

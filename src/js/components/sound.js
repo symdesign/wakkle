@@ -38,6 +38,7 @@ export var Sound = function( wakkle ) {
         var promise = audio.play();
         if (promise !== undefined) promise.then( () => { audio.play() } ).catch( e => { /**/ } )
 
+        
         this.UI.init()
         
         this.initialized = true;
@@ -50,6 +51,8 @@ export var Sound = function( wakkle ) {
         init: function() { 
 
             var soundButton = document.createElement('div');
+
+            wakkle.ui.sound ? audio.play() : audio.pause()
 
             soundButton.appendChild( that.icons.use( '#icon-sound' + ( audio.paused ? '-off' : '') ) )
             soundButton.className = button.pref + 'sound-button ';
